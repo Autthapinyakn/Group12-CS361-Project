@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>แผนสหกิจศึกษา - สาขาวิชาวิทยาการคอมพิวเตอร์</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- ดึงไฟล์ CSS ที่แยกไว้ออกมาใช้ -->
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+  <!-- Header / Navigation Bar -->
+  <header class="bg-black text-white px-6 py-4 flex items-center justify-between border-b border-orange-600">
+    <div class="flex items-center space-x-3">
+      <i class="fa-solid fa-bars text-xl cursor-pointer"></i>
+      <div class="flex items-center space-x-2">
+        <div class="bg-orange-500 p-1.5 rounded">
+          <i class="fa-solid fa-graduation-cap text-white text-xl"></i>
+        </div>
+        <div>
+          <h1 class="font-bold leading-none text-lg tracking-wider">COMPUTER</h1>
+          <p class="text-[10px] text-gray-400 tracking-widest uppercase">SCIENCE</p>
+        </div>
+      </div>
+    </div>
+    
+    <nav class="hidden md:flex items-center space-x-6 text-sm font-medium">
+      <a href="applied-cs.html" class="hover:text-orange-500">ข้อมูลสาขาวิชา</a>
+      <a href="co-op-plan.html" class="text-orange-500 underline underline-offset-8 decoration-2 font-semibold">แผนสหกิจศึกษา</a>
+      <a href="minor-tracks.html" class="hover:text-orange-500">วิชาโท</a>
+      <a href="special-topics-plan.html" class="hover:text-orange-500">แผนหัวข้อพิเศษ</a>
+    </nav>
+  </header>
+
+  <!-- Hero Section (ใช้ Class ที่แยกไป style.css) -->
+  <section class="hero-coop-section">
+    <div class="hero-coop-bg"></div>
+    <div class="relative z-10 max-w-4xl mx-auto text-center space-y-4">
+      <h1 class="text-3xl md:text-5xl font-extrabold tracking-wide">แผนสหกิจศึกษา</h1>
+      <h2 class="text-lg md:text-2xl font-medium text-gray-200">หลักสูตรวิทยาศาสตรบัณฑิต สาขาวิชาวิทยาการคอมพิวเตอร์</h2>
+      
+      <div class="coop-summary-card">
+        <div class="coop-summary-icon">
+          <i class="fa-solid fa-users-gear text-4xl text-white"></i>
+        </div>
+        <p class="text-sm md:text-base leading-relaxed font-normal">
+          ศูนย์รวมข้อมูลสำหรับนักศึกษา อาจารย์ และสถานประกอบการเกี่ยวกับแผนสหกิจศึกษา หลักสูตรวิทยาศาสตรบัณฑิต สาขาวิชาวิทยาการคอมพิวเตอร์ มหาวิทยาลัยธรรมศาสตร์ พ.ศ. 2561 และ 2566
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Content Section -->
+  <main class="max-w-5xl mx-auto px-4 py-8 space-y-10">
+    <section class="space-y-4">
+      <div class="flex items-center gap-2 text-orange-600 font-bold text-lg">
+        <i class="fa-solid fa-bullhorn text-xl"></i>
+        <h2>Announcements and Updates</h2>
+      </div>
+
+      <div class="space-y-3">
+        <!-- ใช้ Class announcement-item ที่แยกไปใน style.css -->
+        <div class="announcement-item">
+          <div class="flex items-center gap-3">
+            <span class="w-2 h-2 bg-orange-500 rounded-full"></span>
+            <span class="font-medium text-sm md:text-base">เกณฑ์รับเข้าแผนสหกิจศึกษา</span>
+          </div>
+          <a href="#" class="text-orange-500 text-sm font-medium flex items-center gap-1 hover:underline">คลิกที่นี่ <i class="fa-solid fa-chevron-right text-xs"></i></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+</body>
+</html>
