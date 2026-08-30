@@ -115,14 +115,23 @@ section{padding:52px 0;}
    OVERVIEW CARDS — PAGE-SPECIFIC (layouts differ between the two pages)
    ===================================================================== */
 
-/* --- special-topics-plan.html: simple 4-up row with arrows --- */
-body.page-special .overview-row{display:flex;align-items:stretch;gap:14px;flex-wrap:wrap;}
-body.page-special .ov-card{flex:1;min-width:150px;border:1px solid var(--card-border);border-radius:12px;padding:22px 10px;text-align:center;background:#fff;}
-body.page-special .ov-card .yr{font-size:14px;color:var(--text-gray);font-weight:400;margin-bottom:6px;}
-body.page-special .ov-card .num{font-size:34px;font-weight:700;color:var(--orange);line-height:1;}
-body.page-special .ov-card .unit{font-size:13px;color:var(--text-gray);margin-top:6px;}
-body.page-special .ov-arrow{display:flex;align-items:center;color:#c9c4bb;font-size:18px;padding:0 2px;}
-@media(max-width:760px){body.page-special .ov-arrow{display:none;} body.page-special .overview-row{gap:12px;}}
+/* --- special-topics-plan.html & co-op-plan.html: simple 4-up row with arrows --- */
+body.page-special .overview-row,
+body.page-coop .overview-row{display:flex;align-items:stretch;gap:14px;flex-wrap:wrap;}
+body.page-special .ov-card,
+body.page-coop .ov-card{flex:1;min-width:150px;border:1px solid var(--card-border);border-radius:12px;padding:22px 10px;text-align:center;background:#fff;}
+body.page-special .ov-card .yr,
+body.page-coop .ov-card .yr{font-size:14px;color:var(--text-gray);font-weight:400;margin-bottom:6px;}
+body.page-special .ov-card .num,
+body.page-coop .ov-card .num{font-size:34px;font-weight:700;color:var(--orange);line-height:1;}
+body.page-special .ov-card .unit,
+body.page-coop .ov-card .unit{font-size:13px;color:var(--text-gray);margin-top:6px;}
+body.page-special .ov-arrow,
+body.page-coop .ov-arrow{display:flex;align-items:center;color:#c9c4bb;font-size:18px;padding:0 2px;}
+@media(max-width:760px){
+  body.page-special .ov-arrow, body.page-coop .ov-arrow{display:none;}
+  body.page-special .overview-row, body.page-coop .overview-row{gap:12px;}
+}
 
 /* --- minor-tracks.html: 4 colour-coded track cards --- */
 body.page-minor .overview-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
@@ -165,17 +174,27 @@ body.page-minor .ov-card .unit{font-size:12.5px;color:var(--text-gray);}
 @media(max-width:560px){.struct-grid{grid-template-columns:1fr;}}
 .yr-col{border:1px solid var(--card-border);border-radius:12px;overflow:hidden;background:#fff;display:flex;flex-direction:column;}
 
-/* --- special-topics-plan.html: single orange header + credit boxes --- */
-body.page-special .yr-col .yr-head{background:var(--orange);color:#fff;text-align:center;font-weight:700;font-size:16px;padding:12px;}
-body.page-special .yr-col .term{padding:16px 14px;border-bottom:1px solid var(--card-border);text-align:center;}
-body.page-special .yr-col .term:last-child{border-bottom:none;}
-body.page-special .term .term-label{display:flex;align-items:center;justify-content:center;gap:6px;font-size:13px;color:var(--text-gray);margin-bottom:8px;}
-body.page-special .term .term-label i{color:var(--orange);font-size:13px;}
-body.page-special .term .cred{font-size:22px;font-weight:700;color:var(--text-dark);}
-body.page-special .term .cred.small{font-size:15px;}
-body.page-special .term .cred-unit{font-size:12px;color:var(--text-gray);margin-top:2px;}
-body.page-special .term .minor-note{font-size:11.5px;color:var(--orange-dark);background:var(--orange-light);border-radius:6px;padding:3px 8px;display:inline-block;margin-top:6px;}
-body.page-special .yr-col .term.highlight{background:var(--orange-light);}
+/* --- special-topics-plan.html & co-op-plan.html: single orange header + credit boxes --- */
+body.page-special .yr-col .yr-head,
+body.page-coop .yr-col .yr-head{background:var(--orange);color:#fff;text-align:center;font-weight:700;font-size:16px;padding:12px;}
+body.page-special .yr-col .term,
+body.page-coop .yr-col .term{padding:16px 14px;border-bottom:1px solid var(--card-border);text-align:center;}
+body.page-special .yr-col .term:last-child,
+body.page-coop .yr-col .term:last-child{border-bottom:none;}
+body.page-special .term .term-label,
+body.page-coop .term .term-label{display:flex;align-items:center;justify-content:center;gap:6px;font-size:13px;color:var(--text-gray);margin-bottom:8px;}
+body.page-special .term .term-label i,
+body.page-coop .term .term-label i{color:var(--orange);font-size:13px;}
+body.page-special .term .cred,
+body.page-coop .term .cred{font-size:22px;font-weight:700;color:var(--text-dark);}
+body.page-special .term .cred.small,
+body.page-coop .term .cred.small{font-size:15px;}
+body.page-special .term .cred-unit,
+body.page-coop .term .cred-unit{font-size:12px;color:var(--text-gray);margin-top:2px;}
+body.page-special .term .minor-note,
+body.page-coop .term .minor-note{font-size:11.5px;color:var(--orange-dark);background:var(--orange-light);border-radius:6px;padding:3px 8px;display:inline-block;margin-top:6px;}
+body.page-special .yr-col .term.highlight,
+body.page-coop .yr-col .term.highlight{background:var(--orange-light);}
 
 /* --- minor-tracks.html: colour-coded headers + course list --- */
 body.page-minor .yr-col .yr-head{color:#fff;text-align:center;font-weight:600;font-size:14.5px;padding:14px 10px;line-height:1.3;}
@@ -211,10 +230,12 @@ table.course-table td.cat{color:var(--text-gray);font-size:12.5px;}
 table.course-table td.term{color:var(--text-gray);font-size:12.5px;white-space:nowrap;}
 table.course-table td.credit{text-align:center;font-weight:600;width:70px;}
 table.course-table tr.total-row td{background:#FBF6F0;font-weight:700;}
-/* special-topics-plan.html hides the "category" column on narrow screens */
+/* special-topics-plan.html & co-op-plan.html hide the "category" column on narrow screens */
 @media(max-width:620px){
   body.page-special table.course-table th:nth-child(3),
-  body.page-special table.course-table td.cat{display:none;}
+  body.page-special table.course-table td.cat,
+  body.page-coop table.course-table th:nth-child(3),
+  body.page-coop table.course-table td.cat{display:none;}
 }
 /* minor-tracks.html hides the "term offered" column on narrow screens */
 @media(max-width:620px){
@@ -224,7 +245,8 @@ table.course-table tr.total-row td{background:#FBF6F0;font-weight:700;}
 
 /* ===== QUICK LINKS (shared) ===== */
 .quick-links{display:flex;justify-content:space-between;border-top:1px solid var(--card-border);padding:34px 0;flex-wrap:wrap;gap:20px;}
-.ql-item{flex:1;min-width:150px;text-align:center;}
+.ql-item{flex:1;min-width:150px;text-align:center;display:block;border-radius:10px;padding:6px;transition:background .15s;}
+.ql-item:hover{background:#FBF6F0;}
 .ql-item i{color:var(--orange);font-size:22px;margin-bottom:8px;}
 .ql-item .t{font-size:14.5px;font-weight:600;}
 .ql-item .d{font-size:12px;color:var(--text-gray);margin-top:3px;}
@@ -243,579 +265,53 @@ footer{background:linear-gradient(100deg,var(--footer-orange),#F4762C);color:#ff
 .fade-in{animation:fadeIn .6s ease both;}
 @keyframes fadeIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
 
-
-/* =========================================
-   Co-op Plan Page Custom Styles
-   ========================================= */
-
-/* Hero Banner Background & Overlay */
-.hero-coop-section {
-  position: relative;
-  background-color: #171717;
-  color: #ffffff;
-  padding: 4rem 1rem;
-  overflow: hidden;
-}
-
-.hero-coop-bg {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  opacity: 0.2;
-  background-size: cover;
-  background-position: center;
-  background-image: url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1200');
-}
-
-/* Card สรุปแผนสหกิจศึกษา */
-.coop-summary-card {
-  margin-top: 2rem;
-  background-color: #2563eb;
-  border-radius: 1rem;
-  padding: 1.5rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.5rem;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(147, 197, 253, 0.3);
-  text-align: left;
-}
-
-@media (min-width: 768px) {
-  .coop-summary-card {
-    flex-direction: row;
-    padding: 2rem;
-  }
-}
-
-.coop-summary-icon {
-  background-color: rgba(59, 130, 246, 0.5);
-  padding: 1rem;
-  border-radius: 9999px;
-  border: 1px solid rgba(147, 197, 253, 0.4);
-  flex-shrink: 0;
-}
-
-/* Announcements List Item */
-.announcement-item {
-  background-color: #ffffff;
-  border-radius: 0.5rem;
-  padding: 1rem;
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  border: 1px solid #f3f4f6;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  transition: all 0.2s ease-in-out;
-}
-
-.announcement-item:hover {
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-}
-
-/* Pathway Box (เส้นทางสหกิจ) */
-.pathway-container {
-  background-color: rgba(255, 247, 237, 0.5);
-  border: 1px solid rgba(254, 215, 170, 0.6);
-  border-radius: 0.75rem;
-  padding: 1.5rem;
-  text-align: center;
-}
-
-.pathway-card {
-  background-color: #ffffff;
-  border: 1px solid #e5e7eb;
-  border-radius: 0.5rem;
-  padding: 1rem;
-  width: 100%;
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-}
-
-/* Structure Card (ตารางปี 1 - ปี 4) */
-.year-header {
-  background-color: #ea580c;
-  color: #ffffff;
-  text-align: center;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-  border-top-left-radius: 0.375rem;
-  border-top-right-radius: 0.375rem;
-  font-weight: 700;
-  font-size: 0.875rem;
-}
-
-.year-body {
-  background-color: #ffffff;
-  padding: 1rem;
-  border: 1px solid #e5e7eb;
-  border-bottom-left-radius: 0.375rem;
-  border-bottom-right-radius: 0.375rem;
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-}
-
-/* =========================================
-   Applied CS Page - Pure CSS Stylesheet
-   ========================================= */
-
-/* General Styles */
-body {
-  margin: 0;
-  font-family: 'Sarabun', system-ui, -apple-system, sans-serif;
-  background-color: #f9fafb;
-  color: #1f2937;
-}
-
-/* Header & Navbar */
-.navbar {
-  background-color: #000000;
-  color: #ffffff;
-  padding: 1rem 1.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom: 2px solid #ea580c;
-}
-
-.nav-brand {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-}
-
-.menu-icon {
-  font-size: 1.25rem;
-  cursor: pointer;
-}
-
-.brand-logo {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.logo-icon-bg {
-  background-color: #f97316;
-  padding: 0.375rem 0.5rem;
-  border-radius: 0.25rem;
-  color: white;
-}
-
-.logo-text h1 {
-  margin: 0;
-  font-size: 1.125rem;
-  font-weight: bold;
-  line-height: 1;
-  letter-spacing: 0.05em;
-}
-
-.logo-text p {
-  margin: 0;
-  font-size: 10px;
-  color: #9ca3af;
-  letter-spacing: 0.1em;
-}
-
-.nav-links {
-  display: none;
-  gap: 1.5rem;
-}
-
-@media (min-width: 768px) {
-  .nav-links {
-    display: flex;
-  }
-}
-
-.nav-links a {
-  color: #ffffff;
-  text-decoration: none;
-  font-size: 0.875rem;
-  font-weight: 500;
-  transition: color 0.2s;
-}
-
-.nav-links a:hover, .nav-links a.active {
-  color: #f97316;
-}
-
-.nav-links a.active {
-  text-decoration: underline;
-  text-underline-offset: 8px;
-  font-weight: 600;
-}
-
-.nav-search i {
-  font-size: 1.125rem;
-  cursor: pointer;
-}
-
-/* Hero Section */
-.hero-section {
-  position: relative;
-  background-color: #171717;
-  color: #ffffff;
-  padding: 3rem 1.5rem;
-  overflow: hidden;
-}
-
-.hero-bg {
-  position: absolute;
-  inset: 0;
-  opacity: 0.3;
-  background-image: url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200');
-  background-size: cover;
-  background-position: center;
-}
-
-.hero-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to right, rgba(0,0,0,0.8), rgba(0,0,0,0.4), transparent);
-}
-
-.hero-content {
-  position: relative;
-  z-index: 10;
-  max-width: 1000px;
-  margin: 0 auto;
-}
-
-.hero-subtitle {
-  color: #f97316;
-  font-weight: bold;
-  font-size: 0.875rem;
-  margin-bottom: 0.5rem;
-}
-
-.hero-title {
-  font-size: 1.75rem;
-  font-weight: 800;
-  margin: 0;
-  line-height: 1.3;
-}
-
-@media (min-width: 768px) {
-  .hero-title { font-size: 2.25rem; }
-}
-
-.highlight-text { color: #f97316; }
-
-.hero-en-title {
-  color: #fb923c;
-  font-weight: 600;
-  margin-top: 0.25rem;
-}
-
-.hero-description {
-  color: #d1d5db;
-  font-size: 0.875rem;
-  max-width: 700px;
-  margin-top: 0.75rem;
-  line-height: 1.6;
-}
-
-/* Main Layout & Cards */
-.main-container {
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 2rem 1rem;
-  display: flex;
-  flex-direction: column;
-  gap: 2.5rem;
-}
-
-.grid-section-1 {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.5rem;
-}
-
-@media (min-width: 992px) {
-  .grid-section-1 { grid-template-columns: 5fr 7fr; }
-}
-
-.content-card {
-  background-color: #ffffff;
-  border: 1px solid #f3f4f6;
-  border-radius: 0.75rem;
-  padding: 1.5rem;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-}
-
-.card-header-title {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  color: #ea580c;
-  font-weight: bold;
-  font-size: 1.125rem;
-  margin-bottom: 1rem;
-}
-
-.card-header-title h2 {
-  font-size: 1.125rem;
-  margin: 0;
-}
-
-.card-text {
-  font-size: 0.875rem;
-  color: #4b5563;
-  line-height: 1.6;
-  margin: 0;
-}
-
-/* Skills Grid */
-.skills-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0.75rem;
-}
-
-@media (min-width: 768px) {
-  .skills-grid { grid-template-columns: repeat(3, 1fr); }
-}
-
-.skill-item, .career-item {
-  background-color: #ffffff;
-  border: 1px solid #f3f4f6;
-  border-radius: 0.5rem;
-  padding: 1rem 0.75rem;
-  text-align: center;
-  transition: all 0.2s ease;
-}
-
-.skill-item:hover, .career-item:hover {
-  transform: translateY(-2px);
-  border-color: #fed7aa;
-  box-shadow: 0 4px 12px rgba(234, 88, 12, 0.08);
-}
-
-.card-icon {
-  color: #ea580c;
-  font-size: 1.5rem;
-  margin-bottom: 0.5rem;
-}
-
-.skill-item h3, .career-item h3 {
-  font-size: 0.75rem;
-  font-weight: bold;
-  margin: 0;
-  color: #1f2937;
-}
-
-.skill-item p, .career-item p {
-  font-size: 10px;
-  color: #6b7280;
-  margin: 0.25rem 0 0 0;
-}
-
-/* Careers Grid */
-.careers-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0.75rem;
-}
-
-@media (min-width: 640px) {
-  .careers-grid { grid-template-columns: repeat(4, 1fr); }
-}
-
-@media (min-width: 992px) {
-  .careers-grid { grid-template-columns: repeat(8, 1fr); }
-}
-
-/* Section 3: Coop & Higher Education */
-.grid-section-3 {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.5rem;
-}
-
-@media (min-width: 768px) {
-  .grid-section-3 { grid-template-columns: 1fr 1fr; }
-}
-
-.coop-step-box {
-  background-color: rgba(255, 247, 237, 0.5);
-  border: 1px solid #ffedd5;
-  border-radius: 0.5rem;
-  padding: 1rem;
-  margin-top: 1rem;
-}
-
-.coop-step-flow {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-}
-
-.step-card {
-  background-color: #ffffff;
-  border: 1px solid #e5e7eb;
-  padding: 0.375rem 0.75rem;
-  border-radius: 0.375rem;
-  text-align: center;
-  font-size: 0.75rem;
-}
-
-.step-card.highlight {
-  background-color: #ea580c;
-  color: #ffffff;
-  font-weight: bold;
-  border: none;
-}
-
-.step-year {
-  display: block;
-  font-size: 10px;
-  color: #6b7280;
-}
-
-.step-term {
-  color: #ea580c;
-  font-weight: bold;
-}
-
-.step-arrow {
-  color: #f97316;
-  font-size: 0.75rem;
-}
-
-.step-note {
-  font-size: 11px;
-  text-align: center;
-  color: #6b7280;
-  margin: 0.75rem 0 0 0;
-}
-
-.flex-between {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.globe-icon-bg {
-  display: flex;
-  justify-content: flex-end;
-  color: #fed7aa;
-  font-size: 3rem;
-  opacity: 0.8;
-}
-
-/* Highlights Section */
-.highlights-section {
-  background-color: rgba(255, 247, 237, 0.6);
-  border: 1px solid #ffedd5;
-  border-radius: 0.75rem;
-  padding: 1.5rem;
-}
-
-.highlights-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1rem;
-}
-
-@media (min-width: 640px) {
-  .highlights-grid { grid-template-columns: repeat(2, 1fr); }
-}
-
-@media (min-width: 992px) {
-  .highlights-grid { grid-template-columns: repeat(4, 1fr); }
-}
-
-.highlight-item {
-  background-color: #ffffff;
-  border: 1px solid rgba(254, 215, 170, 0.6);
-  border-radius: 0.5rem;
-  padding: 1rem;
-  display: flex;
-  align-items: flex-start;
-  gap: 0.75rem;
-}
-
-.highlight-item i {
-  color: #f97316;
-  font-size: 1.5rem;
-  margin-top: 0.25rem;
-}
-
-.highlight-item h3 {
-  font-size: 0.75rem;
-  color: #ea580c;
-  margin: 0;
-  font-weight: bold;
-}
-
-.highlight-item p {
-  font-size: 10px;
-  color: #6b7280;
-  margin: 0.25rem 0 0 0;
-}
-
-/* Footer */
-.footer {
-  background-color: #ea580c;
-  color: #ffffff;
-  padding: 2rem 1.5rem;
-  margin-top: 3rem;
-}
-
-.footer-container {
-  max-width: 1000px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.5rem;
-  font-size: 0.75rem;
-}
-
-@media (min-width: 768px) {
-  .footer-container { grid-template-columns: repeat(3, 1fr); }
-}
-
-.footer h4 {
-  font-size: 0.875rem;
-  margin: 0 0 0.5rem 0;
-}
-
-.footer p {
-  margin: 0.25rem 0;
-  color: #ffedd5;
-}
-
-.footer-contact i {
-  margin-right: 0.375rem;
-}
-
-.footer-social {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.social-icons {
-  display: flex;
-  gap: 0.75rem;
-  margin-top: 1rem;
-}
-
-.social-icons a {
-  background-color: #ffffff;
-  color: #ea580c;
-  width: 2rem;
-  height: 2rem;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
-  font-weight: bold;
-  transition: background-color 0.2s;
-}
-
-.social-icons a:hover {
-  background-color: #ffedd5;
-}
+/* =====================================================================
+   ABOUT-PAGE COMPONENTS (shared) — used by applied-cs.html
+   ===================================================================== */
+.hero-desc{max-width:680px;font-size:14.5px;color:#d8d5cf;font-weight:300;line-height:1.85;margin-top:8px;}
+
+.info-card{border:1px solid var(--card-border);border-radius:14px;background:#fff;padding:26px 28px;}
+.info-card .card-head{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+.info-card .card-head i{color:var(--orange);font-size:19px;}
+.info-card .card-head h2{font-size:18px;font-weight:700;}
+.info-card .card-text{font-size:14px;color:var(--text-gray);line-height:1.85;}
+
+.card-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:stretch;}
+@media(max-width:860px){.card-grid-2{grid-template-columns:1fr;}}
+
+.mini-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:6px;}
+@media(max-width:760px){.mini-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:480px){.mini-grid{grid-template-columns:1fr;}}
+.mini-item{border:1px solid var(--card-border);border-radius:10px;padding:16px 14px;text-align:center;background:#FBFAF7;}
+.mini-item i{color:var(--orange);font-size:22px;margin-bottom:8px;}
+.mini-item h3{font-size:13.5px;font-weight:600;margin-bottom:4px;}
+.mini-item p{font-size:11.8px;color:var(--text-gray);line-height:1.5;}
+
+.careers-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:6px;}
+@media(max-width:900px){.careers-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:480px){.careers-grid{grid-template-columns:1fr;}}
+.career-item{border:1px solid var(--card-border);border-radius:10px;padding:16px 14px;text-align:center;background:#fff;transition:box-shadow .2s;}
+.career-item:hover{box-shadow:0 8px 18px -10px rgba(0,0,0,.15);}
+.career-item i{color:var(--orange);font-size:22px;margin-bottom:8px;}
+.career-item h3{font-size:13.5px;font-weight:600;margin-bottom:4px;}
+.career-item p{font-size:11.8px;color:var(--text-gray);line-height:1.5;}
+
+.flex-between{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;}
+.globe-icon-bg{width:80px;height:80px;border-radius:50%;background:var(--orange-light);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.globe-icon-bg i{color:var(--orange);font-size:32px;}
+
+.mini-flow{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:16px;}
+.mini-step{flex:1;min-width:110px;border:1px solid var(--card-border);border-radius:10px;padding:12px;text-align:center;font-size:12.5px;background:#FBFAF7;}
+.mini-step .msyear{display:block;font-weight:600;color:var(--text-dark);}
+.mini-step .msterm{display:block;color:var(--text-gray);font-size:11.5px;}
+.mini-step.highlight{background:var(--orange);color:#fff;font-weight:600;border-color:var(--orange);}
+.mini-step.highlight i{margin-right:6px;}
+.mini-arrow{color:var(--orange);font-size:16px;}
+@media(max-width:560px){.mini-flow{flex-direction:column;} .mini-arrow{transform:rotate(90deg);}}
+
+.highlights-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:6px;}
+@media(max-width:700px){.highlights-grid{grid-template-columns:1fr;}}
+.highlight-item{display:flex;gap:14px;align-items:flex-start;border:1px solid var(--card-border);border-radius:12px;padding:18px;background:#fff;}
+.highlight-item .hi-icon{color:#fff;background:var(--orange);width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+.highlight-item h3{font-size:14.5px;font-weight:600;margin-bottom:3px;}
+.highlight-item p{font-size:12.5px;color:var(--text-gray);}

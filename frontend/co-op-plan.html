@@ -1,77 +1,339 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>แผนสหกิจศึกษา - สาขาวิชาวิทยาการคอมพิวเตอร์</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <!-- ดึงไฟล์ CSS ที่แยกไว้ออกมาใช้ -->
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>แผนสหกิจศึกษา | สาขาวิชาวิทยาการคอมพิวเตอร์ มธ.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-gray-50 text-gray-800">
+<body class="page-coop">
 
-  <!-- Header / Navigation Bar -->
-  <header class="bg-black text-white px-6 py-4 flex items-center justify-between border-b border-orange-600">
-    <div class="flex items-center space-x-3">
-      <i class="fa-solid fa-bars text-xl cursor-pointer"></i>
-      <div class="flex items-center space-x-2">
-        <div class="bg-orange-500 p-1.5 rounded">
-          <i class="fa-solid fa-graduation-cap text-white text-xl"></i>
+<header class="nav">
+  <div class="container nav-inner">
+    <div class="nav-left">
+      <i class="fa-solid fa-bars hamburger"></i>
+      <a href="#" class="brand">
+        <div class="brand-badge"><i class="fa-solid fa-graduation-cap"></i></div>
+        <div class="brand-text">
+          <div class="l1">COMPUTER</div>
+          <div class="l2">SCIENCE</div>
+          <div class="l3">THAMMASAT UNIVERSITY</div>
         </div>
-        <div>
-          <h1 class="font-bold leading-none text-lg tracking-wider">COMPUTER</h1>
-          <p class="text-[10px] text-gray-400 tracking-widest uppercase">SCIENCE</p>
-        </div>
-      </div>
+      </a>
     </div>
-    
-    <nav class="hidden md:flex items-center space-x-6 text-sm font-medium">
-      <a href="applied-cs.html" class="hover:text-orange-500">ข้อมูลสาขาวิชา</a>
-      <a href="co-op-plan.html" class="text-orange-500 underline underline-offset-8 decoration-2 font-semibold">แผนสหกิจศึกษา</a>
-      <a href="minor-tracks.html" class="hover:text-orange-500">วิชาโท</a>
-      <a href="special-topics-plan.html" class="hover:text-orange-500">แผนหัวข้อพิเศษ</a>
+    <nav class="menu">
+      <a href="co-op-plan.html" class="active">แผนสหกิจศึกษา</a>
+      <a href="special-topics-plan.html">แผนหัวข้อพิเศษ</a>
+      <a href="minor-tracks.html">รายวิชาโท</a>
+      <a href="applied-cs.html">เกี่ยวกับสาขาวิชา</a>
+      <a href="#">สอบถามข้อมูล</a>
     </nav>
-  </header>
+    <div class="nav-right"><i class="fa-solid fa-magnifying-glass"></i></div>
+  </div>
+</header>
 
-  <!-- Hero Section (ใช้ Class ที่แยกไป style.css) -->
-  <section class="hero-coop-section">
-    <div class="hero-coop-bg"></div>
-    <div class="relative z-10 max-w-4xl mx-auto text-center space-y-4">
-      <h1 class="text-3xl md:text-5xl font-extrabold tracking-wide">แผนสหกิจศึกษา</h1>
-      <h2 class="text-lg md:text-2xl font-medium text-gray-200">หลักสูตรวิทยาศาสตรบัณฑิต สาขาวิชาวิทยาการคอมพิวเตอร์</h2>
-      
-      <div class="coop-summary-card">
-        <div class="coop-summary-icon">
-          <i class="fa-solid fa-users-gear text-4xl text-white"></i>
+<section class="hero">
+  <div class="hero-pattern"></div>
+  <div class="container hero-inner">
+    <div class="hero-eyebrow"><i class="fa-solid fa-briefcase"></i> CO-OPERATIVE EDUCATION PLAN</div>
+    <h1 class="hero-title">แผนสหกิจศึกษา</h1>
+    <div class="hero-sub1">หลักสูตรวิทยาศาสตรบัณฑิต</div>
+    <div class="hero-sub2">สาขาวิชาวิทยาการคอมพิวเตอร์</div>
+    <div class="hero-sub3">มหาวิทยาลัยธรรมศาสตร์</div>
+  </div>
+</section>
+
+<div class="container info-wrap">
+  <div class="info-bar">
+    <div class="info-icon"><i class="fa-solid fa-users-gear"></i></div>
+    <div class="info-text">
+      ศูนย์รวมข้อมูลสำหรับนักศึกษา อาจารย์ และสถานประกอบการ เกี่ยวกับ<b>แผนสหกิจศึกษา (Co-operative Education Plan)</b><br>
+      หลักสูตรวิทยาศาสตรบัณฑิต สาขาวิชาวิทยาการคอมพิวเตอร์ มหาวิทยาลัยธรรมศาสตร์<br>
+      พ.ศ. 2561 และ 2566
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <section id="announce">
+    <div class="sec-head"><i class="fa-solid fa-bullhorn"></i><h2>Announcements and Updates</h2></div>
+    <div class="announce-list">
+      <div class="announce-item"><div class="left">เกณฑ์รับเข้าแผนสหกิจศึกษา</div><div class="link">คลิกที่นี่ <i class="fa-solid fa-chevron-right"></i></div></div>
+      <div class="announce-item"><div class="left">ทะเบียนสถานประกอบการปฏิบัติสหกิจศึกษา_2569</div><div class="link">คลิกที่นี่ <i class="fa-solid fa-chevron-right"></i></div></div>
+      <div class="announce-item"><div class="left">แนวปฏิบัติการสมัครและสัมภาษณ์งานสหกิจศึกษา</div><div class="link">คลิกที่นี่ <i class="fa-solid fa-chevron-right"></i></div></div>
+    </div>
+    <a href="#" class="btn-all"><i class="fa-solid fa-bell"></i> ดูประกาศทั้งหมด</a>
+  </section>
+
+  <section id="overview">
+    <div class="sec-head"><h2>ภาพรวมแผนการเรียน</h2></div>
+    <div class="overview-row">
+      <div class="ov-card"><div class="yr">ปี 1</div><div class="num">42</div><div class="unit">หน่วยกิต</div></div>
+      <div class="ov-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+      <div class="ov-card"><div class="yr">ปี 2</div><div class="num">48</div><div class="unit">หน่วยกิต (รวมภาคฤดูร้อน)</div></div>
+      <div class="ov-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+      <div class="ov-card"><div class="yr">ปี 3</div><div class="num">31–36</div><div class="unit">หน่วยกิต (รวมสหกิจ 2 หน่วยกิต)</div></div>
+      <div class="ov-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+      <div class="ov-card"><div class="yr">ปี 4</div><div class="num">10</div><div class="unit">หน่วยกิต</div></div>
+    </div>
+  </section>
+
+  <section id="pathway">
+    <div class="pathway">
+      <div class="pathway-title">เส้นทางสหกิจศึกษา (Co-operative Education Pathway)</div>
+      <div class="pathway-row">
+        <div class="path-step">
+          <div class="tag">ปี 3 ภาค 3 (ฤดูร้อน)</div>
+          <div class="code">คพ.304</div>
+          <div class="name">สหกิจศึกษา 1</div>
+          <div class="cr">2 หน่วยกิต</div>
         </div>
-        <p class="text-sm md:text-base leading-relaxed font-normal">
-          ศูนย์รวมข้อมูลสำหรับนักศึกษา อาจารย์ และสถานประกอบการเกี่ยวกับแผนสหกิจศึกษา หลักสูตรวิทยาศาสตรบัณฑิต สาขาวิชาวิทยาการคอมพิวเตอร์ มหาวิทยาลัยธรรมศาสตร์ พ.ศ. 2561 และ 2566
-        </p>
+        <div class="path-icon"><i class="fa-solid fa-briefcase"></i></div>
+        <div class="path-step">
+          <div class="tag">ปี 4 ภาค 1</div>
+          <div class="code">คพ.404</div>
+          <div class="name">สหกิจศึกษา 2</div>
+          <div class="cr">4 หน่วยกิต</div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Content Section -->
-  <main class="max-w-5xl mx-auto px-4 py-8 space-y-10">
-    <section class="space-y-4">
-      <div class="flex items-center gap-2 text-orange-600 font-bold text-lg">
-        <i class="fa-solid fa-bullhorn text-xl"></i>
-        <h2>Announcements and Updates</h2>
+  <section id="structure">
+    <div class="sec-head"><h2>โครงสร้างแผนสหกิจศึกษา</h2></div>
+    <div class="struct-grid">
+      <div class="yr-col">
+        <div class="yr-head">ปี 1</div>
+        <div class="term"><div class="term-label"><i class="fa-solid fa-book"></i> ภาคเรียนที่ 1</div><div class="cred">21</div><div class="cred-unit">หน่วยกิต</div></div>
+        <div class="term"><div class="term-label"><i class="fa-solid fa-book"></i> ภาคเรียนที่ 2</div><div class="cred">21</div><div class="cred-unit">หน่วยกิต</div></div>
       </div>
-
-      <div class="space-y-3">
-        <!-- ใช้ Class announcement-item ที่แยกไปใน style.css -->
-        <div class="announcement-item">
-          <div class="flex items-center gap-3">
-            <span class="w-2 h-2 bg-orange-500 rounded-full"></span>
-            <span class="font-medium text-sm md:text-base">เกณฑ์รับเข้าแผนสหกิจศึกษา</span>
-          </div>
-          <a href="#" class="text-orange-500 text-sm font-medium flex items-center gap-1 hover:underline">คลิกที่นี่ <i class="fa-solid fa-chevron-right text-xs"></i></a>
-        </div>
+      <div class="yr-col">
+        <div class="yr-head">ปี 2</div>
+        <div class="term"><div class="term-label"><i class="fa-solid fa-book"></i> ภาคเรียนที่ 1</div><div class="cred">21</div><div class="cred-unit">หน่วยกิต</div></div>
+        <div class="term"><div class="term-label"><i class="fa-solid fa-book"></i> ภาคเรียนที่ 2</div><div class="cred">21</div><div class="cred-unit">หน่วยกิต</div></div>
+        <div class="term"><div class="term-label"><i class="fa-solid fa-sun"></i> ภาคเรียนที่ 3 (ฤดูร้อน)</div><div class="cred">6</div><div class="cred-unit">หน่วยกิต</div></div>
       </div>
-    </section>
-  </main>
+      <div class="yr-col">
+        <div class="yr-head">ปี 3</div>
+        <div class="term"><div class="term-label"><i class="fa-solid fa-book"></i> ภาคเรียนที่ 1</div><div class="cred small">12 + วิชาโท 9 หรือ 12</div><div class="cred-unit">หน่วยกิต</div></div>
+        <div class="term"><div class="term-label"><i class="fa-solid fa-book"></i> ภาคเรียนที่ 2</div><div class="cred small">15 + วิชาโท 3 หรือ 6</div><div class="cred-unit">หน่วยกิต</div></div>
+        <div class="term highlight"><div class="term-label"><i class="fa-solid fa-briefcase"></i> ภาคเรียนที่ 3 (ฤดูร้อน)</div><div class="cred small">2 — คพ.304</div><div class="cred-unit">สหกิจศึกษา 1</div></div>
+      </div>
+      <div class="yr-col">
+        <div class="yr-head">ปี 4</div>
+        <div class="term highlight"><div class="term-label"><i class="fa-solid fa-briefcase"></i> ภาคเรียนที่ 1</div><div class="cred small">4 — คพ.404</div><div class="cred-unit">สหกิจศึกษา 2</div></div>
+        <div class="term"><div class="term-label"><i class="fa-solid fa-book"></i> ภาคเรียนที่ 2</div><div class="cred small">6 — วิชาเลือกเสรี</div><div class="cred-unit">(กรณีไม่ได้ลงภาคฤดูร้อนปี 2)</div></div>
+      </div>
+    </div>
+    <div class="note-box">
+      <i class="fa-solid fa-circle-info"></i>
+      <div>ปี 4 ภาคเรียนที่ 2 จะมีให้เฉพาะสำหรับนักศึกษาที่ไม่ได้ลงทะเบียนเรียนภาคฤดูร้อนในชั้นปีที่ 2 เท่านั้น หน่วยกิตกลุ่ม “วิชาโท” ในปี 3 ขึ้นอยู่กับกลุ่มวิชาโทที่นักศึกษาเลือก ดูรายละเอียดได้ที่หน้า <a href="minor-tracks.html" style="color:var(--orange-dark);font-weight:600;">รายวิชาโท</a></div>
+    </div>
+  </section>
 
+  <section id="detail">
+    <div class="sec-head"><i class="fa-solid fa-list-check"></i><h2>รายละเอียดรายวิชาตามแผนการศึกษา <span class="sub">(อ้างอิงจากแผนสหกิจศึกษา)</span></h2></div>
+    <div class="tabs" id="tabs">
+      <button class="tab-btn active" data-tab="y1">ปี 1</button>
+      <button class="tab-btn" data-tab="y2">ปี 2</button>
+      <button class="tab-btn" data-tab="y3">ปี 3</button>
+      <button class="tab-btn" data-tab="y4">ปี 4</button>
+    </div>
+
+    <div class="tab-panel active" id="y1">
+      <div class="term-block">
+        <div class="tb-head"><span>ปีการศึกษาที่ 1 — ภาคเรียนที่ 1</span><span class="tb-total">รวม 21 หน่วยกิต</span></div>
+        <table class="course-table">
+          <thead><tr><th>รหัสวิชา</th><th>ชื่อวิชา</th><th>กลุ่มวิชา / ประเภท</th><th>หน่วยกิต</th></tr></thead>
+          <tbody>
+            <tr><td class="code">คพ.100</td><td>การพัฒนาเว็บแอปพลิเคชันเบื้องต้น</td><td class="cat">วิชาเฉพาะด้าน (บังคับร่วม)</td><td class="credit">3</td></tr>
+            <tr><td class="code">คพ.101</td><td>โครงสร้างแบบไม่ต่อเนื่อง</td><td class="cat">วิชาแกน</td><td class="credit">3</td></tr>
+            <tr><td class="code">คพ.102</td><td>พื้นฐานการแก้ปัญหาและการโปรแกรม</td><td class="cat">วิชาเฉพาะด้าน (บังคับร่วม)</td><td class="credit">3</td></tr>
+            <tr><td class="code">มธ.100</td><td>พลเมืองกับการลงมือแก้ปัญหา</td><td class="cat">ศึกษาทั่วไป</td><td class="credit">3</td></tr>
+            <tr><td class="code">มธ.101</td><td>โลก, อาเซียน และไทย</td><td class="cat">ศึกษาทั่วไป</td><td class="credit">3</td></tr>
+            <tr><td class="code">มธ.108</td><td>การพัฒนาและจัดการตนเอง</td><td class="cat">ศึกษาทั่วไป</td><td class="credit">3</td></tr>
+            <tr><td class="code">ส.216</td><td>สถิติสำหรับนักสังคมศาสตร์ 1</td><td class="cat">วิชาแกน</td><td class="credit">3</td></tr>
+            <tr class="total-row"><td colspan="3">รวมหน่วยกิต</td><td class="credit">21</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="term-block">
+        <div class="tb-head"><span>ปีการศึกษาที่ 1 — ภาคเรียนที่ 2</span><span class="tb-total">รวม 21 หน่วยกิต</span></div>
+        <table class="course-table">
+          <thead><tr><th>รหัสวิชา</th><th>ชื่อวิชา</th><th>กลุ่มวิชา / ประเภท</th><th>หน่วยกิต</th></tr></thead>
+          <tbody>
+            <tr><td class="code">คพ.111</td><td>แนวคิดเชิงวัตถุ</td><td class="cat">วิชาเฉพาะด้าน (บังคับร่วม)</td><td class="credit">3</td></tr>
+            <tr><td class="code">ศ.211</td><td>แคลคูลัส 1</td><td class="cat">วิชาแกน</td><td class="credit">3</td></tr>
+            <tr><td class="code">มธ.103 / มธ.107</td><td>ชีวิตกับความยั่งยืน หรือ ทักษะดิจิทัลกับการแก้ปัญหา</td><td class="cat">ศึกษาทั่วไป</td><td class="credit">3</td></tr>
+            <tr><td class="code">ศศ.101</td><td>การคิด อ่าน และเขียนอย่างมีวิจารณญาณ</td><td class="cat">ศึกษาทั่วไป</td><td class="credit">3</td></tr>
+            <tr><td class="code">มธ.106</td><td>ความคิดสร้างสรรค์และการสื่อสาร</td><td class="cat">ศึกษาทั่วไป</td><td class="credit">3</td></tr>
+            <tr><td class="code">มธ.109</td><td>นวัตกรรมกระบวนคิดผู้ประกอบการ</td><td class="cat">ศึกษาทั่วไป</td><td class="credit">3</td></tr>
+            <tr><td class="code">สห.105</td><td>ทักษะการสื่อสารทางภาษาอังกฤษ</td><td class="cat">ศึกษาทั่วไป</td><td class="credit">3</td></tr>
+            <tr class="total-row"><td colspan="3">รวมหน่วยกิต</td><td class="credit">21</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="tab-panel" id="y2">
+      <div class="term-block">
+        <div class="tb-head"><span>ปีการศึกษาที่ 2 — ภาคเรียนที่ 1</span><span class="tb-total">รวม 21 หน่วยกิต</span></div>
+        <table class="course-table">
+          <thead><tr><th>รหัสวิชา</th><th>ชื่อวิชา</th><th>กลุ่มวิชา / ประเภท</th><th>หน่วยกิต</th></tr></thead>
+          <tbody>
+            <tr><td class="code">คพ.180</td><td>ส่วนต่อประสานและประสบการณ์ผู้ใช้เบื้องต้น</td><td class="cat">วิชาเฉพาะด้าน (บังคับร่วม)</td><td class="credit">3</td></tr>
+            <tr><td class="code">คพ.216</td><td>โครงสร้างข้อมูลและขั้นตอนวิธี</td><td class="cat">บังคับเอก</td><td class="credit">3</td></tr>
+            <tr><td class="code">คพ.233</td><td>สถาปัตยกรรมคอมพิวเตอร์และระบบปฏิบัติการ</td><td class="cat">วิชาเฉพาะด้าน (บังคับเอก)</td><td class="credit">3</td></tr>
+            <tr><td class="code">คพ.240</td><td>หลักการวิทยาการข้อมูล</td><td class="cat">วิชาเฉพาะด้าน (บังคับร่วม)</td><td class="credit">3</td></tr>
+            <tr><td class="code">คพ.261</td><td>วิศวกรรมซอฟต์แวร์เบื้องต้น</td><td class="cat">วิชาเฉพาะด้าน (บังคับร่วม)</td><td class="credit">3</td></tr>
+            <tr><td class="code">สห.295</td><td>ภาษาอังกฤษเชิงวิชาการและทักษะการศึกษา 1</td><td class="cat">ศึกษาทั่วไป</td><td class="credit">3</td></tr>
+            <tr><td class="code">ส.329</td><td>ความน่าจะเป็นและตัวแบบทางสถิติประยุกต์</td><td class="cat">วิชาแกน</td><td class="credit">3</td></tr>
+            <tr class="total-row"><td colspan="3">รวมหน่วยกิต</td><td class="credit">21</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="term-block">
+        <div class="tb-head"><span>ปีการศึกษาที่ 2 — ภาคเรียนที่ 2</span><span class="tb-total">รวม 21 หน่วยกิต</span></div>
+        <table class="course-table">
+          <thead><tr><th>รหัสวิชา</th><th>ชื่อวิชา</th><th>กลุ่มวิชา / ประเภท</th><th>หน่วยกิต</th></tr></thead>
+          <tbody>
+            <tr><td class="code">คพ.234</td><td>เครือข่ายคอมพิวเตอร์และความปลอดภัยทางไซเบอร์</td><td class="cat">บังคับเอก</td><td class="credit">3</td></tr>
+            <tr><td class="code">คพ.232</td><td>เทคโนโลยีกลุ่มเมฆเบื้องต้น</td><td class="cat">วิชาเฉพาะด้าน (บังคับร่วม)</td><td class="credit">3</td></tr>
+            <tr><td class="code">คพ.251</td><td>ระบบฐานข้อมูล 1</td><td class="cat">วิชาเฉพาะด้าน (บังคับร่วม)</td><td class="credit">3</td></tr>
+            <tr><td class="code">คพ.262</td><td>การทดสอบซอฟต์แวร์เบื้องต้น</td><td class="cat">บังคับเอก</td><td class="credit">3</td></tr>
+            <tr><td class="code">คพ.271</td><td>ปัญญาประดิษฐ์เบื้องต้น</td><td class="cat">วิชาเฉพาะด้าน (บังคับร่วม)</td><td class="credit">3</td></tr>
+            <tr><td class="code">สห.395</td><td>ภาษาอังกฤษเชิงวิชาการและทักษะการศึกษา 2</td><td class="cat">บังคับนอกสาขา</td><td class="credit">3</td></tr>
+            <tr><td class="code">วิชาศึกษาทั่วไป</td><td>เลือก มธ.201 หรือ มธ.202 หรือ มธ.301</td><td class="cat">ศึกษาทั่วไป</td><td class="credit">3</td></tr>
+            <tr class="total-row"><td colspan="3">รวมหน่วยกิต</td><td class="credit">21</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="term-block">
+        <div class="tb-head"><span>ปีการศึกษาที่ 2 — ภาคเรียนที่ 3 (ภาคฤดูร้อน)</span><span class="tb-total">รวม 6 หน่วยกิต</span></div>
+        <table class="course-table">
+          <thead><tr><th>รหัสวิชา</th><th>ชื่อวิชา</th><th>กลุ่มวิชา / ประเภท</th><th>หน่วยกิต</th></tr></thead>
+          <tbody>
+            <tr><td class="code">วิชาเลือกเสรี</td><td>วิชาเลือกเสรี 1</td><td class="cat">เลือกเสรี</td><td class="credit">3</td></tr>
+            <tr><td class="code">วิชาเลือกเสรี</td><td>วิชาเลือกเสรี 2</td><td class="cat">เลือกเสรี</td><td class="credit">3</td></tr>
+            <tr class="total-row"><td colspan="3">รวมหน่วยกิต</td><td class="credit">6</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="tab-panel" id="y3">
+      <div class="term-block">
+        <div class="tb-head"><span>ปีการศึกษาที่ 3 — ภาคเรียนที่ 1 (วิชาบังคับเอก &amp; วิชาโท)</span><span class="tb-total">รวม 12 + วิชาโท (9 หรือ 12) หน่วยกิต</span></div>
+        <table class="course-table">
+          <thead><tr><th>รหัสวิชา</th><th>ชื่อวิชา</th><th>กลุ่มวิชา / ประเภท</th><th>หน่วยกิต</th></tr></thead>
+          <tbody>
+            <tr><td class="code">คพ.263</td><td>การกำหนดความต้องการทางซอฟต์แวร์</td><td class="cat">บังคับเอก</td><td class="credit">3</td></tr>
+            <tr><td class="code">คพ.264</td><td>ความปลอดภัยทางซอฟต์แวร์และความเป็นส่วนตัว</td><td class="cat">บังคับเอก</td><td class="credit">3</td></tr>
+            <tr><td class="code">คพ.361</td><td>สถาปัตยกรรมซอฟต์แวร์บนคลาวด์</td><td class="cat">บังคับเอก</td><td class="credit">3</td></tr>
+            <tr><td class="code">คพ.364</td><td>การพัฒนาโปรแกรมประยุกต์สำหรับอุปกรณ์พกพา</td><td class="cat">บังคับเอก</td><td class="credit">3</td></tr>
+            <tr><td class="code">กลุ่มวิชาโท</td><td>เลือกเรียนตามกลุ่มวิชาโทที่เลือก (2–3 วิชา)</td><td class="cat">วิชาโท</td><td class="credit">9 หรือ 12</td></tr>
+            <tr class="total-row"><td colspan="3">รวมหน่วยกิต (ไม่รวมวิชาโท)</td><td class="credit">12</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="term-block">
+        <div class="tb-head"><span>ปีการศึกษาที่ 3 — ภาคเรียนที่ 2 (วิชาบังคับเอก &amp; วิชาโท)</span><span class="tb-total">รวม 15 + วิชาโท (3 หรือ 6) หน่วยกิต</span></div>
+        <table class="course-table">
+          <thead><tr><th>รหัสวิชา</th><th>ชื่อวิชา</th><th>กลุ่มวิชา / ประเภท</th><th>หน่วยกิต</th></tr></thead>
+          <tbody>
+            <tr><td class="code">คพ.301</td><td>การเตรียมความพร้อมสำหรับโครงงานพิเศษและสหกิจศึกษา</td><td class="cat">วิชาเฉพาะด้าน (บังคับร่วม)</td><td class="credit">3</td></tr>
+            <tr><td class="code">คพ.305</td><td>จรรยาบรรณทางวิชาชีพและเชิงสังคม</td><td class="cat">วิชาเฉพาะด้าน (บังคับร่วม)</td><td class="credit">3</td></tr>
+            <tr><td class="code">คพ.362</td><td>การออกแบบซอฟต์แวร์และระบบ</td><td class="cat">บังคับเอก</td><td class="credit">3</td></tr>
+            <tr><td class="code">คพ.363</td><td>โครงงานทางวิศวกรรมซอฟต์แวร์</td><td class="cat">บังคับเอก</td><td class="credit">3</td></tr>
+            <tr><td class="code">คพ.367</td><td>แนวคิดการพัฒนาเว็บบริการ</td><td class="cat">บังคับเอก</td><td class="credit">3</td></tr>
+            <tr><td class="code">กลุ่มวิชาโท</td><td>เลือกเรียนตามกลุ่มวิชาโทที่เลือก (2–3 วิชา)</td><td class="cat">วิชาโท</td><td class="credit">3 หรือ 6</td></tr>
+            <tr class="total-row"><td colspan="3">รวมหน่วยกิต (ไม่รวมวิชาโท)</td><td class="credit">15</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="term-block">
+        <div class="tb-head"><span>ปีการศึกษาที่ 3 — ภาคเรียนที่ 3 (ภาคฤดูร้อน)</span><span class="tb-total">รวม 2 หน่วยกิต</span></div>
+        <table class="course-table">
+          <thead><tr><th>รหัสวิชา</th><th>ชื่อวิชา</th><th>กลุ่มวิชา / ประเภท</th><th>หน่วยกิต</th></tr></thead>
+          <tbody>
+            <tr><td class="code">คพ.304</td><td>สหกิจศึกษา 1</td><td class="cat">วิชาเฉพาะด้าน (บังคับร่วม)</td><td class="credit">2</td></tr>
+            <tr class="total-row"><td colspan="3">รวมหน่วยกิต</td><td class="credit">2</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="tab-panel" id="y4">
+      <div class="term-block">
+        <div class="tb-head"><span>ปีการศึกษาที่ 4 — ภาคเรียนที่ 1</span><span class="tb-total">รวม 4 หน่วยกิต</span></div>
+        <table class="course-table">
+          <thead><tr><th>รหัสวิชา</th><th>ชื่อวิชา</th><th>กลุ่มวิชา / ประเภท</th><th>หน่วยกิต</th></tr></thead>
+          <tbody>
+            <tr><td class="code">คพ.404</td><td>สหกิจศึกษา 2</td><td class="cat">วิชาเฉพาะด้าน (บังคับร่วม)</td><td class="credit">4</td></tr>
+            <tr class="total-row"><td colspan="3">รวมหน่วยกิต</td><td class="credit">4</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="term-block">
+        <div class="tb-head"><span>ปีการศึกษาที่ 4 — ภาคเรียนที่ 2 (กรณีไม่ได้ลงภาคฤดูร้อน)</span><span class="tb-total">รวม 6 หน่วยกิต</span></div>
+        <table class="course-table">
+          <thead><tr><th>รหัสวิชา</th><th>ชื่อวิชา</th><th>กลุ่มวิชา / ประเภท</th><th>หน่วยกิต</th></tr></thead>
+          <tbody>
+            <tr><td class="code">วิชาเลือกเสรี</td><td>วิชาเลือกเสรี 1</td><td class="cat">เลือกเสรี</td><td class="credit">3</td></tr>
+            <tr><td class="code">วิชาเลือกเสรี</td><td>วิชาเลือกเสรี 2</td><td class="cat">เลือกเสรี</td><td class="credit">3</td></tr>
+            <tr class="total-row"><td colspan="3">รวมหน่วยกิต</td><td class="credit">6</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <div class="quick-links">
+    <a href="co-op-plan.html" class="ql-item"><i class="fa-solid fa-briefcase"></i><div class="t">แผนสหกิจศึกษา</div><div class="d">ดูแผนการเรียนและเส้นทางสหกิจศึกษา</div></a>
+    <a href="special-topics-plan.html" class="ql-item"><i class="fa-solid fa-user-graduate"></i><div class="t">แผนหัวข้อพิเศษ</div><div class="d">ดูแผนการเรียนและรายละเอียดโครงงาน</div></a>
+    <a href="minor-tracks.html" class="ql-item"><i class="fa-solid fa-layer-group"></i><div class="t">รายวิชาโท</div><div class="d">ข้อมูลกลุ่มวิชาโททั้ง 4 กลุ่ม</div></a>
+    <a href="applied-cs.html" class="ql-item"><i class="fa-solid fa-circle-info"></i><div class="t">เกี่ยวกับสาขาวิชา</div><div class="d">ข้อมูลหลักสูตรและเส้นทางอาชีพ</div></a>
+    <a href="#" class="ql-item"><i class="fa-solid fa-comments"></i><div class="t">สอบถามข้อมูล</div><div class="d">ติดต่อสอบถามและขอรับคำปรึกษา</div></a>
+  </div>
+</div>
+
+<footer>
+  <div class="container foot-grid">
+    <div>
+      <h4>สาขาวิชาวิทยาการคอมพิวเตอร์</h4>
+      <p>คณะวิทยาศาสตร์และเทคโนโลยี<br>มหาวิทยาลัยธรรมศาสตร์</p>
+      <div class="foot-social">
+        <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="#"><i class="fa-solid fa-globe"></i></a>
+        <a href="#"><i class="fa-solid fa-envelope"></i></a>
+      </div>
+    </div>
+    <div>
+      <h4>ติดต่อเรา</h4>
+      <div class="foot-contact-item"><i class="fa-solid fa-location-dot"></i> 99 หมู่ 18 ต.คลองหนึ่ง อ.คลองหลวง จ.ปทุมธานี 12120</div>
+      <div class="foot-contact-item"><i class="fa-solid fa-phone"></i> 0 2564 4440-79 ต่อ 1676</div>
+      <div class="foot-contact-item"><i class="fa-solid fa-envelope"></i> cs@science.tu.ac.th</div>
+    </div>
+    <div>
+      <h4>เวลาทำการ</h4>
+      <p>จันทร์ – ศุกร์<br>08.30 – 16.30 น.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.querySelectorAll('.tab-btn').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+      document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById(btn.dataset.tab).classList.add('active');
+    });
+  });
+</script>
 </body>
 </html>
