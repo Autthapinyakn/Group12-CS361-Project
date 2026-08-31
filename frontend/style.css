@@ -1,10 +1,3 @@
-/* =====================================================================
-   style.css — shared stylesheet for special-topics-plan.html
-   and minor-tracks.html (สาขาวิชาวิทยาการคอมพิวเตอร์ มธ.)
-   Sections marked "PAGE-SPECIFIC" are scoped with body.page-special
-   / body.page-minor so the two pages can share one file safely.
-   ===================================================================== */
-
 :root{
   --black:#141414;
   --orange:#EA5B17;
