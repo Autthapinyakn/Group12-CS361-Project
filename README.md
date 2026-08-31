@@ -1,5 +1,5 @@
 # Group12-CS361-Project
-Cloud architecture project
+Cloud architecture project: http://group12-cs361-v1-2026.s3-website-us-east-1.amazonaws.com
 
 ## Project Vision
 Build a curriculum system that can eventually support the broader academic information process, including information access, Q&A, graduation verification against real registrar data, and curriculum data management by authorized staff.
