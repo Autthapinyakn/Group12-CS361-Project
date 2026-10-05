@@ -1,5 +1,5 @@
 // เปลี่ยน URL นี้เป็น API Gateway endpoint จริงหลัง deploy
-const API_BASE = 'https://<api-id>.execute-api.<region>.amazonaws.com';
+const API_BASE = 'https://s98zfaauq3.execute-api.us-east-1.amazonaws.com/';
 
 // รหัสหลักสูตร "คอมพิวเตอร์ประยุกต์" ที่ seed ไว้ใน db/seed_v2_real.sql
 export const CURRICULUM_ID = '11111111-1111-1111-1111-111111111111';
