@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ค้นหารายวิชา | สาขาวิชาวิทยาการคอมพิวเตอร์ มธ.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="page-courses">
+
+<header class="nav">
+  <div class="container nav-inner">
+    <div class="nav-left">
+      <i class="fa-solid fa-bars hamburger"></i>
+      <a href="#" class="brand">
+        <div class="brand-badge"><i class="fa-solid fa-graduation-cap"></i></div>
+        <div class="brand-text">
+          <div class="l1">COMPUTER</div>
+          <div class="l2">SCIENCE</div>
+          <div class="l3">THAMMASAT UNIVERSITY</div>
+        </div>
+      </a>
+    </div>
+    <nav class="menu">
+      <a href="courses.html" class="active">ค้นหารายวิชา</a>
+      <a href="co-op-plan.html">แผนสหกิจศึกษา</a>
+      <a href="special-topics-plan.html">แผนหัวข้อพิเศษ</a>
+      <a href="minor-tracks.html">รายวิชาโท</a>
+      <a href="applied-cs.html">เกี่ยวกับสาขาวิชา</a>
+    </nav>
+    <div class="nav-right"><i class="fa-solid fa-magnifying-glass"></i></div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-pattern"></div>
+  <div class="container hero-inner">
+    <div class="hero-eyebrow"><i class="fa-solid fa-book-open"></i> COURSE CATALOG</div>
+    <h1 class="hero-title">ค้นหารายวิชา</h1>
+    <div class="hero-sub1">หลักสูตรวิทยาศาสตรบัณฑิต</div>
+    <div class="hero-sub2">สาขาวิชาวิทยาการคอมพิวเตอร์ (คอมพิวเตอร์ประยุกต์)</div>
+    <div class="hero-sub3">มหาวิทยาลัยธรรมศาสตร์</div>
+  </div>
+</section>
+
+<div class="container info-wrap">
+  <div class="info-bar">
+    <div class="info-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
+    <div class="info-text">
+      ค้นหาและกรองรายวิชาทั้งหมดในหลักสูตร <b>ตามปีการศึกษาและแผนการเรียน</b><br>
+      (แผนสหกิจศึกษา / แผนหัวข้อพิเศษ) เพื่อดูหน่วยกิต หมวดหมู่ และช่วงเวลาที่เปิดสอน
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <section id="search">
+    <div class="sec-head"><i class="fa-solid fa-list-check"></i><h2>รายวิชาทั้งหมด</h2></div>
+
+    <div class="search-box">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="text" id="search-input" placeholder="ค้นหาด้วยรหัสวิชาหรือชื่อวิชา เช่น คพ.101 หรือ โครงสร้างข้อมูล">
+    </div>
+
+    <div class="filter-group" id="year-filter">
+      <span class="filter-label">ปีการศึกษา:</span>
+      <button class="tab-btn active" data-year="all">ทั้งหมด</button>
+      <button class="tab-btn" data-year="1">ปี 1</button>
+      <button class="tab-btn" data-year="2">ปี 2</button>
+      <button class="tab-btn" data-year="3">ปี 3</button>
+      <button class="tab-btn" data-year="4">ปี 4</button>
+    </div>
+
+    <div class="filter-group" id="plan-filter">
+      <span class="filter-label">แผนการเรียน:</span>
+      <button class="tab-btn active" data-plan="all">ทั้งหมด</button>
+      <button class="tab-btn" data-plan="ทั่วไป">ทั่วไป</button>
+      <button class="tab-btn" data-plan="ทั้งสองแผน">ทั้งสองแผน</button>
+      <button class="tab-btn" data-plan="สหกิจศึกษา">สหกิจศึกษา</button>
+      <button class="tab-btn" data-plan="หัวข้อพิเศษ">หัวข้อพิเศษ</button>
+    </div>
+
+    <div class="results-count" id="results-count">กำลังโหลดข้อมูล...</div>
+
+    <div class="term-block">
+      <div class="tb-head"><span>ผลการค้นหา</span></div>
+      <table class="course-table">
+        <thead>
+          <tr>
+            <th>รหัสวิชา</th>
+            <th>ชื่อวิชา</th>
+            <th>หมวดหมู่</th>
+            <th>ปี / เทอม</th>
+            <th>แผน</th>
+            <th>หน่วยกิต</th>
+          </tr>
+        </thead>
+        <tbody id="course-tbody">
+          <tr><td colspan="6"><div class="skeleton-row"></div></td></tr>
+          <tr><td colspan="6"><div class="skeleton-row"></div></td></tr>
+          <tr><td colspan="6"><div class="skeleton-row"></div></td></tr>
+        </tbody>
+      </table>
+      <div class="empty-state" id="empty-state" style="display:none;">
+        <i class="fa-solid fa-folder-open"></i>
+        ไม่พบรายวิชาที่ตรงกับเงื่อนไขที่เลือก
+      </div>
+    </div>
+  </section>
+
+  <div class="quick-links">
+    <a href="co-op-plan.html" class="ql-item"><i class="fa-solid fa-briefcase"></i><div class="t">แผนสหกิจศึกษา</div><div class="d">ดูแผนการเรียนและเส้นทางสหกิจศึกษา</div></a>
+    <a href="special-topics-plan.html" class="ql-item"><i class="fa-solid fa-user-graduate"></i><div class="t">แผนหัวข้อพิเศษ</div><div class="d">ดูแผนการเรียนและรายละเอียดโครงงาน</div></a>
+    <a href="minor-tracks.html" class="ql-item"><i class="fa-solid fa-layer-group"></i><div class="t">รายวิชาโท</div><div class="d">ข้อมูลกลุ่มวิชาโททั้ง 4 กลุ่ม</div></a>
+    <a href="applied-cs.html" class="ql-item"><i class="fa-solid fa-circle-info"></i><div class="t">เกี่ยวกับสาขาวิชา</div><div class="d">ข้อมูลหลักสูตรและเส้นทางอาชีพ</div></a>
+  </div>
+</div>
+
+<footer>
+  <div class="container foot-grid">
+    <div>
+      <h4>สาขาวิชาวิทยาการคอมพิวเตอร์</h4>
+      <p>คณะวิทยาศาสตร์และเทคโนโลยี<br>มหาวิทยาลัยธรรมศาสตร์</p>
+      <div class="foot-social">
+        <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="#"><i class="fa-solid fa-globe"></i></a>
+        <a href="#"><i class="fa-solid fa-envelope"></i></a>
+      </div>
+    </div>
+    <div>
+      <h4>ติดต่อเรา</h4>
+      <div class="foot-contact-item"><i class="fa-solid fa-location-dot"></i> 99 หมู่ 18 ต.คลองหนึ่ง อ.คลองหลวง จ.ปทุมธานี 12120</div>
+      <div class="foot-contact-item"><i class="fa-solid fa-phone"></i> 0 2564 4440-79 ต่อ 1676</div>
+      <div class="foot-contact-item"><i class="fa-solid fa-envelope"></i> cs@science.tu.ac.th</div>
+    </div>
+    <div>
+      <h4>เวลาทำการ</h4>
+      <p>จันทร์ – ศุกร์<br>08.30 – 16.30 น.</p>
+    </div>
+  </div>
+</footer>
+
+<script type="module">
+  import { fetchCurriculum } from './api.js';
+
+  const tbody = document.getElementById('course-tbody');
+  const emptyState = document.getElementById('empty-state');
+  const resultsCount = document.getElementById('results-count');
+  const searchInput = document.getElementById('search-input');
+
+  let allEntries = [];
+  let activeYear = 'all';
+  let activePlan = 'all';
+  let searchTerm = '';
+
+  function escapeHtml(str) {
+    return String(str).replace(/[&<>"']/g, (c) => ({
+      '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
+    }[c]));
+  }
+
+  function render() {
+    const term = searchTerm.trim().toLowerCase();
+    const filtered = allEntries.filter((e) => {
+      if (activeYear !== 'all' && String(e.year) !== activeYear) return false;
+      if (activePlan !== 'all' && e.plan !== activePlan) return false;
+      if (term) {
+        const haystack = `${e.course.code} ${e.course.nameTh} ${e.course.nameEn}`.toLowerCase();
+        if (!haystack.includes(term)) return false;
+      }
+      return true;
+    });
+
+    resultsCount.textContent = `พบ ${filtered.length} รายวิชา`;
+
+    if (filtered.length === 0) {
+      tbody.innerHTML = '';
+      emptyState.style.display = 'block';
+      return;
+    }
+    emptyState.style.display = 'none';
+
+    tbody.innerHTML = filtered
+      .map(
+        (e) => `
+      <tr>
+        <td class="code">${escapeHtml(e.course.code)}</td>
+        <td>${escapeHtml(e.course.nameTh)}</td>
+        <td class="cat">${escapeHtml(e.course.category ?? '-')}</td>
+        <td class="term">ปี ${e.year} / เทอม ${e.semester}</td>
+        <td class="plan"><span class="plan-badge">${escapeHtml(e.plan)}</span></td>
+        <td class="credit">${e.course.credits}</td>
+      </tr>`
+      )
+      .join('');
+  }
+
+  function setupFilterGroup(groupId, attr, onChange) {
+    const group = document.getElementById(groupId);
+    group.querySelectorAll('.tab-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        group.querySelectorAll('.tab-btn').forEach((b) => b.classList.remove('active'));
+        btn.classList.add('active');
+        onChange(btn.dataset[attr]);
+        render();
+      });
+    });
+  }
+
+  setupFilterGroup('year-filter', 'year', (v) => (activeYear = v));
+  setupFilterGroup('plan-filter', 'plan', (v) => (activePlan = v));
+
+  let debounceTimer;
+  searchInput.addEventListener('input', () => {
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(() => {
+      searchTerm = searchInput.value;
+      render();
+    }, 250);
+  });
+
+  fetchCurriculum()
+    .then((entries) => {
+      allEntries = entries;
+      render();
+    })
+    .catch((err) => {
+      console.error(err);
+      resultsCount.textContent = 'โหลดข้อมูลไม่สำเร็จ ลองรีเฟรชหน้าใหม่อีกครั้ง';
+      tbody.innerHTML = '';
+    });
+</script>
+
+</body>
+</html>
