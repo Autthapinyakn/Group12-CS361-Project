@@ -21,8 +21,8 @@ INSERT INTO course_prerequisites (course_id, prerequisite_id, choice_group) VALU
   ('a3bfbca0-1c2e-5414-928a-89ba86ea8f60', 'a62b7c80-aeee-58b9-8952-332eb520c453', 1), -- CS364 ต้องผ่าน CS251
   ('9cae394f-0e9f-55bc-a1b9-7b141efa48d4', 'a62b7c80-aeee-58b9-8952-332eb520c453', 1), -- CS301 ต้องผ่าน CS251
   ('bd391de1-01e9-5ade-9e37-ced5f139a317', '8b27781b-e5bb-5289-9916-e9377b2498a3', 1), -- CS367 ต้องผ่าน CS234
-  ('9f9a1dac-ba90-5a04-a922-b28b7a9d5b95', '9cae394f-0e9f-55bc-a1b9-7b141efa48d4', 1), -- CS303 ต้องผ่าน CS301
-  ('516fffc4-4dec-5182-846b-63e5950a46fa', '9f9a1dac-ba90-5a04-a922-b28b7a9d5b95', 1), -- CS304 ต้องผ่าน CS303
+  ('098d258f-d5a1-54d6-bbd6-cf6132cc4609', '9cae394f-0e9f-55bc-a1b9-7b141efa48d4', 1), -- CS303 ต้องผ่าน CS301
+  ('516fffc4-4dec-5182-846b-63e5950a46fa', '098d258f-d5a1-54d6-bbd6-cf6132cc4609', 1), -- CS304 ต้องผ่าน CS303
   ('feab73ce-07c1-5d2d-a594-c7af6b6751c8', 'e0b59283-d733-5a0e-b676-70911e18cd24', 1), -- CS342 ต้องผ่าน CS240
   ('5cf257e5-d605-57a3-b7d3-a3f6a8a33c99', 'eb11976d-c002-5f64-873c-80414ef97e29', 1), -- CS223 ต้องผ่าน CS233
   ('dead0ba1-83d8-543e-8dad-59815de9a917', 'eb11976d-c002-5f64-873c-80414ef97e29', 1), -- CS224 ต้องผ่าน CS233
