@@ -325,3 +325,161 @@ footer{background:linear-gradient(100deg,var(--footer-orange),#F4762C);color:#ff
 @keyframes skeleton{0%{background-position:100% 50%;}100%{background-position:0 50%;}}
 table.course-table td.plan{font-size:12.5px;}
 .plan-badge{display:inline-block;padding:2px 9px;border-radius:30px;font-size:11px;font-weight:500;background:var(--orange-light);color:var(--orange-dark);white-space:nowrap;}
+table.course-table tbody tr{cursor:pointer;transition:background .15s;}
+table.course-table tbody tr:hover{background:#FBF6F0;}
+
+/* ===== COURSE DETAIL MODAL ===== */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(20, 20, 20, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 9999;
+}
+
+/* Force hiding when the hidden attribute is present */
+.modal-overlay[hidden] {
+  display: none !important;
+}
+
+.modal-box {
+  background: #fff;
+  border-radius: 16px;
+  max-width: 520px;
+  width: 100%;
+  max-height: 85vh;
+  overflow-y: auto;
+  box-shadow: 0 24px 60px -16px rgba(0, 0, 0, 0.35);
+}
+
+.modal-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 22px 24px 16px;
+  border-bottom: 1px solid var(--card-border);
+}
+
+.modal-head .mh-code {
+  font-size: 13px;
+  color: var(--orange-dark);
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+.modal-head .mh-name {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-top: 2px;
+}
+
+.modal-close {
+  background: #f3eee7;
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-gray);
+  cursor: pointer;
+  flex-shrink: 0;
+  font-size: 14px;
+}
+
+.modal-close:hover {
+  background: #e8e2d8;
+  color: var(--text-dark);
+}
+
+.modal-body {
+  padding: 20px 24px 26px;
+}
+
+.modal-stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.modal-stat {
+  background: #fbfaf7;
+  border: 1px solid var(--card-border);
+  border-radius: 10px;
+  padding: 12px 14px;
+}
+
+.modal-stat .ms-label {
+  font-size: 11.5px;
+  color: var(--text-gray);
+  margin-bottom: 3px;
+}
+
+.modal-stat .ms-value {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+.modal-section-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.modal-section-title i {
+  color: var(--orange);
+  font-size: 13px;
+}
+
+.prereq-group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.prereq-group:last-child {
+  margin-bottom: 0;
+}
+
+.prereq-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--orange-light);
+  color: var(--orange-dark);
+  padding: 5px 12px;
+  border-radius: 30px;
+  font-size: 12.5px;
+  font-weight: 500;
+}
+
+.prereq-or {
+  font-size: 12px;
+  color: var(--text-gray);
+  font-weight: 500;
+}
+
+.modal-empty {
+  font-size: 13px;
+  color: var(--text-gray);
+  font-style: italic;
+}
