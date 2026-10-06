@@ -111,6 +111,32 @@
     </div>
   </section>
 
+  <div class="modal-overlay" id="course-modal" hidden>
+    <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="modal-name">
+      <div class="modal-head">
+        <div>
+          <div class="mh-code" id="modal-code"></div>
+          <div class="mh-name" id="modal-name"></div>
+        </div>
+        <button class="modal-close" id="modal-close-btn" aria-label="ปิด"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-stats">
+          <div class="modal-stat">
+            <div class="ms-label">หน่วยกิต</div>
+            <div class="ms-value" id="modal-credits"></div>
+          </div>
+          <div class="modal-stat">
+            <div class="ms-label">ประเภทรายวิชา</div>
+            <div class="ms-value" id="modal-type"></div>
+          </div>
+        </div>
+        <div class="modal-section-title"><i class="fa-solid fa-diagram-project"></i> วิชาบังคับก่อน</div>
+        <div id="modal-prereqs"></div>
+      </div>
+    </div>
+  </div>
+
   <div class="quick-links">
     <a href="co-op-plan.html" class="ql-item"><i class="fa-solid fa-briefcase"></i><div class="t">แผนสหกิจศึกษา</div><div class="d">ดูแผนการเรียนและเส้นทางสหกิจศึกษา</div></a>
     <a href="special-topics-plan.html" class="ql-item"><i class="fa-solid fa-user-graduate"></i><div class="t">แผนหัวข้อพิเศษ</div><div class="d">ดูแผนการเรียนและรายละเอียดโครงงาน</div></a>
@@ -155,6 +181,15 @@
   let activeYear = 'all';
   let activePlan = 'all';
   let searchTerm = '';
+  let courseById = new Map(); // ใช้แปล prerequisite id -> รหัส/ชื่อวิชา ในป็อปอัป
+
+  const modal = document.getElementById('course-modal');
+  const modalCode = document.getElementById('modal-code');
+  const modalName = document.getElementById('modal-name');
+  const modalCredits = document.getElementById('modal-credits');
+  const modalType = document.getElementById('modal-type');
+  const modalPrereqs = document.getElementById('modal-prereqs');
+  const modalCloseBtn = document.getElementById('modal-close-btn');
 
   function escapeHtml(str) {
     return String(str).replace(/[&<>"']/g, (c) => ({
@@ -186,7 +221,7 @@
     tbody.innerHTML = filtered
       .map(
         (e) => `
-      <tr>
+      <tr data-course-id="${escapeHtml(e.course.id)}">
         <td class="code">${escapeHtml(e.course.code)}</td>
         <td>${escapeHtml(e.course.nameTh)}</td>
         <td class="cat">${escapeHtml(e.course.category ?? '-')}</td>
@@ -197,6 +232,55 @@
       )
       .join('');
   }
+
+  function openModal(course) {
+    modalCode.textContent = course.code;
+    modalName.textContent = course.nameTh;
+    modalCredits.textContent = `${course.credits} หน่วยกิต`;
+    modalType.textContent = course.courseType || course.category || '-';
+
+    if (!course.prerequisites || course.prerequisites.length === 0) {
+      modalPrereqs.innerHTML = '<div class="modal-empty">ไม่มีวิชาบังคับก่อน</div>';
+    } else {
+      const groups = new Map();
+      course.prerequisites.forEach((p) => {
+        if (!groups.has(p.choiceGroup)) groups.set(p.choiceGroup, []);
+        groups.get(p.choiceGroup).push(p.courseId);
+      });
+      modalPrereqs.innerHTML = [...groups.values()]
+        .map((ids) => {
+          const chips = ids.map((id) => {
+            const c = courseById.get(id);
+            const label = c ? `${escapeHtml(c.code)} ${escapeHtml(c.nameTh)}` : 'ไม่พบข้อมูลวิชา';
+            return `<span class="prereq-chip">${label}</span>`;
+          });
+          return `<div class="prereq-group">${chips.join('<span class="prereq-or">หรือ</span>')}</div>`;
+        })
+        .join('');
+    }
+
+    modal.hidden = false;
+    modalCloseBtn.focus();
+  }
+
+  function closeModal() {
+    modal.hidden = true;
+  }
+
+  modalCloseBtn.addEventListener('click', closeModal);
+  modal.addEventListener('click', (ev) => {
+    if (ev.target === modal) closeModal();
+  });
+  document.addEventListener('keydown', (ev) => {
+    if (ev.key === 'Escape' && !modal.hidden) closeModal();
+  });
+
+  tbody.addEventListener('click', (ev) => {
+    const row = ev.target.closest('tr[data-course-id]');
+    if (!row) return;
+    const course = courseById.get(row.dataset.courseId);
+    if (course) openModal(course);
+  });
 
   function setupFilterGroup(groupId, attr, onChange) {
     const group = document.getElementById(groupId);
@@ -225,6 +309,7 @@
   fetchCurriculum()
     .then((entries) => {
       allEntries = entries;
+      entries.forEach((e) => courseById.set(e.course.id, e.course));
       render();
     })
     .catch((err) => {
