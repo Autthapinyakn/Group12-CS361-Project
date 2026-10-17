@@ -1,11 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PostgresCourseProvider = void 0;
+exports.PostgresCourseProvider = exports.pool = void 0;
 const pg_1 = require("pg");
 const pool = new pg_1.Pool({
     connectionString: process.env.DATABASE_URL,
     ssl: { rejectUnauthorized: false },
 });
+exports.pool = pool;
 class PostgresCourseProvider {
     async getCourses() {
         const { rows } = await pool.query('SELECT * FROM courses ORDER BY code');

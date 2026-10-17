@@ -14,7 +14,7 @@
 <header class="nav">
   <div class="container nav-inner">
     <div class="nav-left">
-      <i class="fa-solid fa-bars hamburger"></i>
+      <i class="fa-solid fa-bars hamburger" aria-hidden="true"></i>
       <a href="#" class="brand">
         <div class="brand-badge"><i class="fa-solid fa-graduation-cap"></i></div>
         <div class="brand-text">
@@ -31,9 +31,31 @@
       <a href="minor-tracks.html">รายวิชาโท</a>
       <a href="applied-cs.html">เกี่ยวกับสาขาวิชา</a>
     </nav>
-    <div class="nav-right"><i class="fa-solid fa-magnifying-glass"></i></div>
+    <div class="nav-right auth-slot" data-auth-slot><a class="auth-button" href="login.html">เข้าสู่ระบบ</a></div>
   </div>
 </header>
+
+<div class="sidebar-backdrop" data-sidebar-close hidden></div>
+<aside class="app-sidebar" id="app-sidebar" aria-label="เมนูหลัก" aria-hidden="true">
+  <div class="sidebar-heading">
+    <div class="brand-badge"><i class="fa-solid fa-graduation-cap"></i></div>
+    <div class="sidebar-brand-text"><strong>COMPUTER SCIENCE</strong><span>THAMMASAT UNIVERSITY</span></div>
+    <button class="sidebar-close" type="button" aria-label="ปิดเมนู" data-sidebar-close><i class="fa-solid fa-xmark"></i></button>
+  </div>
+  <div class="sidebar-section-label">เมนูหลัก</div>
+  <nav class="sidebar-menu" aria-label="การนำทาง">
+    <a href="courses.html" data-page="courses.html"><i class="fa-solid fa-magnifying-glass"></i><span>ค้นหารายวิชา</span></a>
+    <a href="co-op-plan.html" data-page="co-op-plan.html"><i class="fa-solid fa-briefcase"></i><span>แผนสหกิจศึกษา</span></a>
+    <a href="special-topics-plan.html" data-page="special-topics-plan.html"><i class="fa-solid fa-user-graduate"></i><span>แผนหัวข้อพิเศษ</span></a>
+    <a href="minor-tracks.html" data-page="minor-tracks.html"><i class="fa-solid fa-layer-group"></i><span>รายวิชาโท</span></a>
+    <a href="applied-cs.html" data-page="applied-cs.html"><i class="fa-solid fa-circle-info"></i><span>เกี่ยวกับสาขาวิชา</span></a>
+        <a href="graduation-requirements.html" data-roles="student"><i class="fa-solid fa-list-check"></i><span>เงื่อนไขจบการศึกษา</span></a>
+    <a href="graduation-status.html" data-roles="instructor,student"><i class="fa-solid fa-user-check"></i><span>สถานะจบการศึกษา</span></a>
+    <a href="curriculum-edit.html" data-roles="coordinator"><i class="fa-solid fa-pen-to-square"></i><span>จัดการหลักสูตร</span></a>
+  </nav>
+  <div class="sidebar-footer"><i class="fa-solid fa-university"></i><span>หลักสูตรวิทยาการคอมพิวเตอร์</span></div>
+</aside>
+
 
 <section class="hero">
   <div class="hero-pattern"></div>
@@ -319,5 +341,32 @@
     });
 </script>
 
+
+<script>
+(() => {
+  const sidebar = document.getElementById('app-sidebar');
+  const backdrop = document.querySelector('.sidebar-backdrop');
+  const toggle = document.querySelector('.hamburger');
+  if (!sidebar || !backdrop || !toggle) return;
+  toggle.setAttribute('role', 'button');
+  toggle.setAttribute('tabindex', '0');
+  toggle.setAttribute('aria-label', 'เปิดเมนูนำทาง');
+  toggle.setAttribute('aria-controls', 'app-sidebar');
+  toggle.setAttribute('aria-expanded', 'false');
+  const openSidebar = () => { sidebar.classList.add('is-open'); backdrop.hidden = false; document.body.classList.add('sidebar-open'); sidebar.setAttribute('aria-hidden', 'false'); toggle.setAttribute('aria-expanded', 'true'); };
+  const closeSidebar = () => { sidebar.classList.remove('is-open'); backdrop.hidden = true; document.body.classList.remove('sidebar-open'); sidebar.setAttribute('aria-hidden', 'true'); toggle.setAttribute('aria-expanded', 'false'); };
+  toggle.addEventListener('click', openSidebar);
+  toggle.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openSidebar(); } });
+  backdrop.addEventListener('click', closeSidebar);
+  sidebar.querySelectorAll('[data-sidebar-close]').forEach(el => el.addEventListener('click', closeSidebar));
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSidebar(); });
+  const currentPage = location.pathname.split('/').pop() || 'courses.html';
+  sidebar.querySelectorAll('.sidebar-menu a').forEach(link => {
+    if (link.dataset.page === currentPage) { link.classList.add('active'); link.setAttribute('aria-current', 'page'); }
+  });
+})();
+</script>
+
+<script type="module">import { applyRoleNavigation } from './auth.js'; applyRoleNavigation();</script>
 </body>
 </html>

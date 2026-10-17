@@ -1,3 +1,5 @@
+import { Pool } from 'pg';
+export declare const pool: Pool;
 import { CourseDataProvider, Course, CurriculumCourseEntry } from './CourseDataProvider';
 export declare class PostgresCourseProvider implements CourseDataProvider {
     getCourses(): Promise<Course[]>;

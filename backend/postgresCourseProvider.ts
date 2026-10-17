@@ -1,7 +1,7 @@
 import { Pool } from 'pg';
 import { CourseDataProvider, Course, CurriculumCourseEntry } from './CourseDataProvider';
 
-const pool = new Pool({
+export const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: { rejectUnauthorized: false },
 });
