@@ -1,0 +1,107 @@
+
+erDiagram
+    %% ===== V2 (deployed): curriculum data =====
+    CURRICULA ||--o{ CURRICULUM_COURSES : contains
+    COURSES ||--o{ CURRICULUM_COURSES : "placed in"
+    COURSES ||--o{ COURSE_PREREQUISITES : "has prerequisite"
+    COURSES ||--o{ COURSE_PREREQUISITES : "is prerequisite of"
+
+    %% ===== V3 (schema_v3.sql): users, students, edit log =====
+    USERS ||--o| STUDENTS : "is a"
+    USERS |o--o{ STUDENTS : advises
+    CURRICULA ||--o{ STUDENTS : enrolls
+    USERS ||--o{ CURRICULUM_EDIT_LOG : makes
+
+    %% ===== V4 (planned): graduation verification =====
+    STUDENTS ||--o{ STUDENT_COURSE_STATUS : takes
+    COURSES ||--o{ STUDENT_COURSE_STATUS : "taken as"
+
+    %% ===== FR1 gap: designed, not created yet =====
+    CURRICULA ||--o| CURRICULUM_REQUIREMENTS : has
+    CURRICULA ||--o{ GRADUATION_REQUIREMENT_CATEGORIES : defines
+    GRADUATION_REQUIREMENT_CATEGORIES |o--o{ GRADUATION_REQUIREMENT_CATEGORIES : "parent of"
+
+    CURRICULA {
+        uuid id PK
+        string name
+        string degree_level
+        int year
+    }
+
+    COURSES {
+        uuid id PK
+        string code UK
+        string name_th
+        string name_en
+        string description
+        int credits
+        string category
+        string course_type
+    }
+
+    COURSE_PREREQUISITES {
+        uuid course_id PK, FK
+        uuid prerequisite_id PK, FK
+        int choice_group "same group means OR"
+    }
+
+    CURRICULUM_COURSES {
+        uuid curriculum_id PK, FK
+        uuid course_id PK, FK
+        int year PK
+        int semester PK
+        string category
+        string plan PK "plan variant"
+    }
+
+    USERS {
+        uuid id PK
+        string cognito_sub UK
+        string name
+        string email
+        string role "one of four roles"
+    }
+
+    STUDENTS {
+        uuid user_id PK, FK
+        string student_code UK
+        uuid curriculum_id FK
+        int enrollment_year
+        string plan
+        uuid advisor_id FK "references users"
+    }
+
+    CURRICULUM_EDIT_LOG {
+        uuid id PK
+        string entity_type
+        string entity_id
+        uuid changed_by FK
+        string change_type
+        jsonb old_value
+        jsonb new_value
+        timestamp changed_at
+    }
+
+    STUDENT_COURSE_STATUS {
+        uuid student_id PK, FK
+        uuid course_id PK, FK
+        string status
+        string grade
+        string semester_taken
+    }
+
+    CURRICULUM_REQUIREMENTS {
+        uuid curriculum_id PK, FK
+        int min_total_credits
+        int max_years
+        numeric min_gpa
+    }
+
+    GRADUATION_REQUIREMENT_CATEGORIES {
+        uuid id PK
+        uuid curriculum_id FK
+        uuid parent_id FK
+        string name
+        int min_credits
+        string note
+    }
