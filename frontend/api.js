@@ -24,3 +24,12 @@ export async function fetchCurriculum(curriculumId = CURRICULUM_ID, headers = {}
   if (!res.ok) throw new Error('failed to fetch curriculum');
   return res.json();
 }
+
+
+// IDs for the three undergraduate programs. The current seed file contains only the Applied CS curriculum.
+// Set the other IDs after those curricula have been inserted into the database; do not reuse an unrelated ID.
+export const CURRICULUM_IDS = {
+  informationScience: '',
+  appliedComputerScience: CURRICULUM_ID,
+  networkCybersecurity: '',
+};

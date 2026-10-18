@@ -516,3 +516,33 @@ body.sidebar-open{overflow:hidden;}
 
 /* V3 authentication and role-based pages */
 .auth-button{display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:8px;background:var(--orange,#e87524);color:#fff;padding:10px 16px;font:inherit;font-weight:600;text-decoration:none;cursor:pointer;gap:8px}.auth-button:hover{filter:brightness(.95)}.auth-user-label{font-size:13px;color:var(--text-gray,#777);margin-right:10px}.auth-slot{display:flex;align-items:center;gap:10px}.form-card,.data-card{background:#fff;border:1px solid #eee4da;border-radius:14px;padding:22px;box-shadow:0 8px 24px rgba(45,32,20,.05);margin:18px 0}.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.field{display:flex;flex-direction:column;gap:7px}.field label{font-size:13px;font-weight:600;color:#50463f}.field input,.field select,.field textarea{width:100%;padding:11px 12px;border:1px solid #ded5cc;border-radius:8px;font:inherit;background:#fff}.field input:focus,.field select:focus,.field textarea:focus{outline:2px solid #f6c49d;border-color:#e87524}.field.full{grid-column:1/-1}.status-message{padding:12px 14px;border-radius:9px;background:#fff5ec;color:#75431e;margin:12px 0}.status-message.error{background:#fff0f0;color:#8c2525}.status-message.success{background:#edf9f0;color:#216b36}.data-table{width:100%;border-collapse:collapse;font-size:14px}.data-table th,.data-table td{text-align:left;padding:12px;border-bottom:1px solid #eee7df}.data-table th{background:#fff8f1;color:#6b4b33}.pill{display:inline-flex;padding:4px 9px;border-radius:99px;background:#f8eee7;color:#874716;font-size:12px}.page-content{padding:26px 0 56px}.page-content h1{font-size:clamp(25px,4vw,36px);margin:0 0 8px}.muted{color:#7d746d;font-size:14px}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}@media(max-width:650px){.form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}.form-card,.data-card{padding:16px}.data-table{display:block;overflow-x:auto;white-space:nowrap}}
+
+
+/* Ensure role-based sidebar links really disappear despite .sidebar-menu a display:flex. */
+.sidebar-menu [hidden], [data-roles][hidden] { display: none !important; }
+.sidebar-menu a { cursor: pointer; }
+
+/* Unified program / study-plan page */
+.program-page { padding-bottom: 54px; }
+.program-intro { max-width: 850px; margin: 0 auto 26px; text-align: center; color: var(--text-gray); line-height: 1.8; }
+.program-selector { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin: 24px 0 20px; }
+.program-choice { min-height: 94px; padding: 18px 16px; border: 1px solid var(--card-border); border-radius: 14px; background: #fff; color: var(--text-dark); font: inherit; font-weight: 600; line-height: 1.5; cursor: pointer; transition: border-color .18s, box-shadow .18s, background .18s; }
+.program-choice:hover, .program-choice:focus-visible { border-color: var(--orange-dark); outline: none; box-shadow: 0 0 0 3px rgba(240, 125, 38, .12); }
+.program-choice[aria-pressed="true"] { background: #fff4e9; border-color: var(--orange-dark); color: var(--orange-dark); }
+.program-controls { display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px; max-width: 520px; margin: 0 auto 22px; }
+.program-controls label { font-weight: 600; color: var(--text-dark); }
+.program-controls select { width: 100%; min-height: 48px; border: 1px solid var(--card-border); border-radius: 10px; padding: 10px 12px; font: inherit; background: #fff; }
+.program-controls select:disabled { background: #f1f1f1; color: #999; cursor: not-allowed; border-color: #e4e4e4; }
+.program-message { padding: 16px 18px; border-radius: 12px; background: #f8f5f0; color: var(--text-gray); line-height: 1.7; }
+.program-table-wrap { overflow-x: auto; margin-top: 16px; }
+.program-table { width: 100%; border-collapse: collapse; min-width: 650px; }
+.program-table th, .program-table td { padding: 12px 14px; text-align: left; border-bottom: 1px solid var(--card-border); vertical-align: top; }
+.program-table th { background: #faf6f0; color: var(--text-dark); font-weight: 600; }
+.program-year-heading { margin: 24px 0 10px; font-size: 17px; font-weight: 700; }
+.about-program-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 16px; margin: 22px 0; }
+.about-program-card { background: #fff; border: 1px solid var(--card-border); border-radius: 14px; padding: 22px; }
+.about-program-card h2 { margin: 0 0 10px; font-size: 18px; }
+.about-program-card p, .about-program-card li { line-height: 1.8; color: var(--text-gray); }
+.about-program-card ul { padding-left: 20px; margin: 8px 0 0; }
+.about-source { margin: 20px 0 0; font-size: 13px; color: var(--text-gray); }
+@media (max-width: 760px) { .program-selector { grid-template-columns: 1fr; } .program-choice { min-height: 68px; } .about-program-grid { grid-template-columns: 1fr; } }

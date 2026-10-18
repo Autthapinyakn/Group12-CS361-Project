@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="th"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><title>หลักสูตรและแผนการเรียน | Computer Science TU</title><link href="https://fonts.googleapis.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet"/><link href="style.css" rel="stylesheet"/></head><body><header class="nav">
+<div class="container nav-inner">
+<div class="nav-left">
+<i aria-hidden="true" class="fa-solid fa-bars hamburger"></i>
+<a class="brand" href="#">
+<div class="brand-badge"><i class="fa-solid fa-graduation-cap"></i></div>
+<div class="brand-text">
+<div class="l1">COMPUTER</div>
+<div class="l2">SCIENCE</div>
+<div class="l3">THAMMASAT UNIVERSITY</div>
+</div>
+</a>
+</div>
+<nav class="menu">
+<a href="courses.html">ค้นหารายวิชา</a>
+<a href="co-op-plan.html">แผนสหกิจศึกษา</a>
+<a href="program.html">หลักสูตรและแผนการเรียน</a>
+<a class="active" href="about-cs.html">เกี่ยวกับหลักสูตร</a>
+</nav>
+<div class="nav-right auth-slot" data-auth-slot=""><a class="auth-button" href="login.html">เข้าสู่ระบบ</a></div>
+</div>
+</header><div class="sidebar-backdrop" data-sidebar-close="" hidden=""></div><aside aria-hidden="true" aria-label="เมนูหลัก" class="app-sidebar" id="app-sidebar">
+<div class="sidebar-heading">
+<div class="brand-badge"><i class="fa-solid fa-graduation-cap"></i></div>
+<div class="sidebar-brand-text"><strong>COMPUTER SCIENCE</strong><span>THAMMASAT UNIVERSITY</span></div>
+<button aria-label="ปิดเมนู" class="sidebar-close" data-sidebar-close="" type="button"><i class="fa-solid fa-xmark"></i></button>
+</div>
+<div class="sidebar-section-label">เมนูหลัก</div>
+<nav aria-label="การนำทาง" class="sidebar-menu">
+<a data-page="courses.html" href="courses.html"><i class="fa-solid fa-magnifying-glass"></i><span>ค้นหารายวิชา</span></a>
+<a data-page="co-op-plan.html" href="co-op-plan.html"><i class="fa-solid fa-briefcase"></i><span>แผนสหกิจศึกษา</span></a>
+<a data-page="program.html" href="program.html"><i class="fa-solid fa-user-graduate"></i><span>หลักสูตรและแผนการเรียน</span></a>
+<a data-page="about-cs.html" href="about-cs.html"><i class="fa-solid fa-circle-info"></i><span>เกี่ยวกับหลักสูตร</span></a>
+<a data-roles="student" href="graduation-requirements.html"><i class="fa-solid fa-list-check"></i><span>เงื่อนไขจบการศึกษา</span></a>
+<a data-roles="instructor,student" href="graduation-status.html"><i class="fa-solid fa-user-check"></i><span>สถานะจบการศึกษา</span></a>
+<a data-roles="coordinator" href="curriculum-edit.html"><i class="fa-solid fa-pen-to-square"></i><span>จัดการหลักสูตร</span></a>
+</nav>
+<div class="sidebar-footer"><i class="fa-solid fa-university"></i><span>หลักสูตรวิทยาการคอมพิวเตอร์</span></div>
+</aside><section class="hero"><div class="container hero-inner"><div class="hero-copy"><p class="hero-eyebrow">PROGRAMS &amp; STUDY PLANS</p><h1 class="hero-title">หลักสูตรและแผนการเรียน</h1><p class="hero-sub1">สาขาวิชาวิทยาการคอมพิวเตอร์</p><p class="hero-sub2">มหาวิทยาลัยธรรมศาสตร์</p></div></div></section><main class="container program-page page-content"><p class="program-intro">เลือกหลักสูตรที่ต้องการดู จากนั้นเลือกแผนย่อยเพื่อแสดงรายวิชาและแผนการเรียนที่ดึงมาจากฐานข้อมูล</p><section aria-label="เลือกหลักสูตร"><div aria-label="หลักสูตร" class="program-selector" role="group"><button aria-pressed="false" class="program-choice" data-program="informationScience" type="button">คอมพิวเตอร์และวิทยาการสารสนเทศ</button><button aria-pressed="false" class="program-choice" data-program="appliedComputerScience" type="button">คอมพิวเตอร์ประยุกต์</button><button aria-pressed="false" class="program-choice" data-program="networkCybersecurity" type="button">คอมพิวเตอร์เครือข่ายและความปลอดภัยทางไซเบอร์</button></div><div class="program-controls"><label for="study-plan">เลือกแผนย่อย</label><select disabled="" id="study-plan"><option value="">กรุณาเลือกหลักสูตรก่อน</option><option value="coop">แผนสหกิจ</option><option value="special">โครงงานพิเศษ</option><option value="other">อื่น ๆ</option></select></div></section><section aria-live="polite" class="data-card"><h2 id="selected-program-title">ยังไม่ได้เลือกหลักสูตร</h2><div class="program-message" id="program-message">เลือกหนึ่งในสามหลักสูตรด้านบนเพื่อเริ่มต้น</div><div class="program-table-wrap" hidden="" id="program-results"></div></section><p class="about-source">ข้อมูลแผนการเรียนจะอ่านจากฐานข้อมูลผ่าน API ของระบบ เมื่อมีการตั้งค่ารหัสหลักสูตรครบถ้วน</p></main><footer>
+<div class="container foot-grid">
+<div>
+<h4>สาขาวิชาวิทยาการคอมพิวเตอร์</h4>
+<p>คณะวิทยาศาสตร์และเทคโนโลยี<br/>มหาวิทยาลัยธรรมศาสตร์</p>
+<div class="foot-social">
+<a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+<a href="#"><i class="fa-solid fa-globe"></i></a>
+<a href="#"><i class="fa-solid fa-envelope"></i></a>
+</div>
+</div>
+<div>
+<h4>ติดต่อเรา</h4>
+<div class="foot-contact-item"><i class="fa-solid fa-location-dot"></i> 99 หมู่ 18 ต.คลองหนึ่ง อ.คลองหลวง จ.ปทุมธานี 12120</div>
+<div class="foot-contact-item"><i class="fa-solid fa-phone"></i> 0 2564 4440-79 ต่อ 1676</div>
+<div class="foot-contact-item"><i class="fa-solid fa-envelope"></i> cs@science.tu.ac.th</div>
+</div>
+<div>
+<h4>เวลาทำการ</h4>
+<p>จันทร์ – ศุกร์<br/>08.30 – 16.30 น.</p>
+</div>
+</div>
+</footer><script>
+(() => {
+  const sidebar = document.getElementById('app-sidebar');
+  const backdrop = document.querySelector('.sidebar-backdrop');
+  const toggle = document.querySelector('.hamburger');
+  if (!sidebar || !backdrop || !toggle) return;
+  toggle.setAttribute('role', 'button');
+  toggle.setAttribute('tabindex', '0');
+  toggle.setAttribute('aria-label', 'เปิดเมนูนำทาง');
+  toggle.setAttribute('aria-controls', 'app-sidebar');
+  toggle.setAttribute('aria-expanded', 'false');
+  const openSidebar = () => { sidebar.classList.add('is-open'); backdrop.hidden = false; document.body.classList.add('sidebar-open'); sidebar.setAttribute('aria-hidden', 'false'); toggle.setAttribute('aria-expanded', 'true'); };
+  const closeSidebar = () => { sidebar.classList.remove('is-open'); backdrop.hidden = true; document.body.classList.remove('sidebar-open'); sidebar.setAttribute('aria-hidden', 'true'); toggle.setAttribute('aria-expanded', 'false'); };
+  toggle.addEventListener('click', openSidebar);
+  toggle.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openSidebar(); } });
+  backdrop.addEventListener('click', closeSidebar);
+  sidebar.querySelectorAll('[data-sidebar-close]').forEach(el => el.addEventListener('click', closeSidebar));
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSidebar(); });
+  const currentPage = location.pathname.split('/').pop() || 'courses.html';
+  sidebar.querySelectorAll('.sidebar-menu a').forEach(link => {
+    if (link.dataset.page === currentPage) { link.classList.add('active'); link.setAttribute('aria-current', 'page'); }
+  });
+})();
+</script><script type="module">import { applyRoleNavigation } from './auth.js'; applyRoleNavigation();</script><script type="module">
+import { CURRICULUM_IDS, fetchCurriculum } from './api.js';
+import { applyRoleNavigation, authHeaders } from './auth.js';
+applyRoleNavigation();
+const programs = {
+  informationScience: { title: 'คอมพิวเตอร์และวิทยาการสารสนเทศ', id: CURRICULUM_IDS.informationScience },
+  appliedComputerScience: { title: 'คอมพิวเตอร์ประยุกต์', id: CURRICULUM_IDS.appliedComputerScience },
+  networkCybersecurity: { title: 'คอมพิวเตอร์เครือข่ายและความปลอดภัยทางไซเบอร์', id: CURRICULUM_IDS.networkCybersecurity },
+};
+const planSelect = document.getElementById('study-plan');
+const title = document.getElementById('selected-program-title');
+const message = document.getElementById('program-message');
+const results = document.getElementById('program-results');
+let selectedProgram = '';
+let curriculumCache = new Map();
+const planMatches = {
+  coop: plan => /สหกิจ|coop/i.test(String(plan || '')),
+  special: plan => /หัวข้อพิเศษ|โครงงานพิเศษ|special/i.test(String(plan || '')),
+  other: plan => !/สหกิจ|coop|หัวข้อพิเศษ|โครงงานพิเศษ|special/i.test(String(plan || '')),
+};
+function showMessage(text) { message.hidden = false; message.textContent = text; results.hidden = true; results.innerHTML = ''; }
+function esc(value) { return String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch])); }
+function courseOf(entry) { return entry.course || entry; }
+function renderPlan(entries, planKey) {
+  const filtered = entries.filter(entry => planMatches[planKey](entry.plan));
+  if (!filtered.length) { showMessage('ไม่พบรายวิชาในแผนย่อยนี้ในฐานข้อมูล'); return; }
+  const byTerm = new Map();
+  filtered.forEach(entry => { const term = `ปี ${entry.year ?? '-'} · ภาคเรียน ${entry.semester ?? '-'}`; if (!byTerm.has(term)) byTerm.set(term, []); byTerm.get(term).push(entry); });
+  results.innerHTML = [...byTerm.entries()].map(([term, rows]) => `<h3 class="program-year-heading">${esc(term)}</h3><table class="program-table"><thead><tr><th>รหัสวิชา</th><th>ชื่อวิชา</th><th>หน่วยกิต</th><th>หมวดหมู่</th></tr></thead><tbody>${rows.map(entry => { const c=courseOf(entry); return `<tr><td>${esc(c.code || '-')}</td><td>${esc(c.nameTh || c.name_th || '-')}<div class="muted">${esc(c.nameEn || c.name_en || '')}</div></td><td>${esc(c.credits ?? '-')}</td><td>${esc(entry.category || c.category || '-')}</td></tr>`; }).join('')}</tbody></table>`).join('');
+  message.hidden = true; results.hidden = false;
+}
+async function updatePlan() {
+  results.hidden = true; results.innerHTML = '';
+  if (!selectedProgram) { showMessage('เลือกหนึ่งในสามหลักสูตรด้านบนเพื่อเริ่มต้น'); return; }
+  const selected = programs[selectedProgram]; title.textContent = selected.title;
+  if (!planSelect.value) { showMessage('กรุณาเลือกแผนย่อยเพื่อแสดงแผนการเรียน'); return; }
+  if (!selected.id) { showMessage('หลักสูตรนี้ยังไม่มีรหัสเชื่อมต่อฐานข้อมูลใน frontend/api.js จึงยังดึงแผนการเรียนมาแสดงไม่ได้ กรุณาเพิ่มข้อมูลหลักสูตรในฐานข้อมูลและกำหนด CURRICULUM_IDS ก่อน'); return; }
+  showMessage('กำลังโหลดแผนการเรียนจากฐานข้อมูล…');
+  try {
+    if (!curriculumCache.has(selected.id)) curriculumCache.set(selected.id, await fetchCurriculum(selected.id, authHeaders()));
+    renderPlan(curriculumCache.get(selected.id), planSelect.value);
+  } catch (error) { showMessage(`โหลดข้อมูลไม่สำเร็จ: ${error.message}. โปรดตรวจสอบ API และฐานข้อมูล`); }
+}
+document.querySelectorAll('[data-program]').forEach(button => button.addEventListener('click', () => {
+  selectedProgram = button.dataset.program;
+  document.querySelectorAll('[data-program]').forEach(other => other.setAttribute('aria-pressed', String(other === button)));
+  planSelect.disabled = false; planSelect.value = '';
+  title.textContent = programs[selectedProgram].title;
+  showMessage('เลือกแผนย่อยจากรายการด้านล่างเพื่อดูรายวิชา');
+}));
+planSelect.addEventListener('change', updatePlan);
+</script></body></html>

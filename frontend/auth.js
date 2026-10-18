@@ -18,7 +18,8 @@ export function getRole() {
   const role=String(c['custom:role'] || c.role || groups[0] || 'unknown').toLowerCase();
   if (role.includes('coordinator')) return 'coordinator';
   if (role.includes('instructor') || role.includes('teacher') || role.includes('lecturer')) return 'instructor';
-  return 'student';
+  if (role.includes('student')) return 'student';
+  return 'unknown';
 }
 export function authHeaders() { const s=getSession(); return s ? { Authorization: `Bearer ${s.idToken}` } : {}; }
 export async function login() {
