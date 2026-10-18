@@ -64,3 +64,11 @@ After applying `db/v3_graduation_migration.sql`, authorized staff must import re
 - Compile/deploy `backend/handlers.ts` and `backend/postgresCourseProvider.ts` to Lambda; ensure `DATABASE_URL` is set.
 - Add the routes above in API Gateway and attach Cognito authorization to protected routes.
 - Test sign-in and sign-out, and separately test each role. Verify that non-coordinators receive HTTP 403 for curriculum updates and that instructors cannot query students outside their assignment table.
+
+
+### Frontend update (Bow follow-up)
+- `frontend/program.html` combines the program selector and study-plan viewer. It loads curriculum entries through the existing API.
+- `frontend/about-cs.html` summarizes the three undergraduate study tracks based on the official CS.SCI@TU undergraduate page.
+- `frontend/minor-tracks.html`, `frontend/special-topics-plan.html`, and `frontend/applied-cs.html` redirect to their replacement pages for backward compatibility.
+- `frontend/api.js` maps the currently seeded Applied Computer Science curriculum. The regular-program and network/cybersecurity curriculum IDs remain blank because `db/seed_v2_real.sql` currently seeds only the Applied Computer Science curriculum; add those curricula and set their IDs before expecting those two selections to load data.
+- Sidebar role links use Cognito role/group claims; unknown roles are not assumed to be students. Verify role claim names in the deployed Cognito user pool.
