@@ -108,7 +108,7 @@ section{padding:52px 0;}
    OVERVIEW CARDS — PAGE-SPECIFIC (layouts differ between the two pages)
    ===================================================================== */
 
-/* --- special-topics-plan.html & co-op-plan.html: simple 4-up row with arrows --- */
+/* --- Legacy study-plan card layout --- */
 body.page-special .overview-row,
 body.page-coop .overview-row{display:flex;align-items:stretch;gap:14px;flex-wrap:wrap;}
 body.page-special .ov-card,
@@ -126,7 +126,7 @@ body.page-coop .ov-arrow{display:flex;align-items:center;color:#c9c4bb;font-size
   body.page-special .overview-row, body.page-coop .overview-row{gap:12px;}
 }
 
-/* --- minor-tracks.html: 4 colour-coded track cards --- */
+/* --- Legacy track-card layout --- */
 body.page-minor .overview-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
 @media(max-width:900px){body.page-minor .overview-row{grid-template-columns:repeat(2,1fr);}}
 @media(max-width:520px){body.page-minor .overview-row{grid-template-columns:1fr;}}
@@ -167,7 +167,7 @@ body.page-minor .ov-card .unit{font-size:12.5px;color:var(--text-gray);}
 @media(max-width:560px){.struct-grid{grid-template-columns:1fr;}}
 .yr-col{border:1px solid var(--card-border);border-radius:12px;overflow:hidden;background:#fff;display:flex;flex-direction:column;}
 
-/* --- special-topics-plan.html & co-op-plan.html: single orange header + credit boxes --- */
+/* --- Legacy study-plan header and credit boxes --- */
 body.page-special .yr-col .yr-head,
 body.page-coop .yr-col .yr-head{background:var(--orange);color:#fff;text-align:center;font-weight:700;font-size:16px;padding:12px;}
 body.page-special .yr-col .term,
@@ -189,7 +189,7 @@ body.page-coop .term .minor-note{font-size:11.5px;color:var(--orange-dark);backg
 body.page-special .yr-col .term.highlight,
 body.page-coop .yr-col .term.highlight{background:var(--orange-light);}
 
-/* --- minor-tracks.html: colour-coded headers + course list --- */
+/* --- Legacy track headers and course list --- */
 body.page-minor .yr-col .yr-head{color:#fff;text-align:center;font-weight:600;font-size:14.5px;padding:14px 10px;line-height:1.3;}
 body.page-minor .yr-col.ds .yr-head{background:var(--c-ds);}
 body.page-minor .yr-col.ai .yr-head{background:var(--c-ai);}
@@ -223,14 +223,14 @@ table.course-table td.cat{color:var(--text-gray);font-size:12.5px;}
 table.course-table td.term{color:var(--text-gray);font-size:12.5px;white-space:nowrap;}
 table.course-table td.credit{text-align:center;font-weight:600;width:70px;}
 table.course-table tr.total-row td{background:#FBF6F0;font-weight:700;}
-/* special-topics-plan.html & co-op-plan.html hide the "category" column on narrow screens */
+/* Hide the category column on narrow screens for legacy tables */
 @media(max-width:620px){
   body.page-special table.course-table th:nth-child(3),
   body.page-special table.course-table td.cat,
   body.page-coop table.course-table th:nth-child(3),
   body.page-coop table.course-table td.cat{display:none;}
 }
-/* minor-tracks.html hides the "term offered" column on narrow screens */
+/* Hide the term-offered column on narrow screens for legacy tables */
 @media(max-width:620px){
   body.page-minor table.course-table th:first-child,
   body.page-minor table.course-table td.term{display:none;}
@@ -259,7 +259,7 @@ footer{background:linear-gradient(100deg,var(--footer-orange),#F4762C);color:#ff
 @keyframes fadeIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
 
 /* =====================================================================
-   ABOUT-PAGE COMPONENTS (shared) — used by applied-cs.html
+   ABOUT-PAGE COMPONENTS (shared)
    ===================================================================== */
 .hero-desc{max-width:680px;font-size:14.5px;color:#d8d5cf;font-weight:300;line-height:1.85;margin-top:8px;}
 
