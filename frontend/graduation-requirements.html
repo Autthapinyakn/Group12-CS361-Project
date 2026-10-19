@@ -1,2 +1,394 @@
 <!DOCTYPE html>
-<html lang="th"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><title>เงื่อนไขจบการศึกษา | Computer Science TU</title><link href="https://fonts.googleapis.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet"/><link href="style.css" rel="stylesheet"/></head><body><header class="nav"><div class="container nav-inner"><div class="nav-left"><i aria-hidden="true" class="fa-solid fa-bars hamburger"></i><a class="brand" href="courses.html"><div class="brand-badge"><i class="fa-solid fa-graduation-cap"></i></div><div class="brand-text"><div class="l1">COMPUTER</div><div class="l2">SCIENCE</div><div class="l3">THAMMASAT UNIVERSITY</div></div></a></div><nav class="menu"><a href="courses.html">ค้นหารายวิชา</a><a href="program.html">หลักสูตรและแผนการเรียน</a></nav><div class="nav-right auth-slot" data-auth-slot=""></div></div></header><div class="sidebar-backdrop" data-sidebar-close="" hidden=""></div><aside aria-hidden="true" aria-label="เมนูหลัก" class="app-sidebar" id="app-sidebar"><div class="sidebar-heading"><div class="brand-badge"><i class="fa-solid fa-graduation-cap"></i></div><div class="sidebar-brand-text"><strong>COMPUTER SCIENCE</strong><span>THAMMASAT UNIVERSITY</span></div><button aria-label="ปิดเมนู" class="sidebar-close" data-sidebar-close="" type="button"><i class="fa-solid fa-xmark"></i></button></div><div class="sidebar-section-label">เมนูหลัก</div><nav aria-label="การนำทาง" class="sidebar-menu"><a data-page="courses.html" href="courses.html"><i class="fa-solid fa-magnifying-glass"></i><span>ค้นหารายวิชา</span></a><a data-page="program.html" href="program.html"><i class="fa-solid fa-user-graduate"></i><span>หลักสูตรและแผนการเรียน</span></a><a data-page="about-cs.html" href="about-cs.html"><i class="fa-solid fa-circle-info"></i><span>เกี่ยวกับหลักสูตร</span></a><a data-page="graduation-requirements.html" data-roles="student" href="graduation-requirements.html"><i class="fa-solid fa-list-check"></i><span>เงื่อนไขจบการศึกษา</span></a><a data-page="graduation-status.html" data-roles="instructor,student" href="graduation-status.html"><i class="fa-solid fa-user-check"></i><span>สถานะจบการศึกษา</span></a><a data-page="curriculum-edit.html" data-roles="coordinator" href="curriculum-edit.html"><i class="fa-solid fa-pen-to-square"></i><span>จัดการหลักสูตร</span></a></nav><div class="sidebar-footer"><i class="fa-solid fa-university"></i><span>หลักสูตรวิทยาการคอมพิวเตอร์</span></div></aside><div class="container page-content"><p class="muted">COMPUTER SCIENCE · THAMMASAT UNIVERSITY</p><h1>เงื่อนไขจบการศึกษา</h1><p class="muted">ดูรายวิชา หน่วยกิต และหมวดหมู่ตามหลักสูตรจากฐานข้อมูล</p><div class="status-message" hidden="" id="page-message"></div><section class="data-card"><div style="display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap"><h2>สรุปเงื่อนไขตามหลักสูตร</h2><span class="pill" id="curriculum-name">กำลังโหลด…</span></div><div class="muted" id="summary">กำลังดึงข้อมูลจากฐานข้อมูล…</div><div style="overflow-x:auto;margin-top:16px"><table class="data-table"><thead><tr><th>รหัสวิชา</th><th>ชื่อวิชา</th><th>หน่วยกิต</th><th>หมวดหมู่</th><th>ชั้นปี</th><th>ภาคเรียน</th></tr></thead><tbody id="requirements-rows"></tbody></table></div></section></div><script type="module">import {requireRole,applyRoleNavigation,authHeaders} from './auth.js';import {CURRICULUM_ID,API_BASE} from './api.js';applyRoleNavigation();if(requireRole(['student'])){const msg=document.getElementById('page-message');try{const response=await fetch(`${API_BASE}/graduation/requirements/${CURRICULUM_ID}`,{headers:authHeaders()});if(!response.ok)throw new Error(`Backend ตอบกลับ ${response.status}`);const r=await response.json();document.getElementById('curriculum-name').textContent='หลักสูตรคอมพิวเตอร์ประยุกต์';const rows=document.getElementById('requirements-rows');const uniqueCourses=new Map();for(const x of r){const c=x.course||x;if(!uniqueCourses.has(c.id||c.code))uniqueCourses.set(c.id||c.code,Number(c.credits||0));const tr=document.createElement('tr');[c.code,c.nameTh||c.name_th||c.nameEn||c.name_en,c.credits,c.category||x.plan_category||x.category||'-',x.year||'-',x.semester||'-'].forEach(v=>{const td=document.createElement('td');td.textContent=v??'-';tr.append(td)});rows.append(tr)}document.getElementById('summary').textContent=`พบ ${r.length} รายการในแผนการเรียน รวม ${uniqueCourses.size} วิชาไม่ซ้ำ คิดเป็น ${[...uniqueCourses.values()].reduce((a,b)=>a+b,0)} หน่วยกิตตามวิชาไม่ซ้ำ`;if(!r.length)document.getElementById('summary').textContent='ไม่พบข้อมูลหลักสูตรจากฐานข้อมูล'}catch(e){msg.hidden=false;msg.className='status-message error';msg.textContent='โหลดข้อมูลหลักสูตรไม่สำเร็จ: '+e.message}}</script><script>const sidebar=document.getElementById('app-sidebar'),backdrop=document.querySelector('.sidebar-backdrop'),toggle=document.querySelector('.hamburger');if(sidebar&&backdrop&&toggle){toggle.setAttribute('role','button');toggle.setAttribute('tabindex','0');toggle.setAttribute('aria-controls','app-sidebar');toggle.setAttribute('aria-expanded','false');const open=()=>{sidebar.classList.add('is-open');backdrop.hidden=false;document.body.classList.add('sidebar-open');sidebar.setAttribute('aria-hidden','false');toggle.setAttribute('aria-expanded','true')};const close=()=>{sidebar.classList.remove('is-open');backdrop.hidden=true;document.body.classList.remove('sidebar-open');sidebar.setAttribute('aria-hidden','true');toggle.setAttribute('aria-expanded','false')};toggle.addEventListener('click',open);toggle.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();open()}});backdrop.addEventListener('click',close);sidebar.querySelectorAll('[data-sidebar-close]').forEach(el=>el.addEventListener('click',close));document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});const current=location.pathname.split('/').pop();sidebar.querySelectorAll('[data-page]').forEach(a=>{if(a.dataset.page===current){a.classList.add('active');a.setAttribute('aria-current','page')}})}</script><script type="module">import {applyRoleNavigation} from './auth.js';applyRoleNavigation();</script></body></html>
+<html lang="th">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>เงื่อนไขจบการศึกษา | Computer Science TU</title>
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet"/>
+  <link href="style.css" rel="stylesheet"/>
+  <style>
+    /* สไตล์สำหรับแถบสรุปข้อมูล 3 แถบและข้อความเตือนสีแดง */
+    .summary-banner-container {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin: 16px 0;
+      width: 100%;
+    }
+    .status-alert-red {
+      color: #d9534f;
+      font-weight: 600;
+      font-size: 0.95rem;
+      background-color: #fdf2f2;
+      border: 1px solid #f8d7da;
+      padding: 10px 16px;
+      border-radius: 8px;
+    }
+    .summary-banner {
+      background-color: #f8f9fa;
+      border: 1px solid #e9ecef;
+      border-radius: 8px;
+      padding: 14px 18px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px 24px;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .banner-title {
+      font-weight: 700;
+      color: #333;
+      min-width: 140px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .banner-items {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px 24px;
+      flex: 1;
+    }
+    .banner-item {
+      display: flex;
+      flex-direction: column;
+    }
+    .banner-item .label {
+      font-size: 0.82rem;
+      color: #6c757d;
+    }
+    .banner-item .value {
+      font-weight: 600;
+      color: #212529;
+      font-size: 0.95rem;
+    }
+    .highlight-note {
+      color: #c92a2a;
+      font-size: 0.85rem;
+    }
+
+    /* สไตล์สำหรับสถานะ Complete / Incomplete */
+    .status-badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: lowercase;
+    }
+    .status-badge.complete {
+      background-color: #e6f4ea;
+      color: #137333;
+      border: 1px solid #ceead6;
+    }
+    .status-badge.incomplete {
+      background-color: #fce8e6;
+      color: #c5221f;
+      border: 1px solid #fad2cf;
+    }
+
+    /* บังคับไม่ให้ตัวเลขในตารางเป็นตัวหนา */
+    .num-cell {
+      font-weight: normal !important;
+      text-align: center;
+    }
+    .text-danger {
+      color: #d9534f !important;
+      font-weight: 600 !important;
+    }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="container nav-inner">
+      <div class="nav-left">
+        <i aria-hidden="true" class="fa-solid fa-bars hamburger"></i>
+        <a class="brand" href="courses.html">
+          <div class="brand-badge"><i class="fa-solid fa-graduation-cap"></i></div>
+          <div class="brand-text">
+            <div class="l1">COMPUTER</div>
+            <div class="l2">SCIENCE</div>
+            <div class="l3">THAMMASAT UNIVERSITY</div>
+          </div>
+        </a>
+      </div>
+      <nav class="menu">
+        <a href="courses.html">ค้นหารายวิชา</a>
+        <a href="program.html">หลักสูตรและแผนการเรียน</a>
+      </nav>
+      <div class="nav-right auth-slot" data-auth-slot=""></div>
+    </div>
+  </header>
+
+  <div class="sidebar-backdrop" data-sidebar-close="" hidden=""></div>
+
+  <aside aria-hidden="true" aria-label="เมนูหลัก" class="app-sidebar" id="app-sidebar">
+    <div class="sidebar-heading">
+      <div class="brand-badge"><i class="fa-solid fa-graduation-cap"></i></div>
+      <div class="sidebar-brand-text"><strong>COMPUTER SCIENCE</strong><span>THAMMASAT UNIVERSITY</span></div>
+      <button aria-label="ปิดเมนู" class="sidebar-close" data-sidebar-close="" type="button"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="sidebar-section-label">เมนูหลัก</div>
+    <nav aria-label="การนำทาง" class="sidebar-menu">
+      <a data-page="courses.html" href="courses.html"><i class="fa-solid fa-magnifying-glass"></i><span>ค้นหารายวิชา</span></a>
+      <a data-page="program.html" href="program.html"><i class="fa-solid fa-user-graduate"></i><span>หลักสูตรและแผนการเรียน</span></a>
+      <a data-page="about-cs.html" href="about-cs.html"><i class="fa-solid fa-circle-info"></i><span>เกี่ยวกับหลักสูตร</span></a>
+      <a data-page="graduation-requirements.html" data-roles="student" href="graduation-requirements.html"><i class="fa-solid fa-list-check"></i><span>เงื่อนไขจบการศึกษา</span></a>
+      <a data-page="graduation-status.html" data-roles="instructor,student" href="graduation-status.html"><i class="fa-solid fa-user-check"></i><span>สถานะจบการศึกษา</span></a>
+      <a data-page="curriculum-edit.html" data-roles="coordinator" href="curriculum-edit.html"><i class="fa-solid fa-pen-to-square"></i><span>จัดการหลักสูตร</span></a>
+    </nav>
+    <div class="sidebar-footer"><i class="fa-solid fa-university"></i><span>หลักสูตรวิทยาการคอมพิวเตอร์</span></div>
+  </aside>
+
+  <div class="container page-content">
+    <p class="muted">COMPUTER SCIENCE · THAMMASAT UNIVERSITY</p>
+    <h1>เงื่อนไขจบการศึกษา</h1>
+    <p class="muted">ตรวจสอบหน่วยกิต หมวดหมู่ และสถานะเงื่อนไขการสำเร็จการศึกษาตามหลักสูตร</p>
+    <div class="status-message" hidden="" id="page-message"></div>
+
+    <section class="data-card">
+      <div style="display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap">
+        <h2>สรุปเงื่อนไขตามหลักสูตร</h2>
+        <span class="pill" id="curriculum-name">หลักสูตรคอมพิวเตอร์ประยุกต์</span>
+      </div>
+
+      <!-- แถบแสดงสถานะสีแดง และ แถบสรุป 3 แถบในแนวนอน -->
+      <div class="summary-banner-container">
+        <!-- ตัวอักษรสีแดงแสดงสถานภาพและหนี้สิน -->
+        <div class="status-alert-red">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+          สถานภาพนักศึกษา: <strong>ปกติ</strong> | สถานะการเป็นหนี้สิน: <strong>ปกติ (ไม่มีหนี้สิ้นและไม่มีเงินคืน)</strong>
+        </div>
+
+        <!-- แถบที่ 1: หน่วยกิต -->
+        <div class="summary-banner">
+          <div class="banner-title"><i class="fa-solid fa-book"></i> หน่วยกิต</div>
+          <div class="banner-items">
+            <div class="banner-item">
+              <span class="label">หน่วยกิตขั้นต่ำ</span>
+              <span class="value">123 หน่วยกิต</span>
+            </div>
+            <div class="banner-item">
+              <span class="label">หน่วยกิตที่ลง</span>
+              <span class="value">123 หน่วยกิต</span>
+            </div>
+            <div class="banner-item">
+              <span class="label">หน่วยกิตที่ผ่าน</span>
+              <span class="value">119 หน่วยกิต</span>
+            </div>
+            <div class="banner-item">
+              <span class="label">หน่วยกิตที่รอ</span>
+              <span class="value">4 หน่วยกิต</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- แถบที่ 2: ระยะเวลาการศึกษา -->
+        <div class="summary-banner">
+          <div class="banner-title"><i class="fa-solid fa-clock"></i> ระยะเวลาการศึกษา</div>
+          <div class="banner-items">
+            <div class="banner-item">
+              <span class="label">อายุความ</span>
+              <span class="value">16 ภาค</span>
+            </div>
+            <div class="banner-item">
+              <span class="label">ภาคการศึกษาที่ศึกษา</span>
+              <span class="value">7 ภาค</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- แถบที่ 3: GPA -->
+        <div class="summary-banner">
+          <div class="banner-title"><i class="fa-solid fa-chart-line"></i> GPA</div>
+          <div class="banner-items">
+            <div class="banner-item">
+              <span class="label">คะแนนต่ำสุด</span>
+              <span class="value highlight-note">2.00</span>
+            </div>
+            <div class="banner-item">
+              <span class="label">GPA</span>
+              <span class="value">4.00</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="overflow-x:auto;margin-top:20px">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th style="width: 80px;">หมวด</th>
+              <th>คำอธิบาย</th>
+              <th style="width: 130px; text-align: center;">หน่วยกิตที่ต้องการ</th>
+              <th style="width: 120px; text-align: center;">หน่วยกิตที่สะสม</th>
+              <th style="width: 110px; text-align: center;">หน่วยกิตที่รอ</th>
+              <th style="width: 90px; text-align: center;">GPA</th>
+              <th style="width: 110px; text-align: center;">สถานะ</th>
+            </tr>
+          </thead>
+          <tbody id="requirements-rows"></tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+
+  <script type="module">
+    import { requireRole, applyRoleNavigation, authHeaders } from './auth.js';
+    import { CURRICULUM_ID, API_BASE } from './api.js';
+
+    applyRoleNavigation();
+
+    /* ==========================================================================
+       [โค้ดเดิมสำหรับ V4 - API Fetch] คอมเมนต์ไว้เพื่อรอนำกลับมาใช้ใน V4
+       ==========================================================================
+    if (requireRole(['student'])) {
+      const msg = document.getElementById('page-message');
+      try {
+        const response = await fetch(`${API_BASE}/graduation/requirements/${CURRICULUM_ID}`, { headers: authHeaders() });
+        if (!response.ok) throw new Error(`Backend ตอบกลับ ${response.status}`);
+        const r = await response.json();
+        document.getElementById('curriculum-name').textContent = 'หลักสูตรคอมพิวเตอร์ประยุกต์';
+        const rows = document.getElementById('requirements-rows');
+        const uniqueCourses = new Map();
+        for (const x of r) {
+          const c = x.course || x;
+          if (!uniqueCourses.has(c.id || c.code)) uniqueCourses.set(c.id || c.code, Number(c.credits || 0));
+          const tr = document.createElement('tr');
+          [c.code, c.nameTh || c.name_th || c.nameEn || c.name_en, c.credits, c.category || x.plan_category || x.category || '-', x.year || '-', x.semester || '-'].forEach(v => {
+            const td = document.createElement('td');
+            td.textContent = v ?? '-';
+            tr.append(td);
+          });
+          rows.append(tr);
+        }
+      } catch (e) {
+        msg.hidden = false;
+        msg.className = 'status-message error';
+        msg.textContent = 'โหลดข้อมูลหลักสูตรไม่สำเร็จ: ' + e.message;
+      }
+    }
+    ========================================================================== */
+
+    // ข้อมูลจากไฟล์ grad req.xlsx
+    const excelData = [
+      { category: '1', desc: 'วิชาศึกษาทั่วไป', reqCredits: 30, earnedCredits: 30, pendingCredits: '-', gpa: 4, status: 'complete' },
+      { category: '1.1', desc: 'หมวดความเท่าทันโลกและสังคม', reqCredits: 6, earnedCredits: 6, pendingCredits: '-', gpa: 4, status: 'complete' },
+      { category: '1.2', desc: 'หมวดสุนทรียะและทักษะการสื่อสาร', reqCredits: 9, earnedCredits: 9, pendingCredits: '-', gpa: 4, status: 'complete' },
+      { category: '1.3', desc: 'หมวดคณิตศาสตร์ วิทยาศาสตร์และเทคโนโลยี', reqCredits: 3, earnedCredits: 3, pendingCredits: '-', gpa: 4, status: 'complete' },
+      { category: '1.4', desc: 'หมวดสุขภาวะและทักษะแห่งอนาคต', reqCredits: 9, earnedCredits: 9, pendingCredits: '-', gpa: 4, status: 'complete' },
+      { category: '1.4.1', desc: 'เลือกศึกษา 3 หน่วยกิตจากรายวิชาต่อไปนี้', reqCredits: 3, earnedCredits: 3, pendingCredits: '-', gpa: 4, status: 'complete' },
+      { category: '1.5', desc: 'หมวดการบริการสังคมและการเรียนรู้จากการปฏิบัติ', reqCredits: 3, earnedCredits: 3, pendingCredits: '-', gpa: 4, status: 'complete' },
+      { category: '2', desc: 'วิชาเฉพาะ', reqCredits: 87, earnedCredits: 81, pendingCredits: '-', gpa: 4, status: 'incomplete' },
+      { category: '2.1', desc: 'วิชาแกน 12 หน่วยกิต และวิชาเฉพาะ 42 หน่วยกิต ดังนี้', reqCredits: 48, earnedCredits: 48, pendingCredits: '-', gpa: 4, status: 'complete' },
+      { category: '2.1.1', desc: 'ต้องสอบไล่ได้ไม่ต่ำกว่า C ในรายวิชา CS101, CS102, CS111 และ ต้องได้ค่าเฉลียรวม 8 วิชาไม่ต่ำกว่า 2.00 ได้แก่', reqCredits: 24, earnedCredits: 24, pendingCredits: '-', gpa: 4, status: 'complete' },
+      { category: '2.1.2', desc: 'ต้องศึกษา 8 วิชา ดังนี้', reqCredits: 24, earnedCredits: 24, pendingCredits: '-', gpa: 4, status: 'complete' },
+      { category: '2.1.3', desc: 'รายวิชาที่ต้องศึกษา', reqCredits: 6, earnedCredits: 2, pendingCredits: 4, gpa: 4, status: 'incomplete' },
+      { category: '2.1.3.1', desc: 'สำหรับนักศึกษาที่เลือกทำหัวข้อพิเศษ', reqCredits: 0, earnedCredits: '-', pendingCredits: 2, gpa: '-', status: 'incomplete' },
+      { category: '2.1.3.2', desc: 'สำหรับนักศึกษาที่เลือกแผนสหกิจศึกษา', reqCredits: 0, earnedCredits: '-', pendingCredits: '-', gpa: '-', status: 'incomplete' },
+      { category: '2.2', desc: 'วิชาเอก (คอมพิวเตอร์ประยุกต์)', reqCredits: 30, earnedCredits: 30, pendingCredits: '-', gpa: 4, status: 'complete' },
+      { category: '2.3', desc: 'วิชาบังคับนอกสาขา', reqCredits: 3, earnedCredits: 3, pendingCredits: '-', gpa: 4, status: 'complete' },
+      { category: '3', desc: 'วิชาเลือกเสรี', reqCredits: 6, earnedCredits: 6, pendingCredits: '-', gpa: 4, status: 'complete' },
+      { category: '4', desc: 'วิชาโท (ไม่บังคับ)', reqCredits: 0, earnedCredits: '-', pendingCredits: '-', gpa: '-', status: 'incomplete' },
+      { category: '4.1', desc: 'วิชาโทการออกแบบและพัฒนาผลิตภัณฑ์ดิจิทัล', reqCredits: 0, earnedCredits: '-', pendingCredits: '-', gpa: '-', status: 'incomplete' },
+      { category: '4.2', desc: 'วิชาโทเดฟออปส์', reqCredits: 0, earnedCredits: '-', pendingCredits: '-', gpa: '-', status: 'incomplete' },
+      { category: '4.3', desc: 'วิชาโทวิทยาการข้อมูล', reqCredits: 0, earnedCredits: '-', pendingCredits: '-', gpa: '-', status: 'incomplete' },
+      { category: '4.4', desc: 'วิชาโทปัญญาประดิษฐ์', reqCredits: 0, earnedCredits: '-', pendingCredits: '-', gpa: '-', status: 'incomplete' }
+    ];
+
+    const rows = document.getElementById('requirements-rows');
+    excelData.forEach(item => {
+      const tr = document.createElement('tr');
+      
+      // ตัวหนาเฉพาะคอลัมน์ "หมวด" และ "คำอธิบาย" ของหมวดหลัก (1, 2, 3, 4)
+      const isMainCategory = ['1', '2', '3', '4'].includes(item.category);
+      if (isMainCategory) {
+        tr.style.backgroundColor = '#fdfdfd';
+      }
+
+      // 1. หมวด
+      const tdCategory = document.createElement('td');
+      tdCategory.textContent = item.category;
+      if (isMainCategory) tdCategory.style.fontWeight = 'bold';
+      tr.append(tdCategory);
+
+      // 2. คำอธิบาย
+      const tdDesc = document.createElement('td');
+      tdDesc.textContent = item.desc;
+      if (isMainCategory) tdDesc.style.fontWeight = 'bold';
+      const level = item.category.split('.').length;
+      if (level > 1) {
+        tdDesc.style.paddingLeft = `${(level - 1) * 16 + 12}px`;
+      }
+      tr.append(tdDesc);
+
+      // 3. หน่วยกิตที่ต้องการ (ไม่ทึบ)
+      const tdReq = document.createElement('td');
+      tdReq.className = 'num-cell';
+      tdReq.textContent = item.reqCredits;
+      tr.append(tdReq);
+
+      // 4. หน่วยกิตที่สะสม (ไม่ทึบ + สีแดงถ้ายังไม่ครบ)
+      const tdEarned = document.createElement('td');
+      tdEarned.className = 'num-cell';
+      tdEarned.textContent = item.earnedCredits;
+      const isEarnedIncomplete = typeof item.earnedCredits === 'number' && typeof item.reqCredits === 'number' && item.earnedCredits < item.reqCredits;
+      if (isEarnedIncomplete) {
+        tdEarned.classList.add('text-danger');
+      }
+      tr.append(tdEarned);
+
+      // 5. หน่วยกิตที่รอ (ไม่ทึบ + สีแดงถ้ามีหน่วยกิตค้าง)
+      const tdPending = document.createElement('td');
+      tdPending.className = 'num-cell';
+      tdPending.textContent = item.pendingCredits;
+      if (item.pendingCredits !== '-' && item.pendingCredits > 0) {
+        tdPending.classList.add('text-danger');
+      }
+      tr.append(tdPending);
+
+      // 6. GPA (ไม่ทึบ + แสดงทศนิยม 2 ตำแหน่ง)
+      const tdGpa = document.createElement('td');
+      tdGpa.className = 'num-cell';
+      if (typeof item.gpa === 'number') {
+        tdGpa.textContent = item.gpa.toFixed(2);
+      } else {
+        tdGpa.textContent = item.gpa;
+      }
+      tr.append(tdGpa);
+
+      // 7. สถานะ ( complete / incomplete )
+      const tdStatus = document.createElement('td');
+      tdStatus.style.textAlign = 'center';
+      const badge = document.createElement('span');
+      badge.className = `status-badge ${item.status}`;
+      badge.textContent = item.status;
+      tdStatus.append(badge);
+      tr.append(tdStatus);
+
+      rows.append(tr);
+    });
+  </script>
+
+  <script>
+    const sidebar = document.getElementById('app-sidebar'), backdrop = document.querySelector('.sidebar-backdrop'), toggle = document.querySelector('.hamburger');
+    if (sidebar && backdrop && toggle) {
+      toggle.setAttribute('role', 'button');
+      toggle.setAttribute('tabindex', '0');
+      toggle.setAttribute('aria-controls', 'app-sidebar');
+      toggle.setAttribute('aria-expanded', 'false');
+      const open = () => { sidebar.classList.add('is-open'); backdrop.hidden = false; document.body.classList.add('sidebar-open'); sidebar.setAttribute('aria-hidden', 'false'); toggle.setAttribute('aria-expanded', 'true'); };
+      const close = () => { sidebar.classList.remove('is-open'); backdrop.hidden = true; document.body.classList.remove('sidebar-open'); sidebar.setAttribute('aria-hidden', 'true'); toggle.setAttribute('aria-expanded', 'false'); };
+      toggle.addEventListener('click', open);
+      toggle.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); } });
+      backdrop.addEventListener('click', close);
+      sidebar.querySelectorAll('[data-sidebar-close]').forEach(el => el.addEventListener('click', close));
+      document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+      const current = location.pathname.split('/').pop();
+      sidebar.querySelectorAll('[data-page]').forEach(a => { if (a.dataset.page === current) { a.classList.add('active'); a.setAttribute('aria-current', 'page'); } });
+    }
+  </script>
+</body>
+</html>
