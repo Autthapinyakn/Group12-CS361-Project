@@ -8,6 +8,39 @@
 <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet"/>
 <link href="style.css" rel="stylesheet"/>
+<style>
+  .curriculum-select-bar {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    background: #f8f9fa;
+    padding: 16px;
+    border-radius: 12px;
+    margin-bottom: 24px;
+    border: 1px solid #e9ecef;
+    flex-wrap: wrap;
+  }
+  .curriculum-select-bar label {
+    font-weight: 600;
+    color: #333;
+  }
+  .curriculum-select-bar select {
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid #ced4da;
+    font-family: 'Prompt', sans-serif;
+    font-size: 1rem;
+    flex: 1;
+    min-width: 280px;
+  }
+  .section-subtitle {
+    margin-top: 32px;
+    margin-bottom: 12px;
+    font-size: 1.2rem;
+    color: #2c3e50;
+    font-weight: 600;
+  }
+</style>
 </head>
 <body class="page-courses">
 <header class="nav">
@@ -25,11 +58,10 @@
 </div>
 <nav class="menu">
 <a class="active" href="courses.html">ค้นหารายวิชา</a>
-
 <a href="program.html">หลักสูตรและแผนการเรียน</a>
 <a href="about-cs.html">เกี่ยวกับหลักสูตร</a>
 </nav>
-<div class="nav-right auth-slot" data-auth-slot=""><a class="auth-button" href="login.html">เข้าสู่ระบบ</a></div>
+<div class="nav-right auth-slot" data-auth-slot=""><div class="user-placeholder" title="ผู้ใช้งานทั่วไป"><i class="fa-solid fa-circle-user"></i></div></div>
 </div>
 </header>
 <div class="sidebar-backdrop" data-sidebar-close="" hidden=""></div>
@@ -42,7 +74,6 @@
 <div class="sidebar-section-label">เมนูหลัก</div>
 <nav aria-label="การนำทาง" class="sidebar-menu">
 <a data-page="courses.html" href="courses.html"><i class="fa-solid fa-magnifying-glass"></i><span>ค้นหารายวิชา</span></a>
-
 <a data-page="program.html" href="program.html"><i class="fa-solid fa-user-graduate"></i><span>หลักสูตรและแผนการเรียน</span></a>
 <a data-page="about-cs.html" href="about-cs.html"><i class="fa-solid fa-circle-info"></i><span>เกี่ยวกับหลักสูตร</span></a>
 <a data-roles="student" href="graduation-requirements.html"><i class="fa-solid fa-list-check"></i><span>เงื่อนไขจบการศึกษา</span></a>
@@ -56,8 +87,8 @@
 <div class="container hero-inner">
 <div class="hero-eyebrow"><i class="fa-solid fa-book-open"></i> COURSE CATALOG</div>
 <h1 class="hero-title">ค้นหารายวิชา</h1>
-<div class="hero-sub1">หลักสูตรวิทยาศาสตรบัณฑิต</div>
-<div class="hero-sub2">สาขาวิชาวิทยาการคอมพิวเตอร์ (คอมพิวเตอร์ประยุกต์)</div>
+<div class="hero-sub1" id="hero-degree">หลักสูตรวิทยาศาสตรบัณฑิต</div>
+<div class="hero-sub2" id="hero-program-name">สาขาวิชาวิทยาการคอมพิวเตอร์ (คอมพิวเตอร์ประยุกต์)</div>
 <div class="hero-sub3">มหาวิทยาลัยธรรมศาสตร์</div>
 </div>
 </section>
@@ -65,17 +96,26 @@
 <div class="info-bar">
 <div class="info-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
 <div class="info-text">
-      ค้นหาและกรองรายวิชาทั้งหมดในหลักสูตร <b>ตามปีการศึกษาและแผนการเรียน</b><br/>
-      (แผนสหกิจศึกษา / แผนหัวข้อพิเศษ) เพื่อดูหน่วยกิต หมวดหมู่ และช่วงเวลาที่เปิดสอน
+      ค้นหาและกรองรายวิชาทั้งหมดในหลักสูตร <b>ตามปีการศึกษาและแผนการเรียน</b> พร้อมแสดงรายวิชาโทและวิชาเลือกที่เกี่ยวข้องที่ด้านล่าง
     </div>
 </div>
 </div>
 <div class="container">
 <section id="search">
-<div class="sec-head"><i class="fa-solid fa-list-check"></i><h2>รายวิชาทั้งหมด</h2></div>
+  <!-- ส่วนเลือกหลักสูตร -->
+  <div class="curriculum-select-bar">
+    <label for="curriculum-select"><i class="fa-solid fa-graduation-cap"></i> เลือกหลักสูตร:</label>
+    <select id="curriculum-select">
+      <option value="applied-cs">หลักสูตรคอมพิวเตอร์ประยุกต์</option>
+      <option value="cis-cs">หลักสูตรคอมพิวเตอร์และวิทยาการสารสนเทศ</option>
+      <option value="cnc">หลักสูตรคอมพิวเตอร์เครือข่ายและความปลอดภัยทางไซเบอร์</option>
+    </select>
+  </div>
+
+<div class="sec-head"><i class="fa-solid fa-list-check"></i><h2>รายวิชาในแผนการเรียน</h2></div>
 <div class="search-box">
 <i class="fa-solid fa-magnifying-glass"></i>
-<input id="search-input" placeholder="ค้นหาด้วยรหัสวิชาหรือชื่อวิชา เช่น คพ.101 หรือ โครงสร้างข้อมูล" type="text"/>
+<input id="search-input" placeholder="ค้นหาด้วยรหัสวิชาหรือชื่อวิชา เช่น CS100 หรือ โครงสร้างข้อมูล" type="text"/>
 </div>
 <div class="filter-group" id="year-filter">
 <span class="filter-label">ปีการศึกษา:</span>
@@ -85,17 +125,16 @@
 <button class="tab-btn" data-year="3">ปี 3</button>
 <button class="tab-btn" data-year="4">ปี 4</button>
 </div>
+
+<!-- แผนการเรียนที่จะเปลี่ยนตามหลักสูตร -->
 <div class="filter-group" id="plan-filter">
 <span class="filter-label">แผนการเรียน:</span>
-<button class="tab-btn active" data-plan="all">ทั้งหมด</button>
-<button class="tab-btn" data-plan="ทั่วไป">ทั่วไป</button>
-<button class="tab-btn" data-plan="ทั้งสองแผน">ทั้งสองแผน</button>
-<button class="tab-btn" data-plan="สหกิจศึกษา">สหกิจศึกษา</button>
-<button class="tab-btn" data-plan="หัวข้อพิเศษ">หัวข้อพิเศษ</button>
+<!-- ปุ่มแผนจะถูกสร้างแบบ Dynamic ด้วย JavaScript ตามหลักสูตรที่เลือก -->
 </div>
+
 <div class="results-count" id="results-count">กำลังโหลดข้อมูล...</div>
 <div class="term-block">
-<div class="tb-head"><span>ผลการค้นหา</span></div>
+<div class="tb-head"><span>ผลการค้นหารายวิชาหลัก</span></div>
 <table class="course-table">
 <thead>
 <tr>
@@ -109,16 +148,37 @@
 </thead>
 <tbody id="course-tbody">
 <tr><td colspan="6"><div class="skeleton-row"></div></td></tr>
-<tr><td colspan="6"><div class="skeleton-row"></div></td></tr>
-<tr><td colspan="6"><div class="skeleton-row"></div></td></tr>
 </tbody>
 </table>
 <div class="empty-state" id="empty-state" style="display:none;">
-<i class="fa-solid fa-folder-open"></i>
-        ไม่พบรายวิชาที่ตรงกับเงื่อนไขที่เลือก
-      </div>
+<i class="fa-solid fa-folder-open"></i> ไม่พบรายวิชาที่ตรงกับเงื่อนไขที่เลือก
 </div>
+</div>
+
+<!-- ส่วนแสดงรายวิชาโท / วิชาเลือกด้านล่างสุด -->
+<div class="sec-head section-subtitle"><i class="fa-solid fa-book-bookmark"></i><h2>รายวิชาโท และวิชาเลือกที่เกี่ยวข้อง</h2></div>
+<div class="term-block">
+<table class="course-table">
+<thead>
+<tr>
+<th>รหัสวิชา</th>
+<th>ชื่อวิชา</th>
+<th>กลุ่มวิชาโท / หมวด</th>
+<th>หน่วยกิต</th>
+</tr>
+</thead>
+<tbody id="elective-tbody">
+<tr><td colspan="4"><div class="skeleton-row"></div></td></tr>
+</tbody>
+</table>
+<div class="empty-state" id="elective-empty-state" style="display:none;">
+<i class="fa-solid fa-folder-open"></i> ไม่พบรายวิชาโทหรือวิชาเลือกในหลักสูตรนี้
+</div>
+</div>
+
 </section>
+
+<!-- Modal แสดงรายละเอียดวิชา -->
 <div class="modal-overlay" hidden="" id="course-modal">
 <div aria-labelledby="modal-name" aria-modal="true" class="modal-box" role="dialog">
 <div class="modal-head">
@@ -144,22 +204,18 @@
 </div>
 </div>
 </div>
-<div class="quick-links">
 
+<div class="quick-links">
 <a class="ql-item" href="program.html"><i class="fa-solid fa-user-graduate"></i><div class="t">หลักสูตรและแผนการเรียน</div><div class="d">ดูแผนการเรียนและรายละเอียดโครงงาน</div></a>
 <a class="ql-item" href="about-cs.html"><i class="fa-solid fa-circle-info"></i><div class="t">เกี่ยวกับหลักสูตร</div><div class="d">ข้อมูลหลักสูตรและเส้นทางอาชีพ</div></a>
 </div>
 </div>
+
 <footer>
 <div class="container foot-grid">
 <div>
 <h4>สาขาวิชาวิทยาการคอมพิวเตอร์</h4>
 <p>คณะวิทยาศาสตร์และเทคโนโลยี<br/>มหาวิทยาลัยธรรมศาสตร์</p>
-<div class="foot-social">
-<a href="#"><i class="fa-brands fa-facebook-f"></i></a>
-<a href="#"><i class="fa-solid fa-globe"></i></a>
-<a href="#"><i class="fa-solid fa-envelope"></i></a>
-</div>
 </div>
 <div>
 <h4>ติดต่อเรา</h4>
@@ -173,19 +229,26 @@
 </div>
 </div>
 </footer>
+
 <script type="module">
-  import { fetchCurriculum } from './api.js';
+  import { fetchCurriculum, CURRICULUM_IDS } from './api.js';
 
   const tbody = document.getElementById('course-tbody');
+  const electiveTbody = document.getElementById('elective-tbody');
   const emptyState = document.getElementById('empty-state');
+  const electiveEmptyState = document.getElementById('elective-empty-state');
   const resultsCount = document.getElementById('results-count');
   const searchInput = document.getElementById('search-input');
+  const curriculumSelect = document.getElementById('curriculum-select');
+  const planFilterContainer = document.getElementById('plan-filter');
+  const heroProgramName = document.getElementById('hero-program-name');
 
   let allEntries = [];
+  let electiveEntries = [];
   let activeYear = 'all';
-  let activePlan = 'all';
+  let activePlan = 'โครงงาน'; // ค่าเริ่มต้น
   let searchTerm = '';
-  let courseById = new Map(); // ใช้แปล prerequisite id -> รหัส/ชื่อวิชา ในป็อปอัป
+  let courseById = new Map();
 
   const modal = document.getElementById('course-modal');
   const modalCode = document.getElementById('modal-code');
@@ -195,6 +258,50 @@
   const modalPrereqs = document.getElementById('modal-prereqs');
   const modalCloseBtn = document.getElementById('modal-close-btn');
 
+  // นิยามแผนการเรียนของแต่ละหลักสูตรตามเงื่อนไข
+  const curriculumPlans = {
+    'applied-cs': [
+      { id: 'โครงงาน', label: 'แผนโครงงาน' },
+      { id: 'สหกิจศึกษา', label: 'แผนสหกิจ' }
+    ],
+    'cis-cs': [
+      { id: 'โครงงาน', label: 'แผนโครงงาน' },
+      { id: 'สหกิจศึกษา', label: 'แผนสหกิจ' }
+    ],
+    'cnc': [
+      { id: 'โครงงาน 4 ปี', label: 'แผนโครงงาน 4 ปี' },
+      { id: 'โครงงาน 3.5 ปี', label: 'แผนโครงงาน 3.5 ปี' },
+      { id: 'สหกิจศึกษา', label: 'แผนสหกิจ' }
+    ]
+  };
+
+  const curriculumTitles = {
+    'applied-cs': 'สาขาวิชาวิทยาการคอมพิวเตอร์ (คอมพิวเตอร์ประยุกต์)',
+    'cis-cs': 'สาขาวิชาวิทยาการคอมพิวเตอร์ (คอมพิวเตอร์และวิทยาการสารสนเทศ)',
+    'cnc': 'สาขาวิชาวิทยาการคอมพิวเตอร์ (คอมพิวเตอร์เครือข่ายและความปลอดภัยทางไซเบอร์)'
+  };
+
+  function updatePlanFilterButtons(curriculumCode) {
+    const plans = curriculumPlans[curriculumCode] || [];
+    activePlan = plans[0].id; // ตั้งค่าเริ่มต้นเป็นแผนแรกของหลักสูตร
+
+    let html = `<span class="filter-label">แผนการเรียน:</span>`;
+    plans.forEach((p, idx) => {
+      html += `<button class="tab-btn ${idx === 0 ? 'active' : ''}" data-plan="${p.id}">${p.label}</button>`;
+    });
+    planFilterContainer.innerHTML = html;
+
+    // ผูก Event listener ใหม่ให้กับปุ่มแผน
+    planFilterContainer.querySelectorAll('.tab-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        planFilterContainer.querySelectorAll('.tab-btn').forEach((b) => b.classList.remove('active'));
+        btn.classList.add('active');
+        activePlan = btn.dataset.plan;
+        render();
+      });
+    });
+  }
+
   function escapeHtml(str) {
     return String(str).replace(/[&<>"']/g, (c) => ({
       '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
@@ -203,9 +310,11 @@
 
   function render() {
     const term = searchTerm.trim().toLowerCase();
+    
+    // กรองรายวิชาหลัก
     const filtered = allEntries.filter((e) => {
       if (activeYear !== 'all' && String(e.year) !== activeYear) return false;
-      if (activePlan !== 'all' && e.plan !== activePlan) return false;
+      if (activePlan && e.plan !== activePlan) return false;
       if (term) {
         const haystack = `${e.course.code} ${e.course.nameTh} ${e.course.nameEn}`.toLowerCase();
         if (!haystack.includes(term)) return false;
@@ -213,28 +322,46 @@
       return true;
     });
 
-    resultsCount.textContent = `พบ ${filtered.length} รายวิชา`;
+    resultsCount.textContent = `พบ ${filtered.length} รายวิชาในแผนการเรียน`;
 
     if (filtered.length === 0) {
       tbody.innerHTML = '';
       emptyState.style.display = 'block';
-      return;
+    } else {
+      emptyState.style.display = 'none';
+      tbody.innerHTML = filtered
+        .map(
+          (e) => `
+        <tr data-course-id="${escapeHtml(e.course.id)}">
+          <td class="code">${escapeHtml(e.course.code)}</td>
+          <td>${escapeHtml(e.course.nameTh)}</td>
+          <td class="cat">${escapeHtml(e.course.category ?? '-')}</td>
+          <td class="term">ปี ${e.year} / เทอม ${e.semester}</td>
+          <td class="plan"><span class="plan-badge">${escapeHtml(e.plan)}</span></td>
+          <td class="credit">${e.course.credits}</td>
+        </tr>`
+        )
+        .join('');
     }
-    emptyState.style.display = 'none';
 
-    tbody.innerHTML = filtered
-      .map(
-        (e) => `
-      <tr data-course-id="${escapeHtml(e.course.id)}">
-        <td class="code">${escapeHtml(e.course.code)}</td>
-        <td>${escapeHtml(e.course.nameTh)}</td>
-        <td class="cat">${escapeHtml(e.course.category ?? '-')}</td>
-        <td class="term">ปี ${e.year} / เทอม ${e.semester}</td>
-        <td class="plan"><span class="plan-badge">${escapeHtml(e.plan)}</span></td>
-        <td class="credit">${e.course.credits}</td>
-      </tr>`
-      )
-      .join('');
+    // แสดงรายวิชาโท / วิชาเลือกด้านล่างสุด
+    if (electiveEntries.length === 0) {
+      electiveTbody.innerHTML = '';
+      electiveEmptyState.style.display = 'block';
+    } else {
+      electiveEmptyState.style.display = 'none';
+      electiveTbody.innerHTML = electiveEntries
+        .map(
+          (el) => `
+        <tr data-course-id="${escapeHtml(el.course_id || el.id)}">
+          <td class="code">${escapeHtml(el.course?.code || el.code)}</td>
+          <td>${escapeHtml(el.course?.nameTh || el.name_th)}</td>
+          <td class="cat"><span class="plan-badge">${escapeHtml(el.elective_group || el.category || '-')}</span></td>
+          <td class="credit">${el.course?.credits || el.credits}</td>
+        </tr>`
+        )
+        .join('');
+    }
   }
 
   function openModal(course) {
@@ -279,27 +406,27 @@
     if (ev.key === 'Escape' && !modal.hidden) closeModal();
   });
 
-  tbody.addEventListener('click', (ev) => {
+  // Event คลิกแถวตารางเพื่อเปิด Modal รายละเอียดวิชา
+  document.addEventListener('click', (ev) => {
     const row = ev.target.closest('tr[data-course-id]');
     if (!row) return;
     const course = courseById.get(row.dataset.courseId);
     if (course) openModal(course);
   });
 
-  function setupFilterGroup(groupId, attr, onChange) {
-    const group = document.getElementById(groupId);
+  function setupYearFilter() {
+    const group = document.getElementById('year-filter');
     group.querySelectorAll('.tab-btn').forEach((btn) => {
       btn.addEventListener('click', () => {
         group.querySelectorAll('.tab-btn').forEach((b) => b.classList.remove('active'));
         btn.classList.add('active');
-        onChange(btn.dataset[attr]);
+        activeYear = btn.dataset.year;
         render();
       });
     });
   }
 
-  setupFilterGroup('year-filter', 'year', (v) => (activeYear = v));
-  setupFilterGroup('plan-filter', 'plan', (v) => (activePlan = v));
+  setupYearFilter();
 
   let debounceTimer;
   searchInput.addEventListener('input', () => {
@@ -310,17 +437,45 @@
     }, 250);
   });
 
-  fetchCurriculum()
-    .then((entries) => {
+  async function loadCurriculum(code) {
+    const curriculumId = CURRICULUM_IDS[code];
+    heroProgramName.textContent = curriculumTitles[code];
+    updatePlanFilterButtons(code);
+
+    resultsCount.textContent = 'กำลังโหลดข้อมูลหลักสูตร...';
+    tbody.innerHTML = '<tr><td colspan="6"><div class="skeleton-row"></div></td></tr>';
+
+    try {
+      // ดึงข้อมูลหลักสูตร (ถ้า Backend มี endpoint สำหรับ elective แยก สามารถ fetch เพิ่มได้ที่นี่)
+      const entries = await fetchCurriculum(curriculumId);
       allEntries = entries;
+      
+      // ตัวอย่างจำลองดึงรายวิชาโท/เลือกจาก entries หรือ endpoint แยก (ถ้ามี)
+      // หรือกรองวิชาที่มีหมวดหมู่เป็นวิชาโท/เลือกมาแสดงที่ตารางล่างสุด
+      courseById.clear();
       entries.forEach((e) => courseById.set(e.course.id, e.course));
+
+      // แยกวิชาที่เป็นกลุ่มวิชาโทหรือเลือกมาแสดงด้านล่าง
+      electiveEntries = entries.filter(e => 
+        e.course.category && (e.course.category.includes('วิชาโท') || e.course.category.includes('เลือก'))
+      );
+      // หากต้องการแยกตารางชัดเจน สามารถปรับแต่ง Logic ตรงนี้ได้ตามโครงสร้าง API จริง
+
       render();
-    })
-    .catch((err) => {
+    } catch (err) {
       console.error(err);
       resultsCount.textContent = 'โหลดข้อมูลไม่สำเร็จ ลองรีเฟรชหน้าใหม่อีกครั้ง';
       tbody.innerHTML = '';
-    });
+    }
+  }
+
+  // เปลี่ยนหลักสูตรเมื่อเลือก Dropdown
+  curriculumSelect.addEventListener('change', (e) => {
+    loadCurriculum(e.target.value);
+  });
+
+  // โหลดค่าเริ่มต้น (Applied CS)
+  loadCurriculum('applied-cs');
 </script>
 <script>
 (() => {

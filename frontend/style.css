@@ -546,3 +546,31 @@ body.sidebar-open{overflow:hidden;}
 .about-program-card ul { padding-left: 20px; margin: 8px 0 0; }
 .about-source { margin: 20px 0 0; font-size: 13px; color: var(--text-gray); }
 @media (max-width: 760px) { .program-selector { grid-template-columns: 1fr; } .program-choice { min-height: 68px; } .about-program-grid { grid-template-columns: 1fr; } }
+
+/* ==========================================================================
+   Program Page / Roadmap Custom Styles
+   ========================================================================== */
+.hero {
+  padding: 24px 0 !important;
+  margin-bottom: 0 !important;
+}
+.program-page {
+  margin-top: 16px !important;
+  padding-top: 0 !important;
+}
+.program-intro {
+  margin-bottom: 12px !important;
+}
+.year-filter-bar {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-top: 16px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+.year-filter-bar .filter-label {
+  font-weight: 600;
+  color: #333;
+  margin-right: 8px;
+}
