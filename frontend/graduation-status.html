@@ -1,232 +1,181 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <title>สถานะจบการศึกษา | Computer Science TU</title>
-  <link href="https://fonts.googleapis.com" rel="preconnect"/>
-  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet"/>
-  <link href="style.css" rel="stylesheet"/>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>สถานะการสำเร็จการศึกษาของนักศึกษา | Computer Science TU</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600;700&family=Sarabun:wght@400;500;600;700&display=swap" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header class="nav">
-    <div class="container nav-inner">
-      <div class="nav-left">
-        <i aria-hidden="true" class="fa-solid fa-bars hamburger"></i>
-        <a class="brand" href="courses.html">
-          <div class="brand-badge"><i class="fa-solid fa-graduation-cap"></i></div>
-          <div class="brand-text">
-            <div class="l1">COMPUTER</div>
-            <div class="l2">SCIENCE</div>
-            <div class="l3">THAMMASAT UNIVERSITY</div>
-          </div>
-        </a>
+  <header id="site-header"></header>
+
+  <main id="main" class="page">
+    <div class="container stack">
+      <div class="page-head">
+        <span class="eyebrow">Advisee status</span>
+        <h1>สถานะการสำเร็จการศึกษาของนักศึกษา</h1>
+        <p id="scope-text">ตรวจสอบสถานะการสำเร็จการศึกษาของนักศึกษา จากข้อมูลที่สำนักทะเบียนส่งมาล่าสุด</p>
       </div>
-      <nav class="menu">
-        <a href="courses.html">ค้นหารายวิชา</a>
-        <a href="program.html">หลักสูตรและแผนการเรียน</a>
-      </nav>
-      <div class="nav-right auth-slot" data-auth-slot=""></div>
-    </div>
-  </header>
 
-  <div class="sidebar-backdrop" data-sidebar-close="" hidden=""></div>
+      <div id="import-status" hidden></div>
 
-  <aside aria-hidden="true" aria-label="เมนูหลัก" class="app-sidebar" id="app-sidebar">
-    <div class="sidebar-heading">
-      <div class="brand-badge"><i class="fa-solid fa-graduation-cap"></i></div>
-      <div class="sidebar-brand-text"><strong>COMPUTER SCIENCE</strong><span>THAMMASAT UNIVERSITY</span></div>
-      <button aria-label="ปิดเมนู" class="sidebar-close" data-sidebar-close="" type="button"><i class="fa-solid fa-xmark"></i></button>
-    </div>
-    <div class="sidebar-section-label">เมนูหลัก</div>
-    <nav aria-label="การนำทาง" class="sidebar-menu">
-      <a data-page="courses.html" href="courses.html"><i class="fa-solid fa-magnifying-glass"></i><span>ค้นหารายวิชา</span></a>
-      <a data-page="program.html" href="program.html"><i class="fa-solid fa-user-graduate"></i><span>หลักสูตรและแผนการเรียน</span></a>
-      <a data-page="about-cs.html" href="about-cs.html"><i class="fa-solid fa-circle-info"></i><span>เกี่ยวกับหลักสูตร</span></a>
-      <a data-page="graduation-requirements.html" data-roles="student" href="graduation-requirements.html"><i class="fa-solid fa-list-check"></i><span>เงื่อนไขจบการศึกษา</span></a>
-      <a data-page="graduation-status.html" data-roles="instructor,student" href="graduation-status.html"><i class="fa-solid fa-user-check"></i><span>สถานะจบการศึกษา</span></a>
-      <a data-page="curriculum-edit.html" data-roles="coordinator" href="curriculum-edit.html"><i class="fa-solid fa-pen-to-square"></i><span>จัดการหลักสูตร</span></a>
-    </nav>
-    <div class="sidebar-footer"><i class="fa-solid fa-university"></i><span>หลักสูตรวิทยาการคอมพิวเตอร์</span></div>
-  </aside>
-
-  <div class="container page-content">
-    <p class="muted">COMPUTER SCIENCE · THAMMASAT UNIVERSITY</p>
-    <h1>ตรวจสอบสถานะจบการศึกษา</h1>
-    <p class="muted">อาจารย์ตรวจสอบข้อมูลของนักศึกษาที่เกี่ยวข้อง หรือให้นักศึกษาดูสถานะของตนเอง</p>
-    <div class="status-message" hidden="" id="page-message"></div>
-
-    <section class="data-card">
-      <div class="form-grid">
-        <div class="field">
-          <label for="student-id">รหัสนักศึกษา (สำหรับอาจารย์)</label>
-          <input id="student-id" placeholder="กรอกรหัสนักศึกษา"/>
+      <section class="card stack" aria-labelledby="list-title">
+        <div class="section-title">
+          <h2 id="list-title">รายชื่อนักศึกษา</h2>
+          <div class="row"><span class="small muted" id="list-count"></span></div>
         </div>
-        <div class="field" style="justify-content:end">
-          <button class="auth-button" id="check" type="button">ตรวจสอบสถานะ</button>
+        <form class="qa-box" id="search-form" role="search">
+          <label class="search">
+            <span class="visually-hidden">ค้นหาด้วยรหัสหรือชื่อนักศึกษา</span>
+            <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+            <input class="input" id="search" type="search" placeholder="ค้นหาด้วยรหัสนักศึกษาหรือชื่อ" autocomplete="off" maxlength="100" />
+          </label>
+          <button class="btn btn-secondary" type="submit">ค้นหา</button>
+        </form>
+        <div id="list-status" hidden></div>
+        <div class="table-wrap">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">รหัสนักศึกษา</th>
+                <th scope="col">ชื่อ-นามสกุล</th>
+                <th scope="col">หลักสูตร / แผน</th>
+                <th scope="col">ปีที่เข้า</th>
+                <th scope="col">ข้อมูล ณ ภาค</th>
+                <th scope="col"><span class="visually-hidden">ดูผล</span></th>
+              </tr>
+            </thead>
+            <tbody id="students"></tbody>
+          </table>
         </div>
-      </div>
-      <div class="muted" id="status-content" style="margin-top:18px">ข้อมูลสถานะจะโหลดเมื่อระบุรหัสนักศึกษา</div>
-    </section>
-  </div>
+      </section>
+
+      <section id="detail" class="stack" aria-live="polite" hidden>
+        <div class="row row--between">
+          <h2 class="section-title" id="detail-title">ผลการตรวจสอบ</h2>
+          <button class="btn btn-secondary btn-sm" type="button" id="back-to-list"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i> กลับไปที่รายชื่อ</button>
+        </div>
+        <div id="detail-status" hidden></div>
+        <div id="audit" class="stack"></div>
+      </section>
+    </div>
+  </main>
+
+  <footer id="site-footer"></footer>
 
   <script type="module">
-    import { requireRole, applyRoleNavigation, authHeaders, getRole } from './auth.js';
-    import { API_BASE } from './api.js';
+    import { initLayout, guard } from './layout.js';
+    import { apiGet, errorMessage, ApiError, curriculumName } from './api.js';
+    import { h, icon, setStatus, formatDateTime, loadingRows, badge } from './ui.js';
+    import { renderAudit } from './gradAudit.js';
 
-    applyRoleNavigation();
+    const PLAN_LABELS = { 'โครงงาน': 'โครงงานพิเศษ', 'สหกิจศึกษา': 'สหกิจศึกษา' };
+    const user = initLayout();
+    const main = document.getElementById('main');
 
-    const $ = id => document.getElementById(id);
-    const msg = $('page-message');
-    const role = getRole();
+    // Students have their own page; send them there instead of showing "no permission".
+    if (user && user.roles.has('student') && !user.roles.has('instructor') && !user.roles.has('staff')) {
+      window.location.replace('graduation-requirements.html');
+    } else if (guard(main, ['instructor', 'staff'])) {
+      const tbody = document.getElementById('students');
+      const listStatus = document.getElementById('list-status');
+      const detail = document.getElementById('detail');
+      const audit = document.getElementById('audit');
+      const detailStatus = document.getElementById('detail-status');
+      let selectedCode = null;
 
-    if (role === 'student') {
-      $('student-id').disabled = true;
-      $('student-id').placeholder = 'ใช้รหัสประจำตัวจากบัญชีที่เข้าสู่ระบบ';
-    }
-
-    /* ==========================================================================
-       [โค้ดเดิมสำหรับ V4 - API Fetch] คอมเมนต์ไว้เพื่อรอนำกลับมาใช้ใน V4
-       ==========================================================================
-    $('check').addEventListener('click', async () => {
-      const id = $('student-id').value.trim();
-      if (role === 'instructor' && !id) {
-        msg.hidden = false;
-        msg.className = 'status-message error';
-        msg.textContent = 'กรุณากรอกรหัสนักศึกษา';
-        return;
-      }
-      try {
-        const url = role === 'student' ? `${API_BASE}/graduation/status/me` : `${API_BASE}/graduation/status/${encodeURIComponent(id)}`;
-        const r = await fetch(url, { headers: authHeaders() });
-        if (!r.ok) throw new Error(r.status === 404 ? 'ไม่พบข้อมูลผลการเรียนของนักศึกษา' : `Backend ตอบกลับ ${r.status}`);
-        const data = await r.json();
-        $('status-content').textContent = '';
-        const h = document.createElement('h2');
-        h.textContent = data.studentName || data.studentId || 'สถานะจบการศึกษา';
-        $('status-content').append(h);
-        const p = document.createElement('p');
-        p.textContent = `หน่วยกิตที่สะสม: ${data.earnedCredits ?? 'ยังไม่มีข้อมูล'} / ${data.requiredCredits ?? 'ไม่ระบุ'} · สถานะ: ${data.status || 'รอตรวจสอบข้อมูล'}`;
-        $('status-content').append(p);
-        if (Array.isArray(data.missingRequirements) && data.missingRequirements.length) {
-          const ul = document.createElement('ul');
-          data.missingRequirements.forEach(v => {
-            const li = document.createElement('li');
-            li.textContent = v;
-            ul.append(li);
-          });
-          $('status-content').append(ul);
+      async function loadList(q = '') {
+        tbody.replaceChildren(...loadingRows(6));
+        listStatus.hidden = true;
+        try {
+          const { data } = await apiGet(`/graduation/students${q ? `?q=${encodeURIComponent(q)}` : ''}`, { auth: true, retries: 1 });
+          document.getElementById('scope-text').textContent = data.scope === 'all'
+            ? 'เจ้าหน้าที่: ค้นหาและตรวจสอบนักศึกษาได้ทุกคน (แสดงสูงสุด 200 รายการ)'
+            : 'อาจารย์ที่ปรึกษา: แสดงเฉพาะนักศึกษาที่อยู่ในความดูแลของคุณตามข้อมูลสำนักทะเบียน';
+          showImportStatus(data.latestImport);
+          document.getElementById('list-count').textContent = `${data.students.length} คน`;
+          if (!data.students.length) {
+            tbody.replaceChildren(h('tr', {}, h('td', { colspan: 6 }, h('div', { class: 'empty' }, icon('users-slash'),
+              q ? 'ไม่พบนักศึกษาที่ตรงกับคำค้น'
+                : data.scope === 'all' ? 'ยังไม่มีข้อมูลนักศึกษาในระบบ กรุณานำเข้าข้อมูลจากสำนักทะเบียนก่อน'
+                : 'ไม่พบนักศึกษาในความดูแล ตรวจสอบว่าอีเมลอาจารย์ที่ปรึกษาในข้อมูลสำนักทะเบียนตรงกับบัญชีที่ใช้เข้าสู่ระบบ'))));
+            return;
+          }
+          tbody.replaceChildren(...data.students.map(row));
+        } catch (err) {
+          tbody.replaceChildren();
+          setStatus(listStatus, 'danger', 'โหลดรายชื่อไม่สำเร็จ', errorMessage(err),
+            h('button', { type: 'button', class: 'btn btn-secondary btn-sm', onclick: () => loadList(q) }, 'ลองใหม่'));
         }
-      } catch (e) {
-        msg.hidden = false;
-        msg.className = 'status-message error';
-        msg.textContent = 'โหลดสถานะไม่สำเร็จ: ' + e.message + ' หากยังไม่ได้ตั้งค่า registrar records ระบบจะไม่มีข้อมูลผลการเรียนให้ตรวจสอบ';
-      }
-    });
-    ========================================================================== */
-
-    // [Mock Data สำหรับใช้งานชั่วคราวระหว่างรอ V4]
-    const mockStudents = {
-      '6609650001': {
-        studentId: '6609650001',
-        studentName: 'นายสมชาย เรียนดี (ชั้นปีที่ 4)',
-        earnedCredits: 119,
-        requiredCredits: 123,
-        status: 'ยังไม่ครบตามหลักสูตร (กำลังศึกษา)',
-        missingRequirements: [
-          'CS403 - โครงงานวิทยาการคอมพิวเตอร์ 2'
-        ]
-      },
-      '6609650002': {
-        studentId: '6609650002',
-        studentName: 'นางสาวใจดี เรียนเก่ง (ชั้นปีที่ 4)',
-        earnedCredits: 126,
-        requiredCredits: 123,
-        status: 'ครบตามรายการรายวิชาในหลักสูตร (พร้อมขอจบ)',
-        missingRequirements: []
-      }
-    };
-
-    $('check').addEventListener('click', () => {
-      msg.hidden = true;
-      const inputId = $('student-id').value.trim();
-      
-      // ถ้าไม่ได้กรอกรหัส ให้แจ้งเตือนว่าไม่พบนักศึกษาทันที
-      if (!inputId) {
-        msg.hidden = false;
-        msg.className = 'status-message error';
-        msg.textContent = 'ไม่พบรหัสนักศึกษา กรุณากรอกข้อมูลให้ถูกต้อง';
-        $('status-content').textContent = 'กรุณากรอกรหัสนักศึกษาแล้วกดปุ่มตรวจสอบสถานะ';
-        return;
       }
 
-      // ค้นหาจาก mockStudents ถ้าไม่มีในระบบ ให้ถือว่าไม่พบ
-      const student = mockStudents[inputId];
-      
-      if (!student) {
-        msg.hidden = false;
-        msg.className = 'status-message error';
-        msg.textContent = `ไม่พบข้อมูลนักศึกษารหัส ${inputId} ในระบบ`;
-        $('status-content').textContent = 'กรุณาตรวจสอบรหัสนักศึกษาใหม่อีกครั้ง';
-        return;
+      function showImportStatus(latest) {
+        const el = document.getElementById('import-status');
+        if (!latest) {
+          setStatus(el, 'warn', 'ยังไม่มีข้อมูลจากสำนักทะเบียน', 'ระบบยังตรวจสอบการสำเร็จการศึกษาไม่ได้จนกว่าเจ้าหน้าที่จะนำเข้าข้อมูลผลการเรียน');
+          return;
+        }
+        setStatus(el, latest.status === 'partial' ? 'warn' : 'info',
+          `ข้อมูลสำนักทะเบียนล่าสุด: ภาคการศึกษา ${latest.asOfTerm}`,
+          `นำเข้าเมื่อ ${formatDateTime(latest.createdAt)}${latest.status === 'partial' ? ' · ไฟล์ล่าสุดมีบางรายการไม่ผ่านการตรวจสอบ ข้อมูลของนักศึกษาบางคนอาจยังเป็นชุดเก่า' : ''}`);
       }
 
-      // หากพบข้อมูลนักศึกษาในระบบ ให้แสดงผลปกติ
-      const statusContent = $('status-content');
-      statusContent.textContent = '';
-
-      const h = document.createElement('h2');
-      h.textContent = `${student.studentName} [${student.studentId}]`;
-      statusContent.append(h);
-
-      const p = document.createElement('p');
-      p.style.fontSize = '1.1em';
-      p.style.marginTop = '8px';
-      p.innerHTML = `<strong>หน่วยกิตที่สะสม:</strong> ${student.earnedCredits} / ${student.requiredCredits} · <strong>สถานะ:</strong> <span style="color: ${student.earnedCredits >= student.requiredCredits ? 'green' : '#d9534f'}">${student.status}</span>`;
-      statusContent.append(p);
-
-      if (student.missingRequirements.length > 0) {
-        const h4 = document.createElement('h3');
-        h4.style.marginTop = '16px';
-        h4.textContent = 'รายวิชาที่ยังต้องศึกษาเพิ่ม:';
-        statusContent.append(h4);
-
-        const ul = document.createElement('ul');
-        ul.style.paddingLeft = '20px';
-        student.missingRequirements.forEach(v => {
-          const li = document.createElement('li');
-          li.textContent = v;
-          ul.append(li);
-        });
-        statusContent.append(ul);
-      } else {
-        const completeMsg = document.createElement('p');
-        completeMsg.style.color = 'green';
-        completeMsg.style.fontWeight = 'bold';
-        completeMsg.style.marginTop = '12px';
-        completeMsg.textContent = '✓ ผ่านเงื่อนไขรายวิชาครบถ้วนตามหลักสูตร';
-        statusContent.append(completeMsg);
+      function row(s) {
+        const open = () => openStudent(s.studentCode);
+        return h('tr', { class: 'is-clickable', onclick: open, 'aria-selected': String(s.studentCode === selectedCode) },
+          h('td', { class: 'code' }, s.studentCode),
+          h('td', {}, s.fullName),
+          h('td', {}, curriculumName(s.curriculumCode), h('div', { class: 'small muted' }, PLAN_LABELS[s.plan] ?? s.plan ?? '-')),
+          h('td', {}, s.enrollmentYear ?? '-'),
+          h('td', {}, s.dataAsOf ?? badge('warn', 'ไม่มีข้อมูล')),
+          h('td', { class: 'num' }, h('button', {
+            type: 'button', class: 'btn btn-secondary btn-sm',
+            'aria-label': `ดูผลการตรวจสอบของ ${s.studentCode}`,
+            onclick: (e) => { e.stopPropagation(); open(); },
+          }, 'ดูผล')));
       }
-    });
-  </script>
 
-  <script>
-    const sidebar = document.getElementById('app-sidebar'), backdrop = document.querySelector('.sidebar-backdrop'), toggle = document.querySelector('.hamburger');
-    if (sidebar && backdrop && toggle) {
-      toggle.setAttribute('role', 'button');
-      toggle.setAttribute('tabindex', '0');
-      toggle.setAttribute('aria-controls', 'app-sidebar');
-      toggle.setAttribute('aria-expanded', 'false');
-      const open = () => { sidebar.classList.add('is-open'); backdrop.hidden = false; document.body.classList.add('sidebar-open'); sidebar.setAttribute('aria-hidden', 'false'); toggle.setAttribute('aria-expanded', 'true'); };
-      const close = () => { sidebar.classList.remove('is-open'); backdrop.hidden = true; document.body.classList.remove('sidebar-open'); sidebar.setAttribute('aria-hidden', 'true'); toggle.setAttribute('aria-expanded', 'false'); };
-      toggle.addEventListener('click', open);
-      toggle.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); } });
-      backdrop.addEventListener('click', close);
-      sidebar.querySelectorAll('[data-sidebar-close]').forEach(el => el.addEventListener('click', close));
-      document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
-      const current = location.pathname.split('/').pop();
-      sidebar.querySelectorAll('[data-page]').forEach(a => { if (a.dataset.page === current) { a.classList.add('active'); a.setAttribute('aria-current', 'page'); } });
+      async function openStudent(code) {
+        selectedCode = code;
+        detail.hidden = false;
+        detailStatus.hidden = true;
+        audit.replaceChildren(h('div', { class: 'card' }, h('div', { class: 'skeleton' })));
+        history.replaceState(null, '', `?student=${code}`);
+        detail.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        try {
+          const { data } = await apiGet(`/graduation/students/${encodeURIComponent(code)}`, { auth: true, retries: 1 });
+          renderAudit(audit, data);
+        } catch (err) {
+          audit.replaceChildren();
+          if (err instanceof ApiError && err.status === 404) {
+            setStatus(detailStatus, 'warn', `ไม่พบข้อมูลของนักศึกษารหัส ${code}`,
+              'สำนักทะเบียนยังไม่ได้ส่งข้อมูลของนักศึกษาคนนี้ หรือรหัสนักศึกษาไม่ถูกต้อง');
+          } else if (err instanceof ApiError && err.status === 403) {
+            setStatus(detailStatus, 'danger', 'ไม่มีสิทธิ์ดูข้อมูลนักศึกษาคนนี้', 'อาจารย์ดูได้เฉพาะนักศึกษาที่อยู่ในความดูแลของตนเท่านั้น');
+          } else {
+            setStatus(detailStatus, 'danger', 'โหลดผลการตรวจสอบไม่สำเร็จ', errorMessage(err),
+              h('button', { type: 'button', class: 'btn btn-secondary btn-sm', onclick: () => openStudent(code) }, 'ลองใหม่'));
+          }
+        }
+      }
+
+      document.getElementById('search-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        loadList(document.getElementById('search').value.trim());
+      });
+      document.getElementById('back-to-list').addEventListener('click', () => {
+        detail.hidden = true;
+        history.replaceState(null, '', location.pathname);
+        document.getElementById('search').focus();
+      });
+
+      await loadList();
+      const deepLink = new URLSearchParams(location.search).get('student');
+      if (deepLink && /^\d{10}$/.test(deepLink)) openStudent(deepLink);
     }
   </script>
 </body>

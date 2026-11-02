@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ถามคำถามเกี่ยวกับหลักสูตร | Computer Science TU</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600;700&family=Sarabun:wght@400;500;600;700&display=swap" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header id="site-header"></header>
+
+  <main id="main">
+    <section class="hero hero--compact">
+      <div class="container">
+        <span class="hero__tag"><i class="fa-solid fa-circle-question" aria-hidden="true"></i> Ask a question</span>
+        <h1 class="hero__title">ถามคำถามเกี่ยวกับหลักสูตร</h1>
+        <p class="hero__lead">พิมพ์คำถาม เช่น "ต้องได้กี่หน่วยกิตถึงจะจบ" หรือ "CS361 เรียนอะไร" ระบบจะแสดงคำตอบและรายวิชาที่เกี่ยวข้อง</p>
+      </div>
+    </section>
+    <div class="container">
+      <div class="hero-strip">
+        <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+        <p>คำตอบมาจากคำถามที่พบบ่อยที่สาขาวิชาจัดเตรียมไว้ หากไม่พบคำตอบที่ต้องการ สามารถส่งคำถามถึงเจ้าหน้าที่ได้ที่ด้านล่าง</p>
+      </div>
+    </div>
+
+    <div class="page">
+      <div class="container stack">
+        <section class="card stack" aria-labelledby="ask-title">
+          <div class="section-title"><h2 id="ask-title">ค้นหาคำตอบ</h2></div>
+          <form class="qa-box" id="ask-form" role="search">
+            <label class="search">
+              <span class="visually-hidden">คำถามของคุณ</span>
+              <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+              <input class="input" id="q" type="search" maxlength="200" autocomplete="off" placeholder="พิมพ์คำถามหรือรหัสวิชา" />
+            </label>
+            <button class="btn btn-primary" type="submit">ค้นหา</button>
+          </form>
+          <div id="search-status" hidden></div>
+          <div id="results" class="stack" aria-live="polite"></div>
+        </section>
+
+        <section class="card stack" aria-labelledby="faq-title">
+          <div class="section-title"><h2 id="faq-title">คำถามที่พบบ่อย</h2></div>
+          <div id="faq-status" hidden></div>
+          <div id="faqs" class="stack"></div>
+        </section>
+
+        <section class="card stack" aria-labelledby="submit-title" id="submit">
+          <div class="section-title"><h2 id="submit-title">ส่งคำถามถึงสาขาวิชา</h2></div>
+          <p class="small muted">หากไม่พบคำตอบ ส่งคำถามไว้ได้ เจ้าหน้าที่จะใช้คำถามเหล่านี้ปรับปรุงคำถามที่พบบ่อย ใส่อีเมลหากต้องการให้ติดต่อกลับ (ไม่บังคับ)</p>
+          <form class="stack" id="submit-form" novalidate>
+            <div class="field">
+              <label for="question">คำถาม</label>
+              <textarea class="textarea" id="question" maxlength="1000" required></textarea>
+              <small><span id="question-count">0</span>/1000 ตัวอักษร</small>
+            </div>
+            <div class="field">
+              <label for="contact">อีเมลสำหรับติดต่อกลับ (ไม่บังคับ)</label>
+              <input class="input" id="contact" type="email" maxlength="255" autocomplete="email" />
+            </div>
+            <div id="submit-status" hidden></div>
+            <div class="row"><button class="btn btn-primary" type="submit" id="submit-btn"><i class="fa-solid fa-paper-plane" aria-hidden="true"></i> ส่งคำถาม</button></div>
+          </form>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer id="site-footer"></footer>
+
+  <script type="module">
+    import { initLayout } from './layout.js';
+    import { apiGet, apiSend, errorMessage } from './api.js';
+    import { h, icon, setStatus, formatCredits } from './ui.js';
+
+    const user = initLayout();
+    const $ = (id) => document.getElementById(id);
+
+    // FAQ links point to pages of this site only (they are curated, but never trusted as arbitrary URLs).
+    const safeLink = (link) => (link && /^[a-z-]+\.html(#[\w-]+)?(\?[\w=&-]+)?$/i.test(link) ? link : null);
+
+    function faqItem(f, open = false) {
+      const link = safeLink(f.link);
+      return h('details', { class: 'faq', open },
+        h('summary', {}, f.question),
+        h('div', { class: 'faq__answer' }, h('p', {}, f.answer),
+          link ? h('a', { href: link }, 'ดูข้อมูลเพิ่มเติม ', icon('arrow-right')) : null));
+    }
+
+    async function loadFaqs() {
+      try {
+        const { data } = await apiGet('/qa/search', { cacheKey: 'faqs' });
+        $('faqs').replaceChildren(...data.faqs.map((f) => faqItem(f)));
+      } catch (err) {
+        setStatus($('faq-status'), 'danger', 'โหลดคำถามที่พบบ่อยไม่สำเร็จ', errorMessage(err));
+      }
+    }
+
+    async function search(q) {
+      $('search-status').hidden = true;
+      $('results').replaceChildren(h('div', { class: 'skeleton' }));
+      try {
+        const { data } = await apiGet(`/qa/search?q=${encodeURIComponent(q)}`, { retries: 1 });
+        const parts = [];
+        if (data.faqs.length) {
+          parts.push(h('h3', {}, 'คำตอบที่เกี่ยวข้อง'), ...data.faqs.map((f, i) => faqItem(f, i === 0)));
+        }
+        if (data.courses.length) {
+          parts.push(h('h3', {}, 'รายวิชาที่เกี่ยวข้อง'), h('div', { class: 'table-wrap' }, h('table', { class: 'table' },
+            h('thead', {}, h('tr', {}, h('th', { scope: 'col' }, 'รหัสวิชา'), h('th', { scope: 'col' }, 'ชื่อวิชา'), h('th', { scope: 'col', class: 'num' }, 'หน่วยกิต'))),
+            h('tbody', {}, ...data.courses.map((c) => h('tr', {},
+              h('td', { class: 'code' }, h('a', { href: `courses.html?q=${encodeURIComponent(c.code)}` }, c.code)),
+              h('td', {}, c.nameTh, h('div', { class: 'small muted' }, c.nameEn)),
+              h('td', { class: 'num' }, formatCredits(c.credits))))))));
+        }
+        if (!parts.length) {
+          parts.push(h('div', { class: 'empty' }, icon('magnifying-glass'), 'ไม่พบคำตอบที่ตรงกับคำถามนี้',
+            h('div', {}, h('a', { href: '#submit', onclick: () => { $('question').value = q; updateCount(); $('question').focus(); } }, 'ส่งคำถามนี้ถึงสาขาวิชา'))));
+        }
+        $('results').replaceChildren(...parts);
+      } catch (err) {
+        $('results').replaceChildren();
+        setStatus($('search-status'), 'danger', 'ค้นหาไม่สำเร็จ', errorMessage(err));
+      }
+    }
+
+    const updateCount = () => ($('question-count').textContent = String($('question').value.length));
+    $('question').addEventListener('input', updateCount);
+
+    $('ask-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const q = $('q').value.trim();
+      if (q) {
+        history.replaceState(null, '', `?q=${encodeURIComponent(q)}`);
+        search(q);
+      }
+    });
+
+    $('submit-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const question = $('question').value.trim();
+      const contact = $('contact').value.trim();
+      if (question.length < 3) {
+        setStatus($('submit-status'), 'danger', 'กรุณาพิมพ์คำถามอย่างน้อย 3 ตัวอักษร');
+        return;
+      }
+      if (contact && !$('contact').checkValidity()) {
+        setStatus($('submit-status'), 'danger', 'รูปแบบอีเมลไม่ถูกต้อง');
+        return;
+      }
+      $('submit-btn').disabled = true;
+      try {
+        // Signed-in users send their token so the question is linked to their account.
+        await apiSend('POST', '/qa/questions', { question, contactEmail: contact || null }, { auth: !!user });
+        setStatus($('submit-status'), 'ok', 'ส่งคำถามแล้ว', 'ขอบคุณสำหรับคำถาม สาขาวิชาจะนำไปปรับปรุงข้อมูลคำถามที่พบบ่อย');
+        $('submit-form').reset();
+        updateCount();
+      } catch (err) {
+        setStatus($('submit-status'), 'danger', 'ส่งคำถามไม่สำเร็จ', errorMessage(err));
+      } finally {
+        $('submit-btn').disabled = false;
+      }
+    });
+
+    loadFaqs();
+    const initial = new URLSearchParams(location.search).get('q');
+    if (initial) {
+      $('q').value = initial;
+      search(initial);
+    }
+  </script>
+</body>
+</html>
