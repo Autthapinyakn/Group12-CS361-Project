@@ -1,74 +1,95 @@
 # Group12-CS361-Project
-Cloud architecture project: http://group12-cs361-v1-2026.s3-website-us-east-1.amazonaws.com
 
-## Project Vision
-Build a curriculum system that can eventually support the broader academic information process, including information access, Q&A, graduation verification against real registrar data, and curriculum data management by authorized staff.
-## Primary User
-prospective students, current students, staff, or visitors
-## Problem
-Users may have difficulty finding accurate and up-to-date information about curricula, study plans, courses, prerequisites, and graduation requirements because the information is scattered across different sources (department documents, faculty announcements, informal advice from staff, etc.).
-## V1 Goal
-Define what V1 system is responsible for and identify the actors, external systems, data sources, and information flows that cross the system boundary.
-## V1 In scope
-Search and browse for urriculum, study plans, courses, prerequisites, and graduation requirements information.
-## V1 Out of scope
-Course registration, Curriculum data editing/management, question-answering capability, Login / authentication and role-based access, and Graduation status verification using real registrar data.
-## External actors / systems
-**External actor**
-- Student
-  
-**External systems/ Data sources**
-- Curriculum/course data source
-- study plans data source
-## Open questions / To validate
-- How often is the data updated
-- Where does curriculum and study plan data currently come from
+Curriculum Information & Graduation Verification System — CS361 Cloud-based Software Architecting, Thammasat University (Group 12).
 
-## V3 frontend features (Issues #33–#38)
+The system lets anyone browse the Computer Science curricula, study plans, courses, prerequisites and graduation conditions, and ask questions. Signed-in students check whether they can graduate from the registrar's data; instructors and staff check their students; staff import registrar data; curriculum coordinators edit study plans with a full change history.
 
-The frontend is static HTML/ES modules under `frontend/`. New pages are `login.html`, `curriculum-edit.html`, `graduation-requirements.html`, and `graduation-status.html`. Existing pages share the role-aware sidebar and login/logout control.
+Current version: **V4** — graduation verification from registrar data, external data exchange, scale & availability.
 
-### Configure Amazon Cognito before using authentication
+## Repository map
 
-1. Create/use a Cognito User Pool and a **public app client without a client secret**.
-2. Enable the Cognito managed login/authorization-code flow with PKCE and scopes `openid`, `email`, `profile`.
-3. Add the deployed frontend URL ending in `/login.html` to both the app client's Allowed callback URLs and Allowed sign-out URLs. Allow the deployed origin in CORS where required.
-4. Replace `YOUR_COGNITO_DOMAIN...` and `YOUR_COGNITO_APP_CLIENT_ID` in `frontend/auth-config.js` with the actual User Pool domain and app client ID.
-5. Put users into Cognito groups named `student`, `instructor`, or `coordinator`, or populate a matching `custom:role` claim. For graduation status, configure a `custom:student_id` claim (or make the username match the `student_course_records.student_id` key).
-6. Configure API Gateway routes to use a Cognito User Pool authorizer. Frontend hiding alone is not an access-control boundary; the protected Lambda handlers also check the authorizer claims.
+| Path | Contents |
+|---|---|
+| `frontend/` | Static site (HTML, CSS, ES modules). `config.js` holds the API URL and Cognito settings |
+| `backend/` | One AWS Lambda (TypeScript): `src/functions/api.ts` router, `src/domain/` audit engine and CSV parser, `src/providers/` SQL, `test/`, `dev/server.ts` local server |
+| `db/` | `schema_v3.sql`, `seed_curricula.sql`, `migration_v4.sql`, `seed_v4_requirements.sql`, `seed_v4_faq.sql`, `sample-registrar/` synthetic CSV files, `local/apply-all.sh` |
+| `document/context/` | Course brief, requirements PDFs, curriculum document (มคอ.2 2566), `context.md` summary |
+| `document/v4/` | Architecture + ADRs, code review, registrar CSV contract, user-testing plan |
+| `document/v5/`–`v7/` | Architecture designs for later versions |
+| `document/er/` | ER diagram V1–V7 |
+| `document/plan/issues-v4-v7.md` | All V4–V7 issues with Definition of Done |
+| `document/deploy/` | Learner Lab deploy guide, local testing guide |
+| `docker-compose.yml` | Local PostgreSQL |
 
-Tokens are held in `sessionStorage` for the current browser tab/session rather than `localStorage`; OAuth uses state validation and PKCE. Deploy this site over HTTPS. For a production deployment, a backend-for-frontend or secure HttpOnly-cookie session is preferable to browser-readable tokens.
+## Architecture (V4)
 
-### Expected API Gateway routes / Lambda handlers
+```mermaid
+flowchart LR
+  U[Browser] -- HTTPS --> S3[S3 REST endpoint<br/>static site]
+  U -- Hosted UI + PKCE --> COG[Cognito<br/>student / instructor / staff / coordinator]
+  U -- HTTPS + ID token --> API[API Gateway HTTP API<br/>JWT authorizer, throttling]
+  API --> L[Lambda api<br/>router + role checks]
+  subgraph VPC
+    L -- TLS --> RDS[(RDS PostgreSQL)]
+  end
+  L -.-> CW[CloudWatch alarms] --> SNS[SNS email]
+```
 
-| Method and path | Lambda handler | Access |
+Details and the twelve architecture decisions: [`document/v4/architecture-v4.md`](document/v4/architecture-v4.md).
+
+## Run locally (no AWS credit)
+
+```bash
+docker compose up -d db
+docker compose exec db sh /db/local/apply-all.sh
+cd backend
+npm ci
+npm test
+npm run dev
+```
+
+Open http://localhost:3001/index.html, sign in as one of the sample users on `login.html`, and import `db/sample-registrar/registrar_2569-1.csv` as staff. Full guide: [`document/deploy/local-testing.md`](document/deploy/local-testing.md).
+
+## Deploy (AWS Academy Learner Lab)
+
+```bash
+cd backend
+npm run package
+```
+
+Then follow [`document/deploy/deploy-learner-lab.md`](document/deploy/deploy-learner-lab.md): S3 over HTTPS → RDS → schema and seeds → Lambda in the VPC (LabRole) → Cognito groups and app client → HTTP API with JWT authorizer → alarms → `config.js` and upload.
+
+## API
+
+| Method and path | Access | Purpose |
 |---|---|---|
-| `GET /courses` | `handlers.getCourses` | Public course catalogue |
-| `GET /courses/{id}` | `handlers.getCourseById` | Public course details |
-| `GET /curriculum/{curriculumId}` | `handlers.getCurriculum` | Public curriculum read |
-| `PUT /curriculum/{curriculumId}/courses/{courseId}` | `handlers.updateCurriculumEntry` | Coordinator only |
-| `GET /graduation/requirements/{curriculumId}` | `handlers.getGraduationRequirements` | Authenticated student/instructor/coordinator |
-| `GET /graduation/status/me` | `handlers.getMyGraduationStatus` | Student only |
-| `GET /graduation/status/{studentId}` | `handlers.getStudentGraduationStatus` | Instructor assigned to that student only |
+| `GET /health` | public | API and database status |
+| `GET /courses`, `GET /courses/{id}`, `GET /curricula` | public | catalogue |
+| `GET /curriculum/{curriculumId}` (`/electives`, `/requirements`) | public | study plan, elective groups, graduation conditions |
+| `GET /qa/search?q=`, `POST /qa/questions` | public | Q&A |
+| `GET /me` | signed in | identity and roles |
+| `GET /graduation/me` | student | own graduation audit |
+| `GET /graduation/students`, `GET /graduation/students/{studentCode}` | instructor (advisees), staff (all) | students' audits |
+| `POST /registrar/imports`, `GET /registrar/imports` | staff | registrar CSV import and history |
+| `POST`, `PUT`, `DELETE /curriculum/{curriculumId}/entries` | coordinator | edit study plans (optimistic locking) |
+| `GET /audit/curriculum-changes` | coordinator, staff | change history |
 
-For API Gateway HTTP API, pass verified JWT claims through the authorizer context; for REST API, use a Cognito User Pool authorizer. Add CORS for the deployed frontend origin and `Authorization,Content-Type` headers. These routes need to be added to the existing API Gateway deployment; editing this repository alone does not create cloud routes.
+`{curriculumId}` accepts the UUID or the code (`applied-cs`, `cis-cs`, `cnc`).
 
-### Graduation status data
+## Versions
 
-After applying `db/v3_graduation_migration.sql`, authorized staff must import registrar course-completion records into `student_course_records` and instructor/student relationships into `instructor_student`. The project repository does not currently contain real registrar results or a student-to-instructor assignment dataset, so the status page intentionally reports unavailable records instead of inventing or hard-coding student progress. The current status calculation compares completed course IDs with unique course IDs present in the curriculum; confirm official minimum credits and other graduation rules with the programme before treating this as an official graduation audit.
+| Version | Scope |
+|---|---|
+| V1 | Problem, actors, system boundary; static pages |
+| V2 | Curriculum database and public read API |
+| V3 | Sign-in with Cognito, role-based pages, curriculum editing prototype |
+| **V4** | Graduation verification from registrar data, CSV exchange, availability under missing data, audit trail, Q&A |
+| V5 | Infrastructure as code (SAM), private database, automated deploy — [design](document/v5/architecture-v5.md) |
+| V6 | Performance and cost measurement and tuning — [design](document/v6/architecture-v6.md) |
+| V7 | Usage statistics (FR9), Q&A workflow, security and recovery review — [design](document/v7/architecture-v7.md) |
 
-### Deployment / verification checklist
+## Project vision (from V1)
 
-- Deploy the `frontend/` directory as static website content with ES modules enabled and HTTPS.
-- Apply `db/v3_graduation_migration.sql` to the same PostgreSQL database used by the API.
-- Compile/deploy `backend/handlers.ts` and `backend/postgresCourseProvider.ts` to Lambda; ensure `DATABASE_URL` is set.
-- Add the routes above in API Gateway and attach Cognito authorization to protected routes.
-- Test sign-in and sign-out, and separately test each role. Verify that non-coordinators receive HTTP 403 for curriculum updates and that instructors cannot query students outside their assignment table.
+Users find it hard to get accurate, current information about curricula, study plans, courses, prerequisites and graduation requirements because it is scattered across department documents, announcements and informal advice. The system is the single source for that information, and grows into graduation verification against real registrar data and controlled curriculum management by authorised staff.
 
-
-### Frontend update (Bow follow-up)
-- `frontend/program.html` combines the program selector and study-plan viewer. It loads curriculum entries through the existing API.
-- `frontend/about-cs.html` summarizes the three undergraduate study tracks based on the official CS.SCI@TU undergraduate page.
-- `frontend/minor-tracks.html`, `frontend/special-topics-plan.html`, and `frontend/applied-cs.html` redirect to their replacement pages for backward compatibility.
-- `frontend/api.js` maps the currently seeded Applied Computer Science curriculum. The regular-program and network/cybersecurity curriculum IDs remain blank because `db/seed_v2_real.sql` currently seeds only the Applied Computer Science curriculum; add those curricula and set their IDs before expecting those two selections to load data.
-- Sidebar role links use Cognito role/group claims; unknown roles are not assumed to be students. Verify role claim names in the deployed Cognito user pool.
+Primary users: prospective and current students, instructors, programme staff, curriculum coordinators, visitors.

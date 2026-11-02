@@ -1,0 +1,811 @@
+{
+ "applied-cs": {
+  "code": "applied-cs",
+  "name": "คอมพิวเตอร์ประยุกต์",
+  "minTotalCredits": 123,
+  "minGpax": 2,
+  "maxRegularSemesters": 16,
+  "source": "มคอ.2 หลักสูตรวิทยาศาสตรบัณฑิต สาขาวิชาวิทยาการคอมพิวเตอร์ (ฉบับปรับปรุง พ.ศ. 2566)",
+  "categories": [
+   {
+    "id": "7580465f-4af7-4cd1-9e6a-dabe57e41b69",
+    "parentId": null,
+    "code": "1",
+    "name": "วิชาศึกษาทั่วไป",
+    "minCredits": 30,
+    "plan": null,
+    "isOptional": false,
+    "isCatchAll": false,
+    "rule": null,
+    "sortOrder": 10,
+    "courseCodes": []
+   },
+   {
+    "id": "11cb8134-1ec1-4287-8d53-09e5b7039718",
+    "parentId": "7580465f-4af7-4cd1-9e6a-dabe57e41b69",
+    "code": "1.1",
+    "name": "หมวดความเท่าทันโลกและสังคม",
+    "minCredits": 6,
+    "plan": null,
+    "isOptional": false,
+    "isCatchAll": false,
+    "rule": null,
+    "sortOrder": 11,
+    "courseCodes": [
+     "TU101",
+     "TU109"
+    ]
+   },
+   {
+    "id": "ac80221a-9e66-4405-b807-0283ad1505f2",
+    "parentId": "7580465f-4af7-4cd1-9e6a-dabe57e41b69",
+    "code": "1.2",
+    "name": "หมวดสุนทรียะและทักษะการสื่อสาร",
+    "minCredits": 9,
+    "plan": null,
+    "isOptional": false,
+    "isCatchAll": false,
+    "rule": null,
+    "sortOrder": 12,
+    "courseCodes": [
+     "EL105",
+     "LAS101",
+     "TU106"
+    ]
+   },
+   {
+    "id": "60552856-56df-45fb-90f5-c0816377fec0",
+    "parentId": "7580465f-4af7-4cd1-9e6a-dabe57e41b69",
+    "code": "1.3",
+    "name": "หมวดคณิตศาสตร์ วิทยาศาสตร์และเทคโนโลยี (เลือก 1 วิชา)",
+    "minCredits": 3,
+    "plan": null,
+    "isOptional": false,
+    "isCatchAll": false,
+    "rule": null,
+    "sortOrder": 13,
+    "courseCodes": [
+     "TU103",
+     "TU107"
+    ]
+   },
+   {
+    "id": "08d9082a-baf0-49af-b8a4-497f9d24a2c8",
+    "parentId": "7580465f-4af7-4cd1-9e6a-dabe57e41b69",
+    "code": "1.4",
+    "name": "หมวดสุขภาวะและทักษะแห่งอนาคต",
+    "minCredits": 9,
+    "plan": null,
+    "isOptional": false,
+    "isCatchAll": false,
+    "rule": null,
+    "sortOrder": 14,
+    "courseCodes": [
+     "EL295",
+     "TU108"
+    ]
+   },
+   {
+    "id": "4eb11d59-3ac1-4ba5-9fb9-aae7b37754eb",
+    "parentId": "08d9082a-baf0-49af-b8a4-497f9d24a2c8",
+    "code": "1.4.1",
+    "name": "เลือกศึกษา 3 หน่วยกิตจากรายวิชาต่อไปนี้",
+    "minCredits": 3,
+    "plan": null,
+    "isOptional": false,
+    "isCatchAll": false,
+    "rule": null,
+    "sortOrder": 15,
+    "courseCodes": [
+     "TU201",
+     "TU202",
+     "TU301"
+    ]
+   },
+   {
+    "id": "931339d9-73ea-4181-adbc-553d8955fef8",
+    "parentId": "7580465f-4af7-4cd1-9e6a-dabe57e41b69",
+    "code": "1.5",
+    "name": "หมวดการบริการสังคมและการเรียนรู้จากการปฏิบัติ",
+    "minCredits": 3,
+    "plan": null,
+    "isOptional": false,
+    "isCatchAll": false,
+    "rule": null,
+    "sortOrder": 16,
+    "courseCodes": [
+     "TU100"
+    ]
+   },
+   {
+    "id": "1d31290c-6d2e-4a17-9bb3-7bb4b589cb2e",
+    "parentId": null,
+    "code": "2",
+    "name": "วิชาเฉพาะ",
+    "minCredits": 87,
+    "plan": null,
+    "isOptional": false,
+    "isCatchAll": false,
+    "rule": null,
+    "sortOrder": 20,
+    "courseCodes": []
+   },
+   {
+    "id": "bdd4a730-7f62-4eb8-8939-60873690a890",
+    "parentId": "1d31290c-6d2e-4a17-9bb3-7bb4b589cb2e",
+    "code": "2.1",
+    "name": "วิชาแกน 12 หน่วยกิต และวิชาเฉพาะด้าน 42 หน่วยกิต",
+    "minCredits": 48,
+    "plan": null,
+    "isOptional": false,
+    "isCatchAll": false,
+    "rule": null,
+    "sortOrder": 21,
+    "courseCodes": []
+   },
+   {
+    "id": "21a51352-e2bc-4854-9d77-e4f4ea0e8267",
+    "parentId": "bdd4a730-7f62-4eb8-8939-60873690a890",
+    "code": "2.1.1",
+    "name": "ต้องสอบไล่ได้ไม่ต่ำกว่า C ในรายวิชา CS101, CS102, CS111 และค่าเฉลี่ยรวม 8 วิชาไม่ต่ำกว่า 2.00",
+    "minCredits": 24,
+    "plan": null,
+    "isOptional": false,
+    "isCatchAll": false,
+    "rule": {
+     "minGrade": {
+      "grade": "C",
+      "courses": [
+       "CS101",
+       "CS102",
+       "CS111"
+      ]
+     },
+     "minAverage": {
+      "value": 2,
+      "courses": [
+       "CS100",
+       "CS101",
+       "CS102",
+       "CS111",
+       "CS232",
+       "CS240",
+       "CS251",
+       "CS261"
+      ]
+     }
+    },
+    "sortOrder": 22,
+    "courseCodes": [
+     "CS100",
+     "CS101",
+     "CS102",
+     "CS111",
+     "CS232",
+     "CS240",
+     "CS251",
+     "CS261"
+    ]
+   },
+   {
+    "id": "eaa55426-be42-4e74-9eb9-213259fb5f79",
+    "parentId": "bdd4a730-7f62-4eb8-8939-60873690a890",
+    "code": "2.1.2",
+    "name": "ต้องศึกษา 8 วิชา",
+    "minCredits": 24,
+    "plan": null,
+    "isOptional": false,
+    "isCatchAll": false,
+    "rule": null,
+    "sortOrder": 23,
+    "courseCodes": [
+     "CS180",
+     "CS233",
+     "CS271",
+     "CS301",
+     "CS305",
+     "MA211",
+     "ST216",
+     "ST329"
+    ]
+   },
+   {
+    "id": "bd418f7c-c812-487b-8f21-9e7ba1d3457c",
+    "parentId": "bdd4a730-7f62-4eb8-8939-60873690a890",
+    "code": "2.1.3",
+    "name": "รายวิชาที่ต้องศึกษา (โครงงานพิเศษหรือสหกิจศึกษา)",
+    "minCredits": 6,
+    "plan": null,
+    "isOptional": false,
+    "isCatchAll": false,
+    "rule": null,
+    "sortOrder": 24,
+    "courseCodes": []
+   },
+   {
+    "id": "1fed0917-bfc9-408b-8085-d8c84eb27669",
+    "parentId": "bd418f7c-c812-487b-8f21-9e7ba1d3457c",
+    "code": "2.1.3.1",
+    "name": "สำหรับนักศึกษาที่เลือกทำหัวข้อพิเศษ",
+    "minCredits": 6,
+    "plan": "โครงงาน",
+    "isOptional": false,
+    "isCatchAll": false,
+    "rule": null,
+    "sortOrder": 25,
+    "courseCodes": [
+     "CS303",
+     "CS403"
+    ]
+   },
+   {
+    "id": "e072feef-e70b-4450-bbdd-009bc3ac23b7",
+    "parentId": "bd418f7c-c812-487b-8f21-9e7ba1d3457c",
+    "code": "2.1.3.2",
+    "name": "สำหรับนักศึกษาที่เลือกแผนสหกิจศึกษา",
+    "minCredits": 6,
+    "plan": "สหกิจศึกษา",
+    "isOptional": false,
+    "isCatchAll": false,
+    "rule": null,
+    "sortOrder": 26,
+    "courseCodes": [
+     "CS304",
+     "CS404"
+    ]
+   },
+   {
+    "id": "8b056182-2cdc-452e-8ac5-b961a3b93b97",
+    "parentId": "1d31290c-6d2e-4a17-9bb3-7bb4b589cb2e",
+    "code": "2.2",
+    "name": "วิชาเอก (คอมพิวเตอร์ประยุกต์)",
+    "minCredits": 30,
+    "plan": null,
+    "isOptional": false,
+    "isCatchAll": false,
+    "rule": null,
+    "sortOrder": 27,
+    "courseCodes": [
+     "CS216",
+     "CS234",
+     "CS262",
+     "CS263",
+     "CS264",
+     "CS361",
+     "CS362",
+     "CS363",
+     "CS364",
+     "CS367"
+    ]
+   },
+   {
+    "id": "b8fbd07d-503f-4b46-856d-6398a0bc1cf6",
+    "parentId": "1d31290c-6d2e-4a17-9bb3-7bb4b589cb2e",
+    "code": "2.3",
+    "name": "วิชาบังคับนอกสาขา",
+    "minCredits": 3,
+    "plan": null,
+    "isOptional": false,
+    "isCatchAll": false,
+    "rule": null,
+    "sortOrder": 28,
+    "courseCodes": [
+     "EL395"
+    ]
+   },
+   {
+    "id": "b54d3ed0-3e57-4ba7-b3fb-ce623d87ac9f",
+    "parentId": null,
+    "code": "3",
+    "name": "วิชาเลือกเสรี",
+    "minCredits": 6,
+    "plan": null,
+    "isOptional": false,
+    "isCatchAll": true,
+    "rule": {
+     "excludeCodePattern": "^(TU|EL|LAS)1[0-9]{2}$"
+    },
+    "sortOrder": 30,
+    "courseCodes": []
+   },
+   {
+    "id": "dba6b294-a31c-409e-92ff-e1c5bccbc5ad",
+    "parentId": null,
+    "code": "4",
+    "name": "วิชาโท (ไม่บังคับ)",
+    "minCredits": 0,
+    "plan": null,
+    "isOptional": true,
+    "isCatchAll": false,
+    "rule": null,
+    "sortOrder": 40,
+    "courseCodes": []
+   },
+   {
+    "id": "35303ea6-d602-4cfa-9824-64c1954cc35a",
+    "parentId": "dba6b294-a31c-409e-92ff-e1c5bccbc5ad",
+    "code": "4.1",
+    "name": "วิชาโทการออกแบบและพัฒนาผลิตภัณฑ์ดิจิทัล",
+    "minCredits": 15,
+    "plan": null,
+    "isOptional": true,
+    "isCatchAll": false,
+    "rule": null,
+    "sortOrder": 41,
+    "courseCodes": [
+     "CS287",
+     "CS342",
+     "CS355",
+     "CS384",
+     "CS385"
+    ]
+   },
+   {
+    "id": "92c76143-c149-4836-a38f-2bfabd1b1441",
+    "parentId": "dba6b294-a31c-409e-92ff-e1c5bccbc5ad",
+    "code": "4.2",
+    "name": "วิชาโทเดฟออปส์",
+    "minCredits": 15,
+    "plan": null,
+    "isOptional": true,
+    "isCatchAll": false,
+    "rule": null,
+    "sortOrder": 42,
+    "courseCodes": [
+     "CS223",
+     "CS224",
+     "CS341",
+     "CS365",
+     "CS366"
+    ]
+   },
+   {
+    "id": "a506e199-25a0-4b26-840b-538281eff7cc",
+    "parentId": "dba6b294-a31c-409e-92ff-e1c5bccbc5ad",
+    "code": "4.3",
+    "name": "วิชาโทวิทยาการข้อมูล",
+    "minCredits": 15,
+    "plan": null,
+    "isOptional": true,
+    "isCatchAll": false,
+    "rule": null,
+    "sortOrder": 43,
+    "courseCodes": [
+     "CS246",
+     "CS343",
+     "CS345",
+     "CS346",
+     "CS440"
+    ]
+   },
+   {
+    "id": "86518299-c656-434c-8201-a58ac5de8489",
+    "parentId": "dba6b294-a31c-409e-92ff-e1c5bccbc5ad",
+    "code": "4.4",
+    "name": "วิชาโทปัญญาประดิษฐ์",
+    "minCredits": 15,
+    "plan": null,
+    "isOptional": true,
+    "isCatchAll": false,
+    "rule": null,
+    "sortOrder": 44,
+    "courseCodes": [
+     "CS343",
+     "CS371",
+     "CS372",
+     "CS373",
+     "CS374"
+    ]
+   }
+  ]
+ },
+ "cis-cs": {
+  "code": "cis-cs",
+  "name": "คอมพิวเตอร์และวิทยาการสารสนเทศ",
+  "minTotalCredits": 123,
+  "minGpax": 2,
+  "maxRegularSemesters": 16,
+  "source": "มคอ.2 หลักสูตรวิทยาศาสตรบัณฑิต สาขาวิชาวิทยาการคอมพิวเตอร์ (ฉบับปรับปรุง พ.ศ. 2566)",
+  "categories": [
+   {
+    "id": "fec97b91-e106-4a34-a202-07e69d93e8a6",
+    "parentId": null,
+    "code": "1",
+    "name": "วิชาศึกษาทั่วไป",
+    "minCredits": 30,
+    "plan": null,
+    "isOptional": false,
+    "isCatchAll": false,
+    "rule": null,
+    "sortOrder": 10,
+    "courseCodes": []
+   },
+   {
+    "id": "80c10351-8ab4-4a3d-9774-29f0f50ffcd5",
+    "parentId": "fec97b91-e106-4a34-a202-07e69d93e8a6",
+    "code": "1.1",
+    "name": "หมวดความเท่าทันโลกและสังคม",
+    "minCredits": 6,
+    "plan": null,
+    "isOptional": false,
+    "isCatchAll": false,
+    "rule": null,
+    "sortOrder": 11,
+    "courseCodes": [
+     "TU101",
+     "TU109"
+    ]
+   },
+   {
+    "id": "5ac89d5f-9870-48c2-93c3-71ef30be04f6",
+    "parentId": "fec97b91-e106-4a34-a202-07e69d93e8a6",
+    "code": "1.2",
+    "name": "หมวดสุนทรียะและทักษะการสื่อสาร",
+    "minCredits": 9,
+    "plan": null,
+    "isOptional": false,
+    "isCatchAll": false,
+    "rule": null,
+    "sortOrder": 12,
+    "courseCodes": [
+     "EL105",
+     "LAS101",
+     "TU106"
+    ]
+   },
+   {
+    "id": "d86170a6-0362-461e-a64a-b66eae001a70",
+    "parentId": "fec97b91-e106-4a34-a202-07e69d93e8a6",
+    "code": "1.3",
+    "name": "หมวดคณิตศาสตร์ วิทยาศาสตร์และเทคโนโลยี (เลือก 1 วิชา)",
+    "minCredits": 3,
+    "plan": null,
+    "isOptional": false,
+    "isCatchAll": false,
+    "rule": null,
+    "sortOrder": 13,
+    "courseCodes": [
+     "TU103",
+     "TU107"
+    ]
+   },
+   {
+    "id": "455fd046-f643-43b1-9f90-f9d0234e048f",
+    "parentId": "fec97b91-e106-4a34-a202-07e69d93e8a6",
+    "code": "1.4",
+    "name": "หมวดสุขภาวะและทักษะแห่งอนาคต",
+    "minCredits": 9,
+    "plan": null,
+    "isOptional": false,
+    "isCatchAll": false,
+    "rule": null,
+    "sortOrder": 14,
+    "courseCodes": [
+     "EL295",
+     "TU108"
+    ]
+   },
+   {
+    "id": "0cc47683-b2cb-4247-8a1d-86781d9df2a2",
+    "parentId": "455fd046-f643-43b1-9f90-f9d0234e048f",
+    "code": "1.4.1",
+    "name": "เลือกศึกษา 3 หน่วยกิตจากรายวิชาต่อไปนี้",
+    "minCredits": 3,
+    "plan": null,
+    "isOptional": false,
+    "isCatchAll": false,
+    "rule": null,
+    "sortOrder": 15,
+    "courseCodes": [
+     "TU201",
+     "TU202",
+     "TU301"
+    ]
+   },
+   {
+    "id": "70025822-7cde-4cca-ad6e-1598b3d89868",
+    "parentId": "fec97b91-e106-4a34-a202-07e69d93e8a6",
+    "code": "1.5",
+    "name": "หมวดการบริการสังคมและการเรียนรู้จากการปฏิบัติ",
+    "minCredits": 3,
+    "plan": null,
+    "isOptional": false,
+    "isCatchAll": false,
+    "rule": null,
+    "sortOrder": 16,
+    "courseCodes": [
+     "TU100"
+    ]
+   },
+   {
+    "id": "30969e48-0941-47d3-9f07-2eb908e288ec",
+    "parentId": null,
+    "code": "2",
+    "name": "วิชาเฉพาะ",
+    "minCredits": 87,
+    "plan": null,
+    "isOptional": false,
+    "isCatchAll": false,
+    "rule": null,
+    "sortOrder": 20,
+    "courseCodes": []
+   },
+   {
+    "id": "d7691e06-4836-4bee-8ec5-020b17c60039",
+    "parentId": "30969e48-0941-47d3-9f07-2eb908e288ec",
+    "code": "2.1",
+    "name": "วิชาแกน 12 หน่วยกิต และวิชาเฉพาะด้าน 42 หน่วยกิต",
+    "minCredits": 48,
+    "plan": null,
+    "isOptional": false,
+    "isCatchAll": false,
+    "rule": null,
+    "sortOrder": 21,
+    "courseCodes": []
+   },
+   {
+    "id": "9e06b2ef-80e4-4d64-8169-7ac284a3aef4",
+    "parentId": "d7691e06-4836-4bee-8ec5-020b17c60039",
+    "code": "2.1.1",
+    "name": "ต้องสอบไล่ได้ไม่ต่ำกว่า C ในรายวิชา CS101, CS102, CS111 และค่าเฉลี่ยรวม 8 วิชาไม่ต่ำกว่า 2.00",
+    "minCredits": 24,
+    "plan": null,
+    "isOptional": false,
+    "isCatchAll": false,
+    "rule": {
+     "minGrade": {
+      "grade": "C",
+      "courses": [
+       "CS101",
+       "CS102",
+       "CS111"
+      ]
+     },
+     "minAverage": {
+      "value": 2,
+      "courses": [
+       "CS100",
+       "CS101",
+       "CS102",
+       "CS111",
+       "CS232",
+       "CS240",
+       "CS251",
+       "CS261"
+      ]
+     }
+    },
+    "sortOrder": 22,
+    "courseCodes": [
+     "CS100",
+     "CS101",
+     "CS102",
+     "CS111",
+     "CS232",
+     "CS240",
+     "CS251",
+     "CS261"
+    ]
+   },
+   {
+    "id": "04f5384b-638e-4fb6-a34f-5bbec4a195bd",
+    "parentId": "d7691e06-4836-4bee-8ec5-020b17c60039",
+    "code": "2.1.2",
+    "name": "ต้องศึกษา 8 วิชา",
+    "minCredits": 24,
+    "plan": null,
+    "isOptional": false,
+    "isCatchAll": false,
+    "rule": null,
+    "sortOrder": 23,
+    "courseCodes": [
+     "CS180",
+     "CS221",
+     "CS271",
+     "CS301",
+     "CS305",
+     "MA211",
+     "ST216",
+     "ST329"
+    ]
+   },
+   {
+    "id": "7febb30e-5581-468f-91da-f714a0ed0440",
+    "parentId": "d7691e06-4836-4bee-8ec5-020b17c60039",
+    "code": "2.1.3",
+    "name": "รายวิชาที่ต้องศึกษา (โครงงานพิเศษหรือสหกิจศึกษา)",
+    "minCredits": 6,
+    "plan": null,
+    "isOptional": false,
+    "isCatchAll": false,
+    "rule": null,
+    "sortOrder": 24,
+    "courseCodes": []
+   },
+   {
+    "id": "86ec6911-64a2-4e15-af0c-5e0a26d1b2b2",
+    "parentId": "7febb30e-5581-468f-91da-f714a0ed0440",
+    "code": "2.1.3.1",
+    "name": "สำหรับนักศึกษาที่เลือกทำหัวข้อพิเศษ",
+    "minCredits": 6,
+    "plan": "โครงงาน",
+    "isOptional": false,
+    "isCatchAll": false,
+    "rule": null,
+    "sortOrder": 25,
+    "courseCodes": [
+     "CS303",
+     "CS403"
+    ]
+   },
+   {
+    "id": "a50451c2-6383-4950-b03f-816661fcb78a",
+    "parentId": "7febb30e-5581-468f-91da-f714a0ed0440",
+    "code": "2.1.3.2",
+    "name": "สำหรับนักศึกษาที่เลือกแผนสหกิจศึกษา",
+    "minCredits": 6,
+    "plan": "สหกิจศึกษา",
+    "isOptional": false,
+    "isCatchAll": false,
+    "rule": null,
+    "sortOrder": 26,
+    "courseCodes": [
+     "CS304",
+     "CS404"
+    ]
+   },
+   {
+    "id": "ddb37f4b-efab-4986-9f3c-9cd78112bc1a",
+    "parentId": "30969e48-0941-47d3-9f07-2eb908e288ec",
+    "code": "2.2",
+    "name": "วิชาเอก (คอมพิวเตอร์และวิทยาการสารสนเทศ)",
+    "minCredits": 30,
+    "plan": null,
+    "isOptional": false,
+    "isCatchAll": false,
+    "rule": null,
+    "sortOrder": 27,
+    "courseCodes": [
+     "CS213",
+     "CS217",
+     "CS222",
+     "CS223",
+     "CS241",
+     "CS242",
+     "CS314",
+     "CS331",
+     "CS332",
+     "CS372"
+    ]
+   },
+   {
+    "id": "cb7f1424-d365-4116-9895-3915f8212c90",
+    "parentId": "30969e48-0941-47d3-9f07-2eb908e288ec",
+    "code": "2.3",
+    "name": "วิชาบังคับนอกสาขา",
+    "minCredits": 3,
+    "plan": null,
+    "isOptional": false,
+    "isCatchAll": false,
+    "rule": null,
+    "sortOrder": 28,
+    "courseCodes": [
+     "EL395"
+    ]
+   },
+   {
+    "id": "24841e19-6596-4e5b-b918-bc601fd0150e",
+    "parentId": null,
+    "code": "3",
+    "name": "วิชาเลือกเสรี",
+    "minCredits": 6,
+    "plan": null,
+    "isOptional": false,
+    "isCatchAll": true,
+    "rule": {
+     "excludeCodePattern": "^(TU|EL|LAS)1[0-9]{2}$"
+    },
+    "sortOrder": 30,
+    "courseCodes": []
+   },
+   {
+    "id": "be607fa2-3be3-40d6-a93d-a48ebc6547eb",
+    "parentId": null,
+    "code": "4",
+    "name": "วิชาโท (ไม่บังคับ)",
+    "minCredits": 0,
+    "plan": null,
+    "isOptional": true,
+    "isCatchAll": false,
+    "rule": null,
+    "sortOrder": 40,
+    "courseCodes": []
+   },
+   {
+    "id": "cd6b3734-147e-4b54-8943-c756afc13e8e",
+    "parentId": "be607fa2-3be3-40d6-a93d-a48ebc6547eb",
+    "code": "4.1",
+    "name": "วิชาโทการออกแบบและพัฒนาผลิตภัณฑ์ดิจิทัล",
+    "minCredits": 15,
+    "plan": null,
+    "isOptional": true,
+    "isCatchAll": false,
+    "rule": null,
+    "sortOrder": 41,
+    "courseCodes": [
+     "CS287",
+     "CS342",
+     "CS355",
+     "CS384",
+     "CS385"
+    ]
+   },
+   {
+    "id": "e7d9b2cf-2c1e-4b07-b9a7-81841eb33aa6",
+    "parentId": "be607fa2-3be3-40d6-a93d-a48ebc6547eb",
+    "code": "4.2",
+    "name": "วิชาโทเดฟออปส์",
+    "minCredits": 15,
+    "plan": null,
+    "isOptional": true,
+    "isCatchAll": false,
+    "rule": null,
+    "sortOrder": 42,
+    "courseCodes": [
+     "CS224",
+     "CS341",
+     "CS361",
+     "CS365",
+     "CS366"
+    ]
+   },
+   {
+    "id": "453345aa-a35d-4223-acb2-3cfff9acac4c",
+    "parentId": "be607fa2-3be3-40d6-a93d-a48ebc6547eb",
+    "code": "4.3",
+    "name": "วิชาโทวิทยาการข้อมูล",
+    "minCredits": 15,
+    "plan": null,
+    "isOptional": true,
+    "isCatchAll": false,
+    "rule": null,
+    "sortOrder": 43,
+    "courseCodes": [
+     "CS246",
+     "CS343",
+     "CS345",
+     "CS346",
+     "CS440"
+    ]
+   },
+   {
+    "id": "34e2c384-3237-413e-9b91-98cce01912f2",
+    "parentId": "be607fa2-3be3-40d6-a93d-a48ebc6547eb",
+    "code": "4.4",
+    "name": "วิชาโทปัญญาประดิษฐ์",
+    "minCredits": 15,
+    "plan": null,
+    "isOptional": true,
+    "isCatchAll": false,
+    "rule": null,
+    "sortOrder": 44,
+    "courseCodes": [
+     "CS343",
+     "CS370",
+     "CS371",
+     "CS373",
+     "CS374"
+    ]
+   }
+  ]
+ },
+ "cnc": {
+  "code": "cnc",
+  "name": "คอมพิวเตอร์เครือข่ายและความปลอดภัยทางไซเบอร์",
+  "minTotalCredits": null,
+  "minGpax": null,
+  "maxRegularSemesters": null,
+  "source": null,
+  "categories": []
+ }
+}
