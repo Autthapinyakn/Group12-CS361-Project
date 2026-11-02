@@ -1,0 +1,181 @@
+erDiagram
+    %% Group 12 CS361 - ER diagram of the V4 database as deployed.
+    %% Tables come from db/schema_v3.sql and db/migration_v4.sql. The comment string on each
+    %% column names the version that added it. V5-V7 designs are in er-diagram-v1-v7.mmd.
+
+    %% ===== curriculum data (V2) =====
+    CURRICULA ||--o{ CURRICULUM_COURSES : "plans"
+    COURSES ||--o{ CURRICULUM_COURSES : "placed in"
+    CURRICULA ||--o{ CURRICULUM_ELECTIVE_COURSES : "groups electives"
+    COURSES ||--o{ CURRICULUM_ELECTIVE_COURSES : "is elective"
+    COURSES ||--o{ COURSE_PREREQUISITES : "requires"
+    COURSES ||--o{ COURSE_PREREQUISITES : "is required by"
+
+    %% ===== users and audit log (V3, extended in V4) =====
+    USERS ||..o{ CURRICULUM_EDIT_LOG : "actor (by email)"
+
+    %% ===== registrar data, graduation rules, Q&A (V4) =====
+    REGISTRAR_IMPORT_BATCHES ||--o{ STUDENTS : "last updated"
+    REGISTRAR_IMPORT_BATCHES ||--o{ STUDENT_COURSE_RECORDS : "delivered"
+    STUDENTS ||--o{ STUDENT_COURSE_RECORDS : "took"
+    CURRICULA |o--o{ STUDENTS : "enrolls"
+    USERS |o..o| STUDENTS : "same email (student)"
+    USERS |o..o{ STUDENTS : "advisor_email"
+    CURRICULA ||--o{ GRAD_REQUIREMENT_CATEGORIES : "defines"
+    GRAD_REQUIREMENT_CATEGORIES |o--o{ GRAD_REQUIREMENT_CATEGORIES : "parent of"
+    GRAD_REQUIREMENT_CATEGORIES ||--o{ GRAD_REQUIREMENT_COURSES : "lists"
+    COURSES ||--o{ GRAD_REQUIREMENT_COURSES : "counts toward"
+    CURRICULA |o--o{ FAQ_ENTRIES : "about"
+
+    CURRICULA {
+        uuid id PK "V2"
+        string code UK "V2 applied-cs / cis-cs / cnc"
+        string name "V2"
+        string degree_level "V2"
+        int year "V2 BE year of the curriculum"
+        numeric min_total_credits "V4 123"
+        numeric min_gpax "V4 2.00"
+        int max_regular_semesters "V4 16"
+        text requirements_source "V4 reference document"
+    }
+    COURSES {
+        uuid id PK "V2"
+        string code UK "V2 e.g. CS361"
+        string name_th "V2"
+        string name_en "V2"
+        text description "V2"
+        numeric credits "V2"
+        string category "V2"
+        string course_type "V2 placeholder = choice slot"
+        int version "V4 optimistic locking"
+        timestamptz updated_at "V4"
+    }
+    COURSE_PREREQUISITES {
+        uuid course_id PK, FK "V2"
+        uuid prerequisite_id PK, FK "V2"
+        int choice_group "V2 same group = OR, groups = AND"
+        string requirement_type "V2 taken / concurrent_ok / passed"
+        string min_grade "V2 e.g. C"
+    }
+    CURRICULUM_COURSES {
+        uuid curriculum_id PK, FK "V2"
+        uuid course_id PK, FK "V2"
+        int year PK "V2"
+        int semester PK "V2 1, 2, 3 = summer"
+        string plan PK "V2 study plan"
+        string category "V2"
+        int choice_slot "V2 choose one per slot"
+        int version "V4 optimistic locking"
+    }
+    CURRICULUM_ELECTIVE_COURSES {
+        uuid curriculum_id PK, FK "V2"
+        uuid course_id PK, FK "V2"
+        string elective_group PK "V2 e.g. minor name"
+    }
+    USERS {
+        uuid id PK "V3"
+        string cognito_sub UK "V3"
+        string name "V3"
+        string email UK "V3, unique lower(email) V4"
+        string role "V3, CHECK 4 roles V4"
+        timestamptz created_at "V3"
+        timestamptz last_login_at "V4"
+    }
+    CURRICULUM_EDIT_LOG {
+        uuid id PK "V3"
+        string entity_type "V3 table name"
+        text entity_id "V3, TEXT since V4"
+        string change_type "V3 INSERT / UPDATE / DELETE"
+        jsonb old_value "V3"
+        jsonb new_value "V3"
+        timestamptz changed_at "V3, TIMESTAMPTZ since V4"
+        string actor_email "V4 from app.actor_email"
+        string actor_role "V4"
+        string source "V4 api / db"
+        text summary "V4 human-readable key"
+    }
+    REGISTRAR_IMPORT_BATCHES {
+        uuid id PK "V4"
+        string file_name "V4"
+        string file_sha256 "V4 unique unless failed"
+        int as_of_year "V4"
+        int as_of_semester "V4"
+        string status "V4 applied / partial / failed"
+        int total_rows "V4"
+        int accepted_rows "V4"
+        int rejected_rows "V4"
+        int students_count "V4"
+        jsonb errors "V4 row errors"
+        string uploaded_by_email "V4"
+        timestamptz created_at "V4"
+    }
+    STUDENTS {
+        string student_code PK "V4 replaces V3 user_id key"
+        string full_name "V4"
+        string email UK "V4 matched to Cognito email"
+        string curriculum_code "V4 as delivered"
+        uuid curriculum_id FK "V4"
+        string plan "V4"
+        int enrollment_year "V4"
+        string advisor_email "V4"
+        string academic_status "V4 normal / on_leave / retired / graduated"
+        string financial_status "V4 clear / outstanding / unknown"
+        numeric outstanding_amount "V4"
+        numeric registrar_gpax "V4"
+        int regular_semesters_enrolled "V4"
+        int data_as_of_year "V4"
+        int data_as_of_semester "V4"
+        uuid last_batch_id FK "V4"
+        timestamptz updated_at "V4"
+    }
+    STUDENT_COURSE_RECORDS {
+        string student_code PK, FK "V4"
+        string course_code PK "V4 not an FK: registrar may send unknown codes"
+        int academic_year PK "V4"
+        int semester PK "V4"
+        string grade "V4 A..D, F, S, U, W, I, IP"
+        numeric credits "V4"
+        uuid batch_id FK "V4"
+    }
+    GRAD_REQUIREMENT_CATEGORIES {
+        uuid id PK "V4"
+        uuid curriculum_id FK "V4"
+        uuid parent_id FK "V4 tree"
+        string code UK "V4 e.g. 2.1.1, unique per curriculum"
+        string name "V4"
+        text description "V4"
+        numeric min_credits "V4"
+        string plan "V4 only for this study plan"
+        boolean is_optional "V4 minors"
+        boolean is_catch_all "V4 free electives"
+        jsonb rule "V4 minGrade / minAverage"
+        int sort_order "V4"
+        int version "V4"
+    }
+    GRAD_REQUIREMENT_COURSES {
+        uuid category_id PK, FK "V4"
+        uuid course_id PK, FK "V4 a course may be in several categories"
+    }
+    FAQ_ENTRIES {
+        uuid id PK "V4"
+        text question "V4"
+        text answer "V4"
+        text_array keywords "V4 substring match"
+        uuid curriculum_id FK "V4"
+        string link_url "V4"
+        boolean is_published "V4"
+        int sort_order "V4"
+        timestamptz created_at "V4"
+        timestamptz updated_at "V4"
+    }
+    QUESTIONS {
+        uuid id PK "V4"
+        text question_text "V4"
+        string contact_email "V4"
+        string asked_by_email "V4"
+        string status "V4 open / answered / closed"
+        text answer "V4"
+        string answered_by_email "V4"
+        timestamptz created_at "V4"
+        timestamptz answered_at "V4"
+    }
