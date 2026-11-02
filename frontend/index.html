@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>หน้าแรก | Computer Science TU</title>
+  <meta name="description" content="ข้อมูลหลักสูตร แผนการเรียน รายวิชา และการตรวจสอบการสำเร็จการศึกษา สาขาวิชาวิทยาการคอมพิวเตอร์ มหาวิทยาลัยธรรมศาสตร์" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600;700&family=Sarabun:wght@400;500;600;700&display=swap" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header id="site-header"></header>
+
+  <main id="main">
+    <section class="hero">
+      <div class="container">
+        <span class="hero__tag"><i class="fa-solid fa-graduation-cap" aria-hidden="true"></i> Curriculum &amp; Graduation</span>
+        <h1 class="hero__title">ข้อมูลหลักสูตรและการตรวจสอบการสำเร็จการศึกษา</h1>
+        <p class="hero__lead">สาขาวิชาวิทยาการคอมพิวเตอร์ คณะวิทยาศาสตร์และเทคโนโลยี มหาวิทยาลัยธรรมศาสตร์</p>
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="hero-strip">
+        <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+        <p>ค้นหารายวิชา ดูแผนการเรียนและเงื่อนไขการสำเร็จการศึกษาได้โดยไม่ต้องเข้าสู่ระบบ นักศึกษา อาจารย์ และเจ้าหน้าที่ เข้าสู่ระบบเพื่อตรวจสอบสถานะการสำเร็จการศึกษาจากข้อมูลของสำนักทะเบียน</p>
+      </div>
+    </div>
+
+    <div class="page">
+      <div class="container">
+        <section aria-labelledby="public-title">
+          <div class="section-title"><h2 id="public-title">สำหรับทุกคน</h2></div>
+          <div class="card-grid">
+            <a class="link-card" href="courses.html">
+              <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+              <h3>ค้นหารายวิชา</h3>
+              <p>ค้นหาด้วยรหัสหรือชื่อวิชา ดูหน่วยกิตและวิชาบังคับก่อน</p>
+            </a>
+            <a class="link-card" href="program.html">
+              <i class="fa-solid fa-route" aria-hidden="true"></i>
+              <h3>หลักสูตรและแผนการเรียน</h3>
+              <p>แผนการเรียนรายภาค และเงื่อนไขการสำเร็จการศึกษาของแต่ละหลักสูตร</p>
+            </a>
+            <a class="link-card" href="qa.html">
+              <i class="fa-solid fa-circle-question" aria-hidden="true"></i>
+              <h3>ถามคำถาม</h3>
+              <p>พิมพ์คำถามเกี่ยวกับหลักสูตร ระบบจะแสดงคำตอบและรายวิชาที่เกี่ยวข้อง</p>
+            </a>
+            <a class="link-card" href="about-cs.html">
+              <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+              <h3>เกี่ยวกับหลักสูตร</h3>
+              <p>วิชาเอก โครงสร้างหลักสูตร วิชาโท และอาชีพหลังสำเร็จการศึกษา</p>
+            </a>
+          </div>
+        </section>
+
+        <section aria-labelledby="member-title" id="member-section">
+          <div class="section-title"><h2 id="member-title">สำหรับผู้ใช้ที่เข้าสู่ระบบ</h2></div>
+          <div class="card-grid" id="member-links"></div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer id="site-footer"></footer>
+
+  <script type="module">
+    import { initLayout } from './layout.js';
+    import { h, icon } from './ui.js';
+
+    const user = initLayout();
+    const cards = [
+      { href: 'graduation-requirements.html', icon: 'list-check', title: 'ตรวจสอบการสำเร็จการศึกษา', text: 'นักศึกษาตรวจสอบว่าผ่านเงื่อนไขใดแล้วและยังขาดอะไร', roles: ['student'] },
+      { href: 'graduation-status.html', icon: 'user-check', title: 'สถานะจบของนักศึกษา', text: 'อาจารย์ที่ปรึกษาและเจ้าหน้าที่ตรวจสอบนักศึกษาในความดูแล', roles: ['instructor', 'staff'] },
+      { href: 'registrar-import.html', icon: 'file-import', title: 'นำเข้าข้อมูลทะเบียน', text: 'เจ้าหน้าที่นำเข้าไฟล์ผลการเรียนจากสำนักทะเบียน', roles: ['staff'] },
+      { href: 'curriculum-edit.html', icon: 'pen-to-square', title: 'จัดการหลักสูตร', text: 'ผู้ดูแลหลักสูตรแก้ไขแผนการเรียนและดูประวัติการแก้ไข', roles: ['coordinator'] },
+    ];
+    const visible = user ? cards.filter((c) => c.roles.some((r) => user.roles.has(r))) : cards;
+    document.getElementById('member-links').replaceChildren(...visible.map((c) =>
+      h('a', { class: 'link-card', href: user ? c.href : 'login.html' }, icon(c.icon), h('h3', {}, c.title), h('p', {}, c.text))));
+  </script>
+</body>
+</html>

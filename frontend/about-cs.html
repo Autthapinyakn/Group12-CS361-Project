@@ -1,85 +1,133 @@
 <!DOCTYPE html>
-<html lang="th"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><title>เกี่ยวกับหลักสูตร | Computer Science TU</title><link href="https://fonts.googleapis.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet"/><link href="style.css" rel="stylesheet"/></head><body><header class="nav">
-<div class="container nav-inner">
-<div class="nav-left">
-<i aria-hidden="true" class="fa-solid fa-bars hamburger"></i>
-<a class="brand" href="#">
-<div class="brand-badge"><i class="fa-solid fa-graduation-cap"></i></div>
-<div class="brand-text">
-<div class="l1">COMPUTER</div>
-<div class="l2">SCIENCE</div>
-<div class="l3">THAMMASAT UNIVERSITY</div>
-</div>
-</a>
-</div>
-<nav class="menu">
-<a href="courses.html">ค้นหารายวิชา</a>
+<html lang="th">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>เกี่ยวกับหลักสูตร | Computer Science TU</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600;700&family=Sarabun:wght@400;500;600;700&display=swap" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header id="site-header"></header>
 
-<a href="program.html">หลักสูตรและแผนการเรียน</a>
-<a class="active" href="about-cs.html">เกี่ยวกับหลักสูตร</a>
-</nav>
-<div class="nav-right auth-slot" data-auth-slot=""><a class="auth-button" href="login.html">เข้าสู่ระบบ</a></div>
-</div>
-</header><div class="sidebar-backdrop" data-sidebar-close="" hidden=""></div><aside aria-hidden="true" aria-label="เมนูหลัก" class="app-sidebar" id="app-sidebar">
-<div class="sidebar-heading">
-<div class="brand-badge"><i class="fa-solid fa-graduation-cap"></i></div>
-<div class="sidebar-brand-text"><strong>COMPUTER SCIENCE</strong><span>THAMMASAT UNIVERSITY</span></div>
-<button aria-label="ปิดเมนู" class="sidebar-close" data-sidebar-close="" type="button"><i class="fa-solid fa-xmark"></i></button>
-</div>
-<div class="sidebar-section-label">เมนูหลัก</div>
-<nav aria-label="การนำทาง" class="sidebar-menu">
-<a data-page="courses.html" href="courses.html"><i class="fa-solid fa-magnifying-glass"></i><span>ค้นหารายวิชา</span></a>
+  <main id="main">
+    <section class="hero hero--compact">
+      <div class="container">
+        <span class="hero__tag"><i class="fa-solid fa-circle-info" aria-hidden="true"></i> About the programme</span>
+        <h1 class="hero__title">เกี่ยวกับหลักสูตร</h1>
+        <p class="hero__lead">หลักสูตรวิทยาศาสตรบัณฑิต สาขาวิชาวิทยาการคอมพิวเตอร์ คณะวิทยาศาสตร์และเทคโนโลยี มหาวิทยาลัยธรรมศาสตร์</p>
+      </div>
+    </section>
+    <div class="container">
+      <div class="hero-strip">
+        <i class="fa-solid fa-book" aria-hidden="true"></i>
+        <p>ข้อมูลในหน้านี้สรุปจาก มคอ.2 หลักสูตรวิทยาศาสตรบัณฑิต สาขาวิชาวิทยาการคอมพิวเตอร์ (หลักสูตรปรับปรุง พ.ศ. 2566) สำหรับวิชาเอกคอมพิวเตอร์ประยุกต์ และวิชาเอกคอมพิวเตอร์และวิทยาการสารสนเทศ</p>
+      </div>
+    </div>
 
-<a data-page="program.html" href="program.html"><i class="fa-solid fa-user-graduate"></i><span>หลักสูตรและแผนการเรียน</span></a>
-<a data-page="about-cs.html" href="about-cs.html"><i class="fa-solid fa-circle-info"></i><span>เกี่ยวกับหลักสูตร</span></a>
-<a data-roles="student" href="graduation-requirements.html"><i class="fa-solid fa-list-check"></i><span>เงื่อนไขจบการศึกษา</span></a>
-<a data-roles="instructor,student" href="graduation-status.html"><i class="fa-solid fa-user-check"></i><span>สถานะจบการศึกษา</span></a>
-<a data-roles="coordinator" href="curriculum-edit.html"><i class="fa-solid fa-pen-to-square"></i><span>จัดการหลักสูตร</span></a>
-</nav>
-<div class="sidebar-footer"><i class="fa-solid fa-university"></i><span>หลักสูตรวิทยาการคอมพิวเตอร์</span></div>
-</aside><section class="hero"><div class="container hero-inner"><div class="hero-copy"><p class="hero-eyebrow">ABOUT COMPUTER SCIENCE · THAMMASAT</p><h1 class="hero-title">เกี่ยวกับหลักสูตร</h1><p class="hero-sub1">หลักสูตรระดับปริญญาตรี</p><p class="hero-sub2">สาขาวิชาวิทยาการคอมพิวเตอร์ มหาวิทยาลัยธรรมศาสตร์</p></div></div></section><main class="container page-content"><p class="program-intro">หลักสูตรปริญญาตรีมี 3 แนวทางการศึกษา ครอบคลุมการพัฒนาโปรแกรม การประยุกต์ใช้วิทยาการคอมพิวเตอร์ และระบบเครือข่ายกับความปลอดภัยทางไซเบอร์</p><div class="about-program-grid"><section class="about-program-card"><h2><i class="fa-solid fa-code"></i> คอมพิวเตอร์และวิทยาการสารสนเทศ</h2><p><strong>โครงการปกติ · ศูนย์รังสิต</strong></p><p>เน้นการเรียนรู้เกี่ยวกับการพัฒนาโปรแกรมและแอปพลิเคชันอย่างครบกระบวนการ ผสมผสานพื้นฐานทางวิทยาการคอมพิวเตอร์กับการลงมือปฏิบัติ</p></section><section class="about-program-card"><h2><i class="fa-solid fa-laptop-code"></i> คอมพิวเตอร์ประยุกต์</h2><p><strong>โครงการพิเศษ · ศูนย์รังสิต</strong></p><p>เน้นหลักการวิทยาการคอมพิวเตอร์แบบกระชับเพื่อสร้างพื้นฐานที่นำไปต่อยอดได้ และเตรียมบุคลากรด้านวิทยาการคอมพิวเตอร์ประยุกต์ให้ตรงกับความต้องการของตลาดงาน IT</p></section><section class="about-program-card"><h2><i class="fa-solid fa-shield-halved"></i> คอมพิวเตอร์เครือข่ายและความปลอดภัยทางไซเบอร์</h2><p><strong>โครงการพิเศษ</strong></p><p>เน้นทักษะปฏิบัติด้านเครือข่ายและคลาวด์ การดูแลเซิร์ฟเวอร์ Linux การเฝ้าระวังและรับมือภัยคุกคาม การทดสอบเจาะระบบ และนิติวิทยาศาสตร์ดิจิทัล พร้อมโอกาสฝึกงานผ่านแผนสหกิจศึกษา</p></section><section class="about-program-card"><h2><i class="fa-solid fa-people-group"></i> แนวทางการเรียนรู้</h2><p>การเรียนผสมผสานทั้งทฤษฎีและปฏิบัติ เพื่อให้ผู้เรียนได้ทดลองใช้เครื่องมือและเทคโนโลยีที่ใช้จริง พร้อมพัฒนาทักษะการสื่อสาร การคิดแก้ปัญหาอย่างเป็นระบบ และการทำงานเป็นทีม</p><p>ผู้สมัครสามารถดูรายละเอียดคุณสมบัติและกำหนดการรับสมัครได้จากเว็บไซต์ทางการของสาขาวิชา</p></section></div><section class="data-card"><h2>เส้นทางการศึกษาและข้อมูลเพิ่มเติม</h2><p>เลือกดูหลักสูตรและแผนการเรียนของแต่ละหลักสูตรได้จากหน้าโปรแกรมของระบบ หรือเปิดเว็บไซต์ทางการเพื่อดูข้อมูลล่าสุดเกี่ยวกับการรับเข้า รายวิชา กิจกรรม และสายงานอาชีพ</p><p><a class="auth-button" href="program.html">หลักสูตรและแผนการเรียน</a> <a class="auth-button" href="https://cs.sci.tu.ac.th/all-undergrad-th-3/" rel="noopener noreferrer" target="_blank">เว็บไซต์ทางการของสาขาวิชา <i class="fa-solid fa-arrow-up-right-from-square"></i></a></p></section><p class="about-source">แหล่งข้อมูล: <a href="https://cs.sci.tu.ac.th/all-undergrad-th-3/" rel="noopener noreferrer" target="_blank">หลักสูตรระดับปริญญาตรี — CS.SCI@TU</a></p></main><footer>
-<div class="container foot-grid">
-<div>
-<h4>สาขาวิชาวิทยาการคอมพิวเตอร์</h4>
-<p>คณะวิทยาศาสตร์และเทคโนโลยี<br/>มหาวิทยาลัยธรรมศาสตร์</p>
-<div class="foot-social">
-<a href="#"><i class="fa-brands fa-facebook-f"></i></a>
-<a href="#"><i class="fa-solid fa-globe"></i></a>
-<a href="#"><i class="fa-solid fa-envelope"></i></a>
-</div>
-</div>
-<div>
-<h4>ติดต่อเรา</h4>
-<div class="foot-contact-item"><i class="fa-solid fa-location-dot"></i> 99 หมู่ 18 ต.คลองหนึ่ง อ.คลองหลวง จ.ปทุมธานี 12120</div>
-<div class="foot-contact-item"><i class="fa-solid fa-phone"></i> 0 2564 4440-79 ต่อ 1676</div>
-<div class="foot-contact-item"><i class="fa-solid fa-envelope"></i> cs@science.tu.ac.th</div>
-</div>
-<div>
-<h4>เวลาทำการ</h4>
-<p>จันทร์ – ศุกร์<br/>08.30 – 16.30 น.</p>
-</div>
-</div>
-</footer><script>
-(() => {
-  const sidebar = document.getElementById('app-sidebar');
-  const backdrop = document.querySelector('.sidebar-backdrop');
-  const toggle = document.querySelector('.hamburger');
-  if (!sidebar || !backdrop || !toggle) return;
-  toggle.setAttribute('role', 'button');
-  toggle.setAttribute('tabindex', '0');
-  toggle.setAttribute('aria-label', 'เปิดเมนูนำทาง');
-  toggle.setAttribute('aria-controls', 'app-sidebar');
-  toggle.setAttribute('aria-expanded', 'false');
-  const openSidebar = () => { sidebar.classList.add('is-open'); backdrop.hidden = false; document.body.classList.add('sidebar-open'); sidebar.setAttribute('aria-hidden', 'false'); toggle.setAttribute('aria-expanded', 'true'); };
-  const closeSidebar = () => { sidebar.classList.remove('is-open'); backdrop.hidden = true; document.body.classList.remove('sidebar-open'); sidebar.setAttribute('aria-hidden', 'true'); toggle.setAttribute('aria-expanded', 'false'); };
-  toggle.addEventListener('click', openSidebar);
-  toggle.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openSidebar(); } });
-  backdrop.addEventListener('click', closeSidebar);
-  sidebar.querySelectorAll('[data-sidebar-close]').forEach(el => el.addEventListener('click', closeSidebar));
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSidebar(); });
-  const currentPage = location.pathname.split('/').pop() || 'courses.html';
-  sidebar.querySelectorAll('.sidebar-menu a').forEach(link => {
-    if (link.dataset.page === currentPage) { link.classList.add('active'); link.setAttribute('aria-current', 'page'); }
-  });
-})();
-</script><script type="module">import { applyRoleNavigation } from './auth.js'; applyRoleNavigation();</script></body></html>
+    <div class="page">
+      <div class="container stack">
+        <section aria-labelledby="majors-title">
+          <div class="section-title"><h2 id="majors-title">แนวทางการศึกษา</h2></div>
+          <div class="card-grid">
+            <article class="card stack">
+              <span class="badge badge--brand">โครงการปกติ · หลักสูตร 2566</span>
+              <h3>วิชาเอกคอมพิวเตอร์และวิทยาการสารสนเทศ</h3>
+              <p>เน้นพื้นฐานวิทยาการคอมพิวเตอร์ที่ลึกและครบกระบวนการ ทั้งการพัฒนาซอฟต์แวร์ ระบบคอมพิวเตอร์ ความปลอดภัย และปัญญาประดิษฐ์ ผสมผสานทฤษฎีกับการลงมือปฏิบัติ</p>
+              <a href="program.html?curriculum=cis-cs">ดูแผนการเรียน <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+            </article>
+            <article class="card stack">
+              <span class="badge badge--brand">โครงการพิเศษ · หลักสูตร 2566</span>
+              <h3>วิชาเอกคอมพิวเตอร์ประยุกต์</h3>
+              <p>เน้นการประยุกต์ใช้วิทยาการคอมพิวเตอร์กับงานจริง เช่น การพัฒนาเว็บและแอปพลิเคชัน คลาวด์ และสถาปัตยกรรมซอฟต์แวร์ เพื่อเตรียมบุคลากรให้ตรงกับความต้องการของตลาดงานไอที</p>
+              <a href="program.html?curriculum=applied-cs">ดูแผนการเรียน <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+            </article>
+            <article class="card stack">
+              <span class="badge badge--info">โครงการพิเศษ · หลักสูตร 2568</span>
+              <h3>คอมพิวเตอร์เครือข่ายและความปลอดภัยทางไซเบอร์</h3>
+              <p>เน้นทักษะปฏิบัติด้านเครือข่ายและคลาวด์ การดูแลเซิร์ฟเวอร์ การเฝ้าระวังและรับมือภัยคุกคาม การทดสอบเจาะระบบ และนิติวิทยาศาสตร์ดิจิทัล เป็นหลักสูตรแยก (ไม่อยู่ใน มคอ.2 ฉบับ 2566)</p>
+              <a href="program.html?curriculum=cnc">ดูแผนการเรียน <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+            </article>
+          </div>
+        </section>
+
+        <section class="card stack" aria-labelledby="structure-title">
+          <div class="section-title"><h2 id="structure-title">โครงสร้างหลักสูตร (ไม่น้อยกว่า 123 หน่วยกิต)</h2></div>
+          <div class="table-wrap">
+            <table class="table">
+              <thead>
+                <tr><th scope="col">หมวดวิชา</th><th scope="col" class="num">หน่วยกิต</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>1. วิชาศึกษาทั่วไป</td><td class="num">30</td></tr>
+                <tr><td>2. วิชาเฉพาะ</td><td class="num">87</td></tr>
+                <tr class="row-muted"><td>&nbsp;&nbsp;&nbsp;วิชาแกนและวิชาเฉพาะด้าน (รวมโครงงานพิเศษหรือสหกิจศึกษา)</td><td class="num">54</td></tr>
+                <tr class="row-muted"><td>&nbsp;&nbsp;&nbsp;วิชาเอก</td><td class="num">30</td></tr>
+                <tr class="row-muted"><td>&nbsp;&nbsp;&nbsp;วิชาบังคับนอกสาขา</td><td class="num">3</td></tr>
+                <tr><td>3. วิชาเลือกเสรี</td><td class="num">6</td></tr>
+                <tr class="row-group"><td>รวมไม่น้อยกว่า</td><td class="num">123</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="small muted">ตารางเงื่อนไขการสำเร็จการศึกษาแบ่งหมวด 2.1 (วิชาแกนและวิชาเฉพาะด้าน) โดยกำหนดขั้นต่ำ 48 หน่วยกิต เพราะบางรายวิชานับเป็นทั้งวิชาแกนและวิชาเฉพาะด้าน ดูรายละเอียดทุกหมวดได้ที่ <a href="program.html#requirements">เงื่อนไขการสำเร็จการศึกษา</a></p>
+        </section>
+
+        <section class="card stack" aria-labelledby="grad-title">
+          <div class="section-title"><h2 id="grad-title">เงื่อนไขการสำเร็จการศึกษา</h2></div>
+          <ul class="checklist">
+            <li><i class="fa-solid fa-circle-check" aria-hidden="true"></i> ศึกษาครบทุกหมวดวิชาตามโครงสร้าง รวมไม่น้อยกว่า 123 หน่วยกิต</li>
+            <li><i class="fa-solid fa-circle-check" aria-hidden="true"></i> ค่าระดับเฉลี่ยสะสม (GPAX) ไม่ต่ำกว่า 2.00</li>
+            <li><i class="fa-solid fa-circle-check" aria-hidden="true"></i> สอบได้ไม่ต่ำกว่า C ในรายวิชา CS101, CS102 และ CS111 และค่าเฉลี่ยของวิชาแกน 8 วิชาไม่ต่ำกว่า 2.00</li>
+            <li><i class="fa-solid fa-circle-check" aria-hidden="true"></i> ใช้เวลาศึกษาไม่เกิน 16 ภาคการศึกษาปกติ</li>
+            <li><i class="fa-solid fa-circle-check" aria-hidden="true"></i> ไม่มีหนี้สินค้างชำระกับมหาวิทยาลัย</li>
+          </ul>
+          <p class="small muted">นักศึกษาที่เข้าสู่ระบบตรวจสอบสถานะของตนเองได้ที่หน้า <a href="graduation-requirements.html">ตรวจสอบการสำเร็จการศึกษา</a></p>
+        </section>
+
+        <section aria-labelledby="plans-title">
+          <div class="section-title"><h2 id="plans-title">แผนการเรียนและวิชาโท</h2></div>
+          <div class="card-grid">
+            <article class="card stack">
+              <h3><i class="fa-solid fa-flask" aria-hidden="true"></i> แผนโครงงานพิเศษ</h3>
+              <p>ทำโครงงานพิเศษ 1 และ 2 (CS303, CS403) รวม 6 หน่วยกิต ในชั้นปีที่ 3–4</p>
+            </article>
+            <article class="card stack">
+              <h3><i class="fa-solid fa-briefcase" aria-hidden="true"></i> แผนสหกิจศึกษา</h3>
+              <p>ปฏิบัติงานในสถานประกอบการผ่านสหกิจศึกษา 1 และ 2 (CS304, CS404) รวม 6 หน่วยกิต</p>
+            </article>
+            <article class="card stack">
+              <h3><i class="fa-solid fa-layer-group" aria-hidden="true"></i> วิชาโท (ไม่บังคับ)</h3>
+              <p>เลือกรับวิชาโทได้ เมื่อเรียนครบ 15 หน่วยกิตในกลุ่มใดกลุ่มหนึ่ง: การออกแบบและพัฒนาผลิตภัณฑ์ดิจิทัล, เดฟออปส์, วิทยาการข้อมูล, ปัญญาประดิษฐ์</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="card stack" aria-labelledby="career-title">
+          <div class="section-title"><h2 id="career-title">ตัวอย่างสายงานหลังสำเร็จการศึกษา</h2></div>
+          <div class="chips">
+            <span class="badge badge--info">นักพัฒนาซอฟต์แวร์ / เว็บ / แอปพลิเคชัน</span>
+            <span class="badge badge--info">วิศวกรคลาวด์และเดฟออปส์</span>
+            <span class="badge badge--info">นักวิทยาการข้อมูล / นักวิเคราะห์ข้อมูล</span>
+            <span class="badge badge--info">วิศวกรปัญญาประดิษฐ์</span>
+            <span class="badge badge--info">นักออกแบบ UX/UI</span>
+            <span class="badge badge--info">นักวิเคราะห์ระบบ</span>
+            <span class="badge badge--info">ผู้ดูแลระบบและความปลอดภัยไซเบอร์</span>
+          </div>
+        </section>
+
+        <p class="small muted">แหล่งข้อมูล: มคอ.2 หลักสูตรวิทยาศาสตรบัณฑิต สาขาวิชาวิทยาการคอมพิวเตอร์ (หลักสูตรปรับปรุง พ.ศ. 2566) และเว็บไซต์สาขาวิชาวิทยาการคอมพิวเตอร์ มหาวิทยาลัยธรรมศาสตร์ ข้อมูลการรับสมัครล่าสุดโปรดดูจากเว็บไซต์ทางการของสาขาวิชา</p>
+      </div>
+    </div>
+  </main>
+
+  <footer id="site-footer"></footer>
+
+  <script type="module">
+    import { initLayout } from './layout.js';
+    initLayout();
+  </script>
+</body>
+</html>

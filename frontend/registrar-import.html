@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>นำเข้าข้อมูลจากสำนักทะเบียน | Computer Science TU</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600;700&family=Sarabun:wght@400;500;600;700&display=swap" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header id="site-header"></header>
+
+  <main id="main" class="page">
+    <div class="container stack">
+      <div class="page-head">
+        <span class="eyebrow">Registrar import</span>
+        <h1>นำเข้าข้อมูลผลการเรียนจากสำนักทะเบียน</h1>
+        <p>อัปโหลดไฟล์ CSV ที่ส่งออกจากระบบสำนักทะเบียน ระบบจะตรวจสอบทุกแถวก่อนบันทึก นักศึกษาที่มีข้อมูลผิดพลาดจะไม่ถูกบันทึกและยังคงใช้ข้อมูลชุดเดิม ไฟล์เดิมที่เคยนำเข้าแล้วจะไม่ถูกนำเข้าซ้ำ</p>
+      </div>
+
+      <section class="card stack" aria-labelledby="upload-title">
+        <div class="section-title"><h2 id="upload-title">อัปโหลดไฟล์</h2></div>
+        <form class="stack" id="upload-form" novalidate>
+          <div class="form-grid">
+            <div class="field">
+              <label for="file">ไฟล์ CSV (UTF-8, ไม่เกิน 5 MB)</label>
+              <input class="input" id="file" type="file" accept=".csv,text/csv" required />
+            </div>
+            <div class="field">
+              <label for="as-of-year">ข้อมูล ณ ปีการศึกษา (พ.ศ.)</label>
+              <input class="input" id="as-of-year" type="number" min="2500" max="2700" required />
+            </div>
+            <div class="field">
+              <label for="as-of-semester">ภาคการศึกษา</label>
+              <select class="select" id="as-of-semester">
+                <option value="1">1</option><option value="2">2</option><option value="3">ฤดูร้อน</option>
+              </select>
+            </div>
+          </div>
+          <div id="preview" class="small muted" aria-live="polite"></div>
+          <div id="upload-status" hidden></div>
+          <div class="row">
+            <button class="btn btn-primary" type="submit" id="upload-btn"><i class="fa-solid fa-file-import" aria-hidden="true"></i> นำเข้าข้อมูล</button>
+          </div>
+        </form>
+        <details class="faq">
+          <summary>รูปแบบไฟล์ที่รองรับ</summary>
+          <div class="faq__answer stack">
+            <p>หนึ่งแถวต่อหนึ่งรายวิชาที่นักศึกษาลงทะเบียน แถวแรกเป็นชื่อคอลัมน์ตามลำดับนี้</p>
+            <ol class="chips column-list" id="columns" aria-label="คอลัมน์ตามลำดับ"></ol>
+            <button class="btn btn-secondary btn-sm" type="button" id="copy-header"><i class="fa-regular fa-copy" aria-hidden="true"></i> คัดลอกแถวหัวคอลัมน์</button>
+            <p>ไฟล์หนึ่งต้องมีผลการเรียน<strong>ทั้งหมด</strong>ของนักศึกษาแต่ละคน (ระบบแทนที่ข้อมูลเดิมของนักศึกษาคนนั้นทั้งชุด) เกรดที่รองรับ: A, B+, B, C+, C, D+, D, F, S, U, W, I, IP</p>
+          </div>
+        </details>
+      </section>
+
+      <section class="card stack" aria-labelledby="history-title">
+        <div class="section-title">
+          <h2 id="history-title">ประวัติการนำเข้า</h2>
+          <div class="row"><button class="btn btn-secondary btn-sm" type="button" id="refresh"><i class="fa-solid fa-rotate" aria-hidden="true"></i> โหลดใหม่</button></div>
+        </div>
+        <div id="history-status" hidden></div>
+        <div class="table-wrap">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">นำเข้าเมื่อ</th>
+                <th scope="col">ไฟล์</th>
+                <th scope="col">ข้อมูล ณ ภาค</th>
+                <th scope="col">สถานะ</th>
+                <th scope="col" class="num">นักศึกษา</th>
+                <th scope="col" class="num">แถวที่รับ / ทั้งหมด</th>
+                <th scope="col">ผู้นำเข้า</th>
+              </tr>
+            </thead>
+            <tbody id="batches"></tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer id="site-footer"></footer>
+
+  <script type="module">
+    import { initLayout, guard } from './layout.js';
+    import { apiGet, apiSend, errorMessage, ApiError } from './api.js';
+    import { h, icon, setStatus, loadingRows, formatDateTime, formatNumber, badge } from './ui.js';
+
+    const COLUMNS = ['student_code', 'full_name', 'email', 'curriculum_code', 'plan', 'enrollment_year', 'advisor_email',
+      'academic_status', 'financial_status', 'outstanding_amount', 'gpax', 'regular_semesters',
+      'course_code', 'academic_year', 'semester', 'grade', 'credits'];
+    const MAX_BYTES = 5 * 1024 * 1024;
+    const STATUS = {
+      applied: ['ok', 'นำเข้าครบ'],
+      partial: ['warn', 'นำเข้าบางส่วน'],
+      failed: ['danger', 'ไม่สำเร็จ'],
+    };
+
+    initLayout();
+    const main = document.getElementById('main');
+    if (guard(main, ['staff'])) {
+      const $ = (id) => document.getElementById(id);
+      // Shown as wrapping badges (one long comma-joined line overflowed the panel); the button copies the exact header.
+      $('columns').replaceChildren(...COLUMNS.map((c) => h('li', { class: 'badge' }, c)));
+      $('copy-header').addEventListener('click', async (e) => {
+        try {
+          await navigator.clipboard.writeText(COLUMNS.join(','));
+          e.currentTarget.lastChild.textContent = ' คัดลอกแล้ว';
+        } catch {
+          e.currentTarget.lastChild.textContent = ' คัดลอกไม่ได้ กรุณาคัดลอกจากเอกสาร';
+        }
+      });
+
+      // Default "as of" = the last completed regular term (Aug-Dec = sem 1, Jan-May = sem 2, BE year).
+      const now = new Date();
+      const m = now.getMonth() + 1;
+      const be = now.getFullYear() + 543;
+      const [year, sem] = m >= 6 ? [be - 1, 2] : [be - 1, 1];
+      $('as-of-year').value = String(year);
+      $('as-of-semester').value = String(sem);
+
+      let fileText = null;
+      $('file').addEventListener('change', async () => {
+        fileText = null;
+        $('upload-status').hidden = true;
+        const f = $('file').files[0];
+        if (!f) { $('preview').textContent = ''; return; }
+        if (f.size > MAX_BYTES) {
+          setStatus($('upload-status'), 'danger', 'ไฟล์มีขนาดเกิน 5 MB', 'กรุณาแบ่งไฟล์ตามชั้นปีหรือหลักสูตรแล้วนำเข้าทีละไฟล์');
+          $('preview').textContent = '';
+          return;
+        }
+        fileText = (await f.text()).replace(/^﻿/, '');
+        const lines = fileText.split(/\r?\n/).filter((l) => l.trim());
+        const header = (lines[0] ?? '').split(',').map((c) => c.trim().toLowerCase());
+        const missing = COLUMNS.filter((c) => !header.includes(c));
+        const students = new Set(lines.slice(1).map((l) => l.split(',')[0]));
+        $('preview').replaceChildren(
+          `${f.name} · ${formatNumber(f.size / 1024, 1)} KB · ${formatNumber(lines.length - 1)} แถว · นักศึกษาประมาณ ${formatNumber(students.size)} คน`,
+          missing.length ? h('div', { class: 'alert alert--warn' }, icon('triangle-exclamation'),
+            h('div', {}, h('strong', {}, 'หัวคอลัมน์ไม่ครบ'), h('div', {}, `ไม่พบคอลัมน์: ${missing.join(', ')} ระบบจะปฏิเสธไฟล์นี้`))) : '');
+      });
+
+      $('upload-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        if (!fileText) {
+          setStatus($('upload-status'), 'danger', 'กรุณาเลือกไฟล์ CSV ก่อน');
+          return;
+        }
+        $('upload-btn').disabled = true;
+        setStatus($('upload-status'), 'info', 'กำลังนำเข้าข้อมูล…', 'อาจใช้เวลาสักครู่ กรุณาอย่าปิดหน้านี้');
+        try {
+          const res = await apiSend('POST', '/registrar/imports', {
+            csv: fileText,
+            fileName: $('file').files[0]?.name ?? null,
+            asOfYear: Number($('as-of-year').value),
+            asOfSemester: Number($('as-of-semester').value),
+          }, { timeout: 60000 });
+          showResult(res.batch);
+        } catch (err) {
+          const body = err instanceof ApiError ? err.details?.body : null;
+          if (err.status === 409 && body?.duplicate) {
+            setStatus($('upload-status'), 'warn', 'ไฟล์นี้เคยนำเข้าแล้ว',
+              `นำเข้าเมื่อ ${formatDateTime(body.batch.createdAt)} (ข้อมูล ณ ภาค ${body.batch.asOfTerm}) ระบบจึงไม่นำเข้าซ้ำ`);
+          } else if (err.status === 422 && body?.batch) {
+            showResult(body.batch);
+          } else {
+            setStatus($('upload-status'), 'danger', 'นำเข้าไม่สำเร็จ', errorMessage(err), 'ข้อมูลเดิมในระบบไม่ถูกเปลี่ยนแปลง');
+          }
+        } finally {
+          $('upload-btn').disabled = false;
+          loadHistory();
+        }
+      });
+
+      function errorTable(errors) {
+        if (!errors?.length) return null;
+        return h('div', { class: 'table-wrap' }, h('table', { class: 'table' },
+          h('thead', {}, h('tr', {}, h('th', { scope: 'col' }, 'แถวที่'), h('th', { scope: 'col' }, 'รหัสนักศึกษา'), h('th', { scope: 'col' }, 'คอลัมน์'), h('th', { scope: 'col' }, 'ปัญหา'))),
+          h('tbody', {}, ...errors.map((er) => h('tr', {},
+            h('td', { class: 'num' }, er.line || '-'), h('td', {}, er.studentCode ?? '-'), h('td', { class: 'mono' }, er.field ?? '-'), h('td', {}, er.message))))));
+      }
+
+      function showResult(b) {
+        const [type, label] = STATUS[b.status] ?? ['info', b.status];
+        const summary = `ข้อมูล ณ ภาค ${b.asOfTerm} · รับ ${formatNumber(b.acceptedRows)} จาก ${formatNumber(b.totalRows)} แถว · นักศึกษา ${formatNumber(b.studentsCount)} คน`;
+        const note = b.status === 'failed'
+          ? 'ไม่มีข้อมูลใดถูกบันทึก ข้อมูลเดิมในระบบยังใช้งานได้ตามปกติ แก้ไขไฟล์แล้วนำเข้าใหม่'
+          : b.status === 'partial'
+            ? 'นักศึกษาที่มีแถวผิดพลาดยังใช้ข้อมูลชุดเดิม แก้ไขแถวด้านล่างแล้วนำเข้าไฟล์ใหม่ (เฉพาะนักศึกษาเหล่านั้นก็ได้)'
+            : 'ข้อมูลของนักศึกษาทุกคนในไฟล์ถูกปรับเป็นชุดใหม่แล้ว';
+        setStatus($('upload-status'), type, `ผลการนำเข้า: ${label}`, summary, note, errorTable(b.errors) ?? '');
+      }
+
+      async function loadHistory() {
+        $('batches').replaceChildren(...loadingRows(7, 2));
+        $('history-status').hidden = true;
+        try {
+          const { data } = await apiGet('/registrar/imports', { auth: true, retries: 1 });
+          if (!data.length) {
+            $('batches').replaceChildren(h('tr', {}, h('td', { colspan: 7 }, h('div', { class: 'empty' }, icon('inbox'), 'ยังไม่เคยนำเข้าข้อมูล'))));
+            return;
+          }
+          $('batches').replaceChildren(...data.map((b) => {
+            const [type, label] = STATUS[b.status] ?? ['info', b.status];
+            return h('tr', {},
+              h('td', { class: 'nowrap' }, formatDateTime(b.createdAt)),
+              h('td', {}, b.fileName ?? '-',
+                b.errors?.length ? h('details', {}, h('summary', { class: 'small' }, `ดูข้อผิดพลาด (${b.errors.length})`), errorTable(b.errors)) : null),
+              h('td', {}, b.asOfTerm),
+              h('td', {}, badge(type, label)),
+              h('td', { class: 'num' }, formatNumber(b.studentsCount)),
+              h('td', { class: 'num' }, `${formatNumber(b.acceptedRows)} / ${formatNumber(b.totalRows)}`),
+              h('td', { class: 'small' }, b.uploadedBy ?? '-'));
+          }));
+        } catch (err) {
+          $('batches').replaceChildren();
+          setStatus($('history-status'), 'danger', 'โหลดประวัติการนำเข้าไม่สำเร็จ', errorMessage(err));
+        }
+      }
+
+      $('refresh').addEventListener('click', loadHistory);
+      loadHistory();
+    }
+  </script>
+</body>
+</html>

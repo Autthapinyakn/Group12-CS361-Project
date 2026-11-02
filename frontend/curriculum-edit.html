@@ -1,272 +1,475 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>จัดการหลักสูตร | Computer Science TU</title>
-  <link href="https://fonts.googleapis.com" rel="preconnect"/>
-  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet"/>
-  <link href="style.css" rel="stylesheet"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600;700&family=Sarabun:wght@400;500;600;700&display=swap" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header class="nav">
-    <div class="container nav-inner">
-      <div class="nav-left">
-        <i aria-hidden="true" class="fa-solid fa-bars hamburger"></i>
-        <a class="brand" href="courses.html">
-          <div class="brand-badge"><i class="fa-solid fa-graduation-cap"></i></div>
-          <div class="brand-text">
-            <div class="l1">COMPUTER</div>
-            <div class="l2">SCIENCE</div>
-            <div class="l3">THAMMASAT UNIVERSITY</div>
+  <header id="site-header"></header>
+
+  <main id="main" class="page">
+    <div class="container stack">
+      <div class="page-head">
+        <span class="eyebrow">Curriculum editor</span>
+        <h1>จัดการหลักสูตรและแผนการเรียน</h1>
+        <p>เพิ่ม แก้ไข หรือลบรายวิชาในแผนการเรียนของแต่ละหลักสูตร ทุกการเปลี่ยนแปลงถูกบันทึกในประวัติการแก้ไขพร้อมชื่อผู้แก้ไขและเวลา</p>
+      </div>
+
+      <section class="card stack" aria-labelledby="plan-title">
+        <div class="section-title">
+          <h2 id="plan-title">รายวิชาในแผนการเรียน</h2>
+          <div class="row">
+            <button class="btn btn-primary btn-sm" type="button" id="add-btn"><i class="fa-solid fa-plus" aria-hidden="true"></i> เพิ่มรายวิชา</button>
           </div>
-        </a>
-      </div>
-      <nav class="menu">
-        <a href="courses.html">ค้นหารายวิชา</a>
-        <a href="program.html">หลักสูตรและแผนการเรียน</a>
-      </nav>
-      <div class="nav-right auth-slot" data-auth-slot=""></div>
+        </div>
+        <div class="form-grid">
+          <div class="field">
+            <label for="curriculum">หลักสูตร</label>
+            <select class="select" id="curriculum"></select>
+          </div>
+          <div class="field">
+            <label for="plan">แผนการเรียน</label>
+            <select class="select" id="plan"></select>
+          </div>
+          <div class="field">
+            <label for="year-filter">ชั้นปี</label>
+            <select class="select" id="year-filter">
+              <option value="">ทุกชั้นปี</option>
+              <option value="1">ปี 1</option><option value="2">ปี 2</option><option value="3">ปี 3</option><option value="4">ปี 4</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="filter">ค้นหา</label>
+            <input class="input" id="filter" type="search" placeholder="รหัสหรือชื่อวิชา" autocomplete="off" />
+          </div>
+        </div>
+        <div id="plan-status" hidden></div>
+        <div class="table-wrap">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">แผน</th>
+                <th scope="col">ปี / ภาค</th>
+                <th scope="col">รหัสวิชา</th>
+                <th scope="col">ชื่อวิชา</th>
+                <th scope="col" class="num">หน่วยกิต</th>
+                <th scope="col">ประเภท</th>
+                <th scope="col" class="num">กลุ่มเลือก</th>
+                <th scope="col" class="num"><span class="visually-hidden">จัดการ</span></th>
+              </tr>
+            </thead>
+            <tbody id="entries"></tbody>
+          </table>
+        </div>
+        <p class="small muted">"กลุ่มเลือก" คือรายวิชาที่อยู่ในภาคเดียวกันและมีเลขกลุ่มเดียวกัน นักศึกษาเลือกเรียนเพียงวิชาเดียว (นับหน่วยกิตครั้งเดียว)</p>
+      </section>
+
+      <section class="card stack" aria-labelledby="history-title">
+        <div class="section-title">
+          <h2 id="history-title">ประวัติการแก้ไขหลักสูตร</h2>
+          <div class="row">
+            <label class="visually-hidden" for="group-filter">ประเภทข้อมูล</label>
+            <select class="select" id="group-filter">
+              <option value="plan">แผนการเรียนและรายวิชา</option>
+              <option value="requirements">เงื่อนไขการสำเร็จการศึกษา</option>
+              <option value="">ทั้งหมด</option>
+            </select>
+            <label class="visually-hidden" for="source-filter">ช่องทางการแก้ไข</label>
+            <select class="select" id="source-filter">
+              <option value="">ทุกช่องทาง</option>
+              <option value="api">แก้ผ่านหน้าเว็บ</option>
+              <option value="db">แก้ตรงในฐานข้อมูล</option>
+            </select>
+          </div>
+        </div>
+        <div id="history-status" hidden></div>
+        <div class="table-wrap">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">เวลา</th>
+                <th scope="col">ผู้แก้ไข</th>
+                <th scope="col">การเปลี่ยนแปลง</th>
+                <th scope="col">รายละเอียด</th>
+              </tr>
+            </thead>
+            <tbody id="history"></tbody>
+          </table>
+        </div>
+        <div class="row"><button class="btn btn-secondary btn-sm" type="button" id="more-history" hidden>โหลดเพิ่ม</button></div>
+      </section>
     </div>
-  </header>
+  </main>
 
-  <div class="sidebar-backdrop" data-sidebar-close="" hidden=""></div>
-
-  <aside aria-hidden="true" aria-label="เมนูหลัก" class="app-sidebar" id="app-sidebar">
-    <div class="sidebar-heading">
-      <div class="brand-badge"><i class="fa-solid fa-graduation-cap"></i></div>
-      <div class="sidebar-brand-text"><strong>COMPUTER SCIENCE</strong><span>THAMMASAT UNIVERSITY</span></div>
-      <button aria-label="ปิดเมนู" class="sidebar-close" data-sidebar-close="" type="button"><i class="fa-solid fa-xmark"></i></button>
+  <div class="modal" id="entry-modal" hidden role="dialog" aria-modal="true" aria-labelledby="entry-modal-title">
+    <div class="modal__box">
+      <div class="modal__head">
+        <h2 id="entry-modal-title">เพิ่มรายวิชา</h2>
+        <button class="modal__close" type="button" data-close aria-label="ปิด"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+      </div>
+      <form class="modal__body stack" id="entry-form" novalidate>
+        <div id="form-status" hidden></div>
+        <div class="form-grid">
+          <div class="field">
+            <label for="f-code">รหัสวิชา</label>
+            <input class="input" id="f-code" list="course-codes" required maxlength="20" autocomplete="off" placeholder="เช่น CS361" />
+            <small id="f-code-hint">พิมพ์รหัสวิชาที่มีในระบบ หรือรหัสใหม่เพื่อสร้างรายวิชา</small>
+            <datalist id="course-codes"></datalist>
+          </div>
+          <div class="field">
+            <label for="f-credits">หน่วยกิต</label>
+            <input class="input" id="f-credits" type="number" min="0" max="12" step="0.5" required />
+          </div>
+        </div>
+        <div class="field">
+          <label for="f-name-th">ชื่อวิชา (ภาษาไทย)</label>
+          <input class="input" id="f-name-th" required maxlength="200" />
+        </div>
+        <div class="field">
+          <label for="f-name-en">ชื่อวิชา (ภาษาอังกฤษ)</label>
+          <input class="input" id="f-name-en" required maxlength="200" />
+        </div>
+        <div class="form-grid">
+          <div class="field">
+            <label for="f-year">ชั้นปี</label>
+            <select class="select" id="f-year"><option>1</option><option>2</option><option>3</option><option>4</option></select>
+          </div>
+          <div class="field">
+            <label for="f-semester">ภาคการศึกษา</label>
+            <select class="select" id="f-semester"><option value="1">1</option><option value="2">2</option><option value="3">ฤดูร้อน</option></select>
+          </div>
+          <div class="field">
+            <label for="f-plan">แผนการเรียน</label>
+            <select class="select" id="f-plan"></select>
+          </div>
+        </div>
+        <div class="form-grid">
+          <div class="field">
+            <label for="f-category">ประเภท</label>
+            <input class="input" id="f-category" list="categories" maxlength="100" />
+            <datalist id="categories"></datalist>
+          </div>
+          <div class="field">
+            <label for="f-slot">กลุ่มเลือก (ถ้ามี)</label>
+            <input class="input" id="f-slot" type="number" min="1" max="99" />
+          </div>
+        </div>
+        <p class="small muted" id="course-note"></p>
+        <div class="row">
+          <button class="btn btn-primary" type="submit" id="save-btn">บันทึก</button>
+          <button class="btn btn-secondary" type="button" data-close>ยกเลิก</button>
+        </div>
+      </form>
     </div>
-    <div class="sidebar-section-label">เมนูหลัก</div>
-    <nav aria-label="การนำทาง" class="sidebar-menu">
-      <a data-page="courses.html" href="courses.html"><i class="fa-solid fa-magnifying-glass"></i><span>ค้นหารายวิชา</span></a>
-      <a data-page="program.html" href="program.html"><i class="fa-solid fa-user-graduate"></i><span>หลักสูตรและแผนการเรียน</span></a>
-      <a data-page="about-cs.html" href="about-cs.html"><i class="fa-solid fa-circle-info"></i><span>เกี่ยวกับหลักสูตร</span></a>
-      <a data-page="graduation-requirements.html" data-roles="student" href="graduation-requirements.html"><i class="fa-solid fa-list-check"></i><span>เงื่อนไขจบการศึกษา</span></a>
-      <a data-page="graduation-status.html" data-roles="instructor,student" href="graduation-status.html"><i class="fa-solid fa-user-check"></i><span>สถานะจบการศึกษา</span></a>
-      <a data-page="curriculum-edit.html" data-roles="coordinator" href="curriculum-edit.html"><i class="fa-solid fa-pen-to-square"></i><span>จัดการหลักสูตร</span></a>
-    </nav>
-    <div class="sidebar-footer"><i class="fa-solid fa-university"></i><span>หลักสูตรวิทยาการคอมพิวเตอร์</span></div>
-  </aside>
-
-  <div class="container page-content">
-    <p class="muted">COMPUTER SCIENCE · THAMMASAT UNIVERSITY</p>
-    <h1>จัดการข้อมูลหลักสูตร</h1>
-    <p class="muted">แก้ไขข้อมูลรายวิชาและตำแหน่งในแผนการเรียน โดยบันทึกผ่าน Backend</p>
-    <div class="status-message" hidden="" id="page-message"></div>
-
-    <section class="form-card">
-      <div class="form-grid">
-        <div class="field full">
-          <label for="course-select">เลือกรายวิชา</label>
-          <select id="course-select">
-            <option value="">กำลังโหลดรายวิชา…</option>
-          </select>
-        </div>
-        <div class="field">
-          <label for="code">รหัสวิชา</label>
-          <input disabled="" id="code"/>
-        </div>
-        <div class="field">
-          <label for="credits">หน่วยกิต</label>
-          <input id="credits" max="30" min="0" required="" type="number"/>
-        </div>
-        <div class="field">
-          <label for="name-th">ชื่อวิชาภาษาไทย</label>
-          <input id="name-th" required=""/>
-        </div>
-        <div class="field">
-          <label for="name-en">ชื่อวิชาภาษาอังกฤษ</label>
-          <input id="name-en" required=""/>
-        </div>
-        <div class="field">
-          <label for="year">ชั้นปี</label>
-          <select id="year">
-            <option value="1">ปี 1</option>
-            <option value="2">ปี 2</option>
-            <option value="3">ปี 3</option>
-            <option value="4">ปี 4</option>
-          </select>
-        </div>
-        <div class="field">
-          <label for="semester">ภาคเรียน</label>
-          <select id="semester">
-            <option value="1">ภาคเรียน 1</option>
-            <option value="2">ภาคเรียน 2</option>
-            <option value="3">ภาคฤดูร้อน</option>
-          </select>
-        </div>
-        <div class="field">
-          <label for="category">หมวดหมู่</label>
-          <input id="category"/>
-        </div>
-        <div class="field">
-          <label for="plan">แผนการเรียน</label>
-          <select id="plan">
-            <option>ทั่วไป</option>
-            <option>ทั้งสองแผน</option>
-            <option>สหกิจศึกษา</option>
-            <option>หัวข้อพิเศษ</option>
-          </select>
-        </div>
-      </div>
-      <div class="actions">
-        <button class="auth-button" id="save" type="button"><i class="fa-solid fa-floppy-disk"></i> บันทึกการเปลี่ยนแปลง</button>
-        <button class="auth-button" id="reload" style="background:#65584e" type="button">โหลดข้อมูลใหม่</button>
-      </div>
-    </section>
-
-    <section class="data-card">
-      <h2>รายการหลักสูตร</h2>
-      <div style="overflow-x:auto">
-        <table class="data-table">
-          <thead>
-            <tr>
-              <th>รหัส</th>
-              <th>ชื่อวิชา</th>
-              <th>หน่วยกิต</th>
-              <th>ปี</th>
-              <th>เทอม</th>
-              <th>แผน</th>
-            </tr>
-          </thead>
-          <tbody id="course-rows"></tbody>
-        </table>
-      </div>
-    </section>
   </div>
 
+  <div class="modal" id="delete-modal" hidden role="dialog" aria-modal="true" aria-labelledby="delete-title">
+    <div class="modal__box">
+      <div class="modal__head">
+        <h2 id="delete-title">ลบรายวิชาออกจากแผน</h2>
+        <button class="modal__close" type="button" data-close aria-label="ปิด"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+      </div>
+      <div class="modal__body stack">
+        <p id="delete-text"></p>
+        <p class="small muted">รายวิชายังคงอยู่ในคลังรายวิชา จะถูกนำออกจากแผนการเรียนนี้เท่านั้น และการลบจะถูกบันทึกในประวัติการแก้ไข</p>
+        <div id="delete-status" hidden></div>
+        <div class="row">
+          <button class="btn btn-danger" type="button" id="confirm-delete">ลบรายวิชา</button>
+          <button class="btn btn-secondary" type="button" data-close>ยกเลิก</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer id="site-footer"></footer>
+
   <script type="module">
-    import { requireRole, applyRoleNavigation, authHeaders } from './auth.js';
-    import { fetchCurriculum, CURRICULUM_ID, API_BASE } from './api.js';
+    import { initLayout, guard } from './layout.js';
+    import { apiGet, apiSend, errorMessage, ApiError } from './api.js';
+    import { h, icon, setStatus, loadingRows, formatDateTime, formatCredits, openModal, badge, debounce } from './ui.js';
+    import { ROLE_LABELS } from './auth.js';
 
-    applyRoleNavigation();
+    initLayout();
+    const main = document.getElementById('main');
+    if (guard(main, ['coordinator'])) {
+      const $ = (id) => document.getElementById(id);
+      const SEM = { 1: '1', 2: '2', 3: 'ฤดูร้อน' };
+      const FIELD_LABELS = {
+        year: 'ชั้นปี', semester: 'ภาค', plan: 'แผน', category: 'ประเภท', choice_slot: 'กลุ่มเลือก',
+        name_th: 'ชื่อไทย', name_en: 'ชื่ออังกฤษ', credits: 'หน่วยกิต', code: 'รหัสวิชา', description: 'คำอธิบาย',
+      };
+      const state = { curricula: [], entries: [], catalog: new Map(), editing: null, deleting: null, historyCursor: null };
 
-    if (requireRole(['coordinator'])) {
-      const $ = id => document.getElementById(id);
-      const msg = $('page-message');
-      let entries = [];
-
-      function message(text, type = '') {
-        msg.hidden = false;
-        msg.className = 'status-message ' + type;
-        msg.textContent = text;
-      }
-
-      function key(x) {
-        const c = x.course || x;
-        return [c.id, x.year || 1, x.semester || 1, x.plan || 'ทั่วไป'].join('|');
-      }
-
-      function selected() {
-        return entries.find(x => key(x) === $('course-select').value);
-      }
-
-      function fill() {
-        const x = selected();
-        if (!x) return;
-        const c = x.course || x;
-        $('code').value = c.code || '';
-        $('credits').value = c.credits ?? '';
-        $('name-th').value = c.nameTh || c.name_th || '';
-        $('name-en').value = c.nameEn || c.name_en || '';
-        $('year').value = x.year || 1;
-        $('semester').value = x.semester || 1;
-        $('category').value = x.category || c.category || '';
-        $('plan').value = x.plan || 'ทั่วไป';
-      }
-
-      async function load() {
+      // ---------- data loading ----------
+      async function init() {
         try {
-          entries = await fetchCurriculum(CURRICULUM_ID, authHeaders());
-          $('course-select').innerHTML = '';
-          entries.forEach(x => {
-            const c = x.course || x, o = document.createElement('option');
-            o.value = key(x);
-            o.textContent = `${c.code} — ${c.nameTh || c.name_th || c.nameEn}`;
-            $('course-select').append(o);
-          });
-          $('course-rows').innerHTML = '';
-          entries.forEach(x => {
-            const c = x.course || x, tr = document.createElement('tr');
-            [c.code, c.nameTh || c.name_th, c.credits, x.year, x.semester, x.plan].forEach(v => {
-              const td = document.createElement('td');
-              td.textContent = v ?? '-';
-              tr.append(td);
-            });
-            $('course-rows').append(tr);
-          });
-          fill();
-          if (!entries.length) message('ไม่พบข้อมูลในหลักสูตร', 'error');
-        } catch (e) {
-          message('โหลดข้อมูลไม่สำเร็จ: ' + e.message, 'error');
+          const [{ data: curricula }, { data: courses }] = await Promise.all([
+            apiGet('/curricula', { cacheKey: 'curricula' }),
+            apiGet('/courses', { cacheKey: 'courses' }),
+          ]);
+          state.curricula = curricula;
+          courses.forEach((c) => state.catalog.set(c.code, c));
+          $('course-codes').replaceChildren(...courses.map((c) => h('option', { value: c.code }, c.nameTh)));
+          $('curriculum').replaceChildren(...curricula.map((c) => h('option', { value: c.code }, `${c.name} (${c.year})`)));
+          const fromUrl = new URLSearchParams(location.search).get('curriculum');
+          if (fromUrl && curricula.some((c) => c.code === fromUrl)) $('curriculum').value = fromUrl;
+          fillPlans();
+          await Promise.all([loadEntries(), loadHistory(true)]);
+        } catch (err) {
+          setStatus($('plan-status'), 'danger', 'โหลดข้อมูลหลักสูตรไม่สำเร็จ', errorMessage(err));
         }
       }
 
-      $('course-select').addEventListener('change', fill);$('reload').addEventListener('click', load);
+      const currentCurriculum = () => state.curricula.find((c) => c.code === $('curriculum').value);
 
-      $('save').addEventListener('click', async () => {
-        const x = selected();
-        if (!x) return message('กรุณาเลือกรายวิชา', 'error');
-        const c = x.course || x, payload = {
-          nameTh: $('name-th').value.trim(),
-          nameEn: $('name-en').value.trim(),
-          credits: Number($('credits').value),
-          year: Number($('year').value),
-          semester: Number($('semester').value),
-          category: $('category').value.trim(),
-          plan: $('plan').value,
-          originalYear: Number(x.year),
-          originalSemester: Number(x.semester),
-          originalPlan: x.plan || 'ทั่วไป'
+      function fillPlans() {
+        const plans = currentCurriculum()?.plans ?? [];
+        const opts = () => plans.map((p) => h('option', { value: p }, p));
+        const keep = $('plan').value;
+        // Default "all plans", so an entry is never hidden just because it belongs to another plan.
+        $('plan').replaceChildren(h('option', { value: '' }, 'ทุกแผน'), ...opts());
+        $('plan').value = plans.includes(keep) ? keep : '';
+        $('f-plan').replaceChildren(...opts());
+      }
+
+      async function loadEntries() {
+        $('entries').replaceChildren(...loadingRows(8));
+        $('plan-status').hidden = true;
+        try {
+          const { data } = await apiGet(`/curriculum/${encodeURIComponent($('curriculum').value)}`, { retries: 1 });
+          state.entries = data;
+          $('categories').replaceChildren(...[...new Set(data.map((e) => e.category).filter(Boolean))].map((c) => h('option', { value: c })));
+          renderEntries();
+        } catch (err) {
+          $('entries').replaceChildren();
+          setStatus($('plan-status'), 'danger', 'โหลดแผนการเรียนไม่สำเร็จ', errorMessage(err));
+        }
+      }
+
+      function renderEntries() {
+        const plan = $('plan').value;
+        const year = $('year-filter').value;
+        const q = $('filter').value.trim().toLowerCase();
+        const rows = state.entries
+          .filter((e) => (!plan || e.plan === plan) && (!year || String(e.year) === year))
+          .filter((e) => !q || e.course.code.toLowerCase().includes(q) || e.course.nameTh.toLowerCase().includes(q) || e.course.nameEn.toLowerCase().includes(q))
+          .sort((a, b) => a.plan.localeCompare(b.plan, 'th') || a.year - b.year || a.semester - b.semester || (a.choiceSlot ?? 0) - (b.choiceSlot ?? 0) || a.course.code.localeCompare(b.course.code));
+        if (!rows.length) {
+          $('entries').replaceChildren(h('tr', {}, h('td', { colspan: 8 }, h('div', { class: 'empty' }, icon('folder-open'), 'ไม่มีรายวิชาที่ตรงกับตัวกรอง'))));
+          return;
+        }
+        const key = (e) => `${e.course.code}|${e.plan}|${e.year}|${e.semester}`;
+        $('entries').replaceChildren(...rows.map((e) => h('tr', { class: key(e) === state.highlight ? 'is-highlight' : null },
+          h('td', { class: 'nowrap' }, e.plan),
+          h('td', { class: 'nowrap' }, `ปี ${e.year} / ${SEM[e.semester]}`),
+          h('td', { class: 'code' }, e.course.code),
+          h('td', {}, e.course.nameTh, h('div', { class: 'small muted' }, e.course.nameEn)),
+          h('td', { class: 'num' }, formatCredits(e.course.credits)),
+          h('td', {}, e.category ?? '-'),
+          h('td', { class: 'num' }, e.choiceSlot ?? '-'),
+          h('td', { class: 'num nowrap' },
+            h('button', { type: 'button', class: 'btn btn-secondary btn-sm', 'aria-label': `แก้ไข ${e.course.code}`, onclick: () => openEditor(e) }, icon('pen'), 'แก้ไข'),
+            ' ',
+            h('button', { type: 'button', class: 'btn btn-danger btn-sm', 'aria-label': `ลบ ${e.course.code}`, onclick: () => openDelete(e) }, icon('trash'))),
+        )));
+      }
+
+      // ---------- add / edit ----------
+      function openEditor(entry = null) {
+        state.editing = entry;
+        $('form-status').hidden = true;
+        $('entry-modal-title').textContent = entry ? `แก้ไข ${entry.course.code}` : 'เพิ่มรายวิชาในแผน';
+        $('f-code').value = entry?.course.code ?? '';
+        $('f-code').readOnly = !!entry;
+        $('f-code-hint').hidden = !!entry;
+        $('f-name-th').value = entry?.course.nameTh ?? '';
+        $('f-name-en').value = entry?.course.nameEn ?? '';
+        $('f-credits').value = entry?.course.credits ?? 3;
+        $('f-year').value = String(entry?.year ?? ($('year-filter').value || 1));
+        $('f-semester').value = String(entry?.semester ?? 1);
+        $('f-plan').value = entry?.plan ?? ($('plan').value || currentCurriculum()?.plans[0] || '');
+        $('f-category').value = entry?.category ?? '';
+        $('f-slot').value = entry?.choiceSlot ?? '';
+        $('course-note').textContent = entry
+          ? 'การแก้ชื่อวิชาหรือหน่วยกิตจะมีผลกับรายวิชานี้ในทุกหลักสูตร'
+          : '';
+        syncCourseFields();
+        openModal($('entry-modal'));
+      }
+
+      // When adding, a code from the catalogue fills the course details (read-only); a new code needs them.
+      function syncCourseFields() {
+        if (state.editing) {
+          ['f-name-th', 'f-name-en', 'f-credits'].forEach((id) => ($(id).readOnly = false));
+          return;
+        }
+        const code = $('f-code').value.trim().toUpperCase();
+        const known = state.catalog.get(code);
+        ['f-name-th', 'f-name-en', 'f-credits'].forEach((id) => ($(id).readOnly = !!known));
+        if (known) {
+          $('f-name-th').value = known.nameTh;
+          $('f-name-en').value = known.nameEn;
+          $('f-credits').value = known.credits;
+          $('course-note').textContent = 'รายวิชานี้มีอยู่ในคลังรายวิชาแล้ว';
+        } else {
+          $('course-note').textContent = code ? 'รหัสวิชาใหม่: ระบบจะสร้างรายวิชานี้ในคลังรายวิชาด้วย' : '';
+        }
+      }
+      $('f-code').addEventListener('input', syncCourseFields);
+
+      function readForm() {
+        const errors = [];
+        const code = $('f-code').value.trim().toUpperCase().replace(/\s+/g, '');
+        if (!/^[A-Z]{2,6}\d{3}$/.test(code)) errors.push('รหัสวิชาต้องอยู่ในรูปแบบตัวอักษรตามด้วยตัวเลข 3 หลัก เช่น CS361');
+        const nameTh = $('f-name-th').value.trim();
+        const nameEn = $('f-name-en').value.trim();
+        if (!nameTh || !nameEn) errors.push('กรุณากรอกชื่อวิชาทั้งภาษาไทยและภาษาอังกฤษ');
+        const credits = Number($('f-credits').value);
+        if ($('f-credits').value === '' || Number.isNaN(credits) || credits < 0 || credits > 12) errors.push('หน่วยกิตต้องอยู่ระหว่าง 0 ถึง 12');
+        const slot = $('f-slot').value === '' ? null : Number($('f-slot').value);
+        if (slot !== null && (!Number.isInteger(slot) || slot < 1 || slot > 99)) errors.push('กลุ่มเลือกต้องเป็นตัวเลข 1–99');
+        return {
+          errors, code, course: { nameTh, nameEn, credits },
+          fields: {
+            year: Number($('f-year').value), semester: Number($('f-semester').value), plan: $('f-plan').value,
+            category: $('f-category').value.trim() || null, choiceSlot: slot,
+          },
         };
+      }
 
-        if (!payload.nameTh || !payload.nameEn || !Number.isFinite(payload.credits) || payload.credits < 0) {
-          return message('กรุณากรอกชื่อวิชาและหน่วยกิตให้ถูกต้อง', 'error');
+      $('entry-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const { errors, code, course, fields } = readForm();
+        if (errors.length) {
+          setStatus($('form-status'), 'danger', 'กรุณาตรวจสอบข้อมูล', ...errors);
+          return;
         }
-
+        const btn = $('save-btn');
+        btn.disabled = true;
+        const curriculum = encodeURIComponent($('curriculum').value);
+        const entry = state.editing;
         try {
-          const res = await fetch(`${API_BASE}/curriculum/${CURRICULUM_ID}/courses/${c.id}`, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json', ...authHeaders() },
-            body: JSON.stringify(payload)
-          });
-          if (!res.ok) throw new Error(res.status === 401 || res.status === 403 ? 'ไม่มีสิทธิ์หรือ Session หมดอายุ' : `Backend ตอบกลับ ${res.status}`);
-          message('บันทึกข้อมูลลง Backend สำเร็จ', 'success');
-          await load();
-        } catch (e) {
-          message('บันทึกไม่สำเร็จ: ' + e.message + ' (ตรวจสอบ API Gateway route และสิทธิ์ Cognito)', 'error');
+          if (entry) {
+            const c = entry.course;
+            const courseChanged = c.nameTh !== course.nameTh || c.nameEn !== course.nameEn || Number(c.credits) !== course.credits;
+            await apiSend('PUT', `/curriculum/${curriculum}/entries`, {
+              courseId: c.id,
+              original: { year: entry.year, semester: entry.semester, plan: entry.plan },
+              version: entry.version,
+              ...fields,
+              course: courseChanged ? { ...course, version: c.version } : undefined,
+            });
+          } else {
+            await apiSend('POST', `/curriculum/${curriculum}/entries`, {
+              courseCode: code,
+              ...fields,
+              newCourse: state.catalog.has(code) ? undefined : course,
+            });
+          }
+          $('entry-modal').querySelector('[data-close]').click();
+          setStatus($('plan-status'), 'ok', 'บันทึกแล้ว', `${code} ถูก${entry ? 'แก้ไข' : 'เพิ่มในแผน'}เรียบร้อย และบันทึกในประวัติการแก้ไขแล้ว`);
+          if (!entry && !state.catalog.has(code)) state.catalog.set(code, { code, ...course });
+          // Show the saved row even if the filters were set to another plan or year.
+          state.highlight = `${code}|${fields.plan}|${fields.year}|${fields.semester}`;
+          $('plan').value = fields.plan;
+          $('year-filter').value = '';
+          $('filter').value = code;
+          await Promise.all([loadEntries(), loadHistory(true)]);
+          document.querySelector('#entries tr.is-highlight')?.scrollIntoView({ block: 'center' });
+        } catch (err) {
+          const conflict = err instanceof ApiError && err.code === 'version_conflict';
+          setStatus($('form-status'), conflict ? 'warn' : 'danger', conflict ? 'ข้อมูลถูกแก้ไขโดยผู้อื่น' : 'บันทึกไม่สำเร็จ', errorMessage(err),
+            conflict ? h('button', { type: 'button', class: 'btn btn-secondary btn-sm', onclick: async () => {
+              $('entry-modal').querySelector('[data-close]').click();
+              await Promise.all([loadEntries(), loadHistory(true)]);
+            } }, 'โหลดข้อมูลล่าสุด') : null);
+        } finally {
+          btn.disabled = false;
         }
       });
 
-      load();
-    }
-  </script>
+      // ---------- delete ----------
+      function openDelete(entry) {
+        state.deleting = entry;
+        $('delete-status').hidden = true;
+        $('delete-text').textContent = `ลบ ${entry.course.code} ${entry.course.nameTh} ออกจากแผน "${entry.plan}" ปี ${entry.year} ภาค ${SEM[entry.semester]} ใช่หรือไม่`;
+        openModal($('delete-modal'));
+      }
+      $('confirm-delete').addEventListener('click', async () => {
+        const e = state.deleting;
+        const params = new URLSearchParams({ courseId: e.course.id, year: e.year, semester: e.semester, plan: e.plan, version: e.version });
+        $('confirm-delete').disabled = true;
+        try {
+          await apiSend('DELETE', `/curriculum/${encodeURIComponent($('curriculum').value)}/entries?${params}`);
+          $('delete-modal').querySelector('[data-close]').click();
+          setStatus($('plan-status'), 'ok', 'ลบแล้ว', `${e.course.code} ถูกนำออกจากแผนการเรียน`);
+          await Promise.all([loadEntries(), loadHistory(true)]);
+        } catch (err) {
+          setStatus($('delete-status'), 'danger', 'ลบไม่สำเร็จ', errorMessage(err));
+        } finally {
+          $('confirm-delete').disabled = false;
+        }
+      });
 
-  <script>
-    const sidebar = document.getElementById('app-sidebar'), backdrop = document.querySelector('.sidebar-backdrop'), toggle = document.querySelector('.hamburger');
-    if (sidebar && backdrop && toggle) {
-      toggle.setAttribute('role', 'button');
-      toggle.setAttribute('tabindex', '0');
-      toggle.setAttribute('aria-controls', 'app-sidebar');
-      toggle.setAttribute('aria-expanded', 'false');
-      const open = () => { sidebar.classList.add('is-open'); backdrop.hidden = false; document.body.classList.add('sidebar-open'); sidebar.setAttribute('aria-hidden', 'false'); toggle.setAttribute('aria-expanded', 'true'); };
-      const close = () => { sidebar.classList.remove('is-open'); backdrop.hidden = true; document.body.classList.remove('sidebar-open'); sidebar.setAttribute('aria-hidden', 'true'); toggle.setAttribute('aria-expanded', 'false'); };
-      toggle.addEventListener('click', open);
-      toggle.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); } });
-      backdrop.addEventListener('click', close);
-      sidebar.querySelectorAll('[data-sidebar-close]').forEach(el => el.addEventListener('click', close));
-      document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
-      const current = location.pathname.split('/').pop();
-      sidebar.querySelectorAll('[data-page]').forEach(a => { if (a.dataset.page === current) { a.classList.add('active'); a.setAttribute('aria-current', 'page'); } });
-    }
-  </script>
+      // ---------- history (FR8) ----------
+      const fmt = (v) => (v === null || v === undefined || v === '' ? '—' : String(v));
+      async function loadHistory(reset) {
+        if (reset) {
+          state.historyCursor = null;
+          $('history').replaceChildren(...loadingRows(4, 2));
+        }
+        $('history-status').hidden = true;
+        const params = new URLSearchParams({ curriculum: $('curriculum').value, limit: '20' });
+        if ($('source-filter').value) params.set('source', $('source-filter').value);
+        if ($('group-filter').value) params.set('group', $('group-filter').value);
+        if (state.historyCursor) params.set('before', state.historyCursor);
+        try {
+          const { data } = await apiGet(`/audit/curriculum-changes?${params}`, { auth: true, retries: 1 });
+          const rows = data.map((c) => h('tr', {},
+            h('td', { class: 'nowrap' }, formatDateTime(c.changedAt)),
+            h('td', {}, c.actorEmail ?? 'ไม่ทราบ', h('div', { class: 'small muted' },
+              c.source === 'db' ? 'แก้ตรงในฐานข้อมูล' : (ROLE_LABELS[c.actorRole] ?? c.actorRole ?? ''))),
+            h('td', {}, badge(c.changeType === 'DELETE' ? 'danger' : c.changeType === 'INSERT' ? 'ok' : 'info',
+              { INSERT: 'เพิ่ม', UPDATE: 'แก้ไข', DELETE: 'ลบ' }[c.changeType] ?? c.changeType),
+              h('div', { class: 'small' }, c.summary ?? c.entityType)),
+            h('td', { class: 'small' }, c.changeType === 'UPDATE'
+              ? h('ul', {}, ...c.changedFields.map((f) => h('li', {}, `${FIELD_LABELS[f.field] ?? f.field}: ${fmt(f.before)} → ${fmt(f.after)}`)))
+              : '—')));
+          if (reset) $('history').replaceChildren(...rows);
+          else $('history').append(...rows);
+          if (reset && !data.length) $('history').replaceChildren(h('tr', {}, h('td', { colspan: 4 }, h('div', { class: 'empty' }, 'ยังไม่มีประวัติการแก้ไขของหลักสูตรนี้'))));
+          state.historyCursor = data.length ? data[data.length - 1].id : null;
+          $('more-history').hidden = data.length < 20;
+        } catch (err) {
+          if (reset) $('history').replaceChildren();
+          setStatus($('history-status'), 'danger', 'โหลดประวัติไม่สำเร็จ', errorMessage(err));
+        }
+      }
 
-  <script type="module">
-    import { applyRoleNavigation } from './auth.js';
-    applyRoleNavigation();
+      // ---------- events ----------
+      $('curriculum').addEventListener('change', () => {
+        history.replaceState(null, '', `?curriculum=${$('curriculum').value}`);
+        fillPlans();
+        loadEntries();
+        loadHistory(true);
+      });
+      const clearHighlight = () => { state.highlight = null; renderEntries(); };
+      $('plan').addEventListener('change', clearHighlight);
+      $('year-filter').addEventListener('change', renderEntries);
+      $('filter').addEventListener('input', debounce(renderEntries, 150));
+      $('source-filter').addEventListener('change', () => loadHistory(true));
+      $('group-filter').addEventListener('change', () => loadHistory(true));
+      $('more-history').addEventListener('click', () => loadHistory(false));
+      $('add-btn').addEventListener('click', () => openEditor());
+
+      init();
+    }
   </script>
 </body>
 </html>
